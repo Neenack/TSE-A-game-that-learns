@@ -5,6 +5,8 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     private GameObject levelGen;
+    public GameObject player;
+    private bool playerSpawned = false;
     public LayerMask blockLayer;
     public int type; //0 = entrance   1 = exit
 
@@ -22,6 +24,7 @@ public class DoorController : MonoBehaviour
 
     private void CollisionCheck() //Handles gravity and getting unstuck from blocks
     {
+        Vector2 oldPos = transform.position;
         if (levelGen.GetComponent<LevelGeneration>().levelFinished == true)
         {
             Collider2D insideBlock = Physics2D.OverlapCircle(transform.position, 0.1f, blockLayer);
@@ -39,6 +42,14 @@ public class DoorController : MonoBehaviour
             if (onGround == null)
             {
                 transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+            }
+
+            Vector2 newPos = transform.position;
+
+            if (type == 0 && oldPos == newPos && playerSpawned == false)
+            {
+                GameObject Player = Instantiate(player, transform.position, Quaternion.identity);
+                playerSpawned = true;
             }
         }
     }

@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a61cc07c7c1594ead94084b8632fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 5799331612847786587, guid: 2c214d75cd6865340b8f854a5d2658e3, type: 3}
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
+  type: 0
