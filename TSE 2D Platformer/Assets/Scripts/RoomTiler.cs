@@ -20,6 +20,7 @@ public class RoomTiler : MonoBehaviour
             {
                 GameObject newBlock = Instantiate(block, child.position, Quaternion.identity);
                 newBlock.transform.parent = transform;
+                Destroy(child.gameObject);
             }
 
             else if (child.tag == "Chance")
@@ -31,7 +32,7 @@ public class RoomTiler : MonoBehaviour
                     GameObject newBlock = Instantiate(block, child.position, Quaternion.identity);
                     newBlock.transform.parent = transform;
                 }
-                else Destroy(child.gameObject);
+                Destroy(child.gameObject);
             }
 
             else if (child.tag == "Ladder")
@@ -48,6 +49,7 @@ public class RoomTiler : MonoBehaviour
                     GameObject newTrap = Instantiate(trap, child.position, Quaternion.identity);
                     newTrap.transform.parent = transform;
                 }
+                else Destroy(child.gameObject);
             }
         }
 

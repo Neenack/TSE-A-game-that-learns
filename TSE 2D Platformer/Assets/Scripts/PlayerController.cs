@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float horizontal;
+    private float horizontal, vertical;
     public float speed, jumpingPower;
     private bool isFacingRight = true;
 
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
 
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
@@ -37,10 +38,17 @@ public class PlayerController : MonoBehaviour
         Flip();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Ladder" && vertical != 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, vertical * speed * 2);
+        }
+    }
+
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-
     }
 
     private bool isGrounded()
