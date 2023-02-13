@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float horizontal, vertical;
-    public float speed, jumpingPower;
+    public float speed, gravity, jumpingPower, climbingSpeed;
     private bool isFacingRight = true;
+
+    private bool isClimbing, isLadder;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -35,20 +37,44 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
+        if (isLadder && rb.velocity.y > 0f) isClimbing = true;
+
+        Debug.Log("Ladder: " + isLadder);
+        Debug.Log("Climbing: " + isClimbing);
+
         Flip();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Ladder" && vertical != 0)
+        if (other.tag == "Ladder")
         {
-            rb.velocity = new Vector2(rb.velocity.x, vertical * speed * 2);
+            isLadder = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Ladder")
+        {
+            isLadder = false;
+            isClimbing = false;
         }
     }
 
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+        if (isClimbing)
+        {
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, vertical * climbingSpeed);
+        }
+        else
+        {
+            rb.gravityScale = gravity;
+        }
     }
 
     private bool isGrounded()
