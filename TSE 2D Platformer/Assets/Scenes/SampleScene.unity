@@ -260,6 +260,7 @@ MonoBehaviour:
   door: {fileID: 6295603055822971351, guid: f798c2b4e48e86042a20adbf0131c495, type: 3}
   blockObject: {fileID: 6240189128207915390, guid: 0445281fef3852a47b0d39948ffcdee5, type: 3}
   enemy: {fileID: 7977717052116940463, guid: 06ea4b9fa0050b142965aa5bb77b2613, type: 3}
+  borderRoom: {fileID: 7809379526374865173, guid: c4605ea96b2fbb943a424f37ea1fa4bd, type: 3}
   moveAmount: 10
   arraySize: 3
   generationDelayTime: 0.2

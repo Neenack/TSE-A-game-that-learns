@@ -22,6 +22,14 @@ public class DoorController : MonoBehaviour
         CollisionCheck();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player" && type == 1)
+        {
+            Debug.Log("NEXT LEVEL");
+        }
+    }
+
     private void CollisionCheck() //Handles gravity and getting unstuck from blocks
     {
         Vector2 oldPos = transform.position;

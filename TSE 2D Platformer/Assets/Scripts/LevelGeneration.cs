@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject door, blockObject, enemy;
+    public GameObject door, blockObject, enemy, borderRoom;
 
     private int direction;
     public float moveAmount;
@@ -162,6 +162,7 @@ public class LevelGeneration : MonoBehaviour
         Invoke("CreateBorders", generationDelayTime);
     }
 
+
     private void CreateBorders()
     {
         for (int i = 0; i <= (moveAmount * arraySize) - 1; i++)
@@ -171,22 +172,36 @@ public class LevelGeneration : MonoBehaviour
             Vector2 leftBorder = new Vector2(-1, i - (moveAmount * (arraySize - 1)));
             Vector2 rightBorder = new Vector2((moveAmount * arraySize), i - (moveAmount * (arraySize - 1)));
 
-            Border(topBorder);
-            Border(bottomBorder);
-            Border(leftBorder);
-            Border(rightBorder);
+            Border(topBorder, blockObject);
+            Border(bottomBorder, blockObject);
+            Border(leftBorder, blockObject);
+            Border(rightBorder, blockObject);
 
             levelFinished = true;
         }
+
+        for (int i = 0; i <= arraySize; i++)
+        {
+            Vector2 topBlockBorder = new Vector2((moveAmount * (-0.5f + i)) + 1, moveAmount * 1.5f);
+            Vector2 bottomBlockBorder = new Vector2((moveAmount * (-0.5f + i + 1)) - 1, -moveAmount * (arraySize - 0.5f));
+            Vector2 leftBlockBorder = new Vector2(-moveAmount * 0.5f - 1, (moveAmount / 2) + (i * -moveAmount));
+            Vector2 rightBlockBorder = new Vector2((moveAmount * arraySize) + (moveAmount / 2) + 1, (moveAmount * 1.5f) - (i * moveAmount));
+
+            Border(topBlockBorder, borderRoom);
+            Border(bottomBlockBorder, borderRoom);
+            Border(leftBlockBorder, borderRoom);
+            Border(rightBlockBorder, borderRoom);
+        }
     }
 
-    private void Border(Vector2 position)
+    private void Border(Vector2 position, GameObject border)
     {
         Collider2D blockDetector = Physics2D.OverlapCircle(position, 0.2f, block);
         if (blockDetector == null)
         {
-            GameObject borderBlock = Instantiate(blockObject, position, Quaternion.identity);
+            GameObject borderBlock = Instantiate(border, position, Quaternion.identity);
             borderBlock.transform.parent = transform;
         }
     }
+    
 }

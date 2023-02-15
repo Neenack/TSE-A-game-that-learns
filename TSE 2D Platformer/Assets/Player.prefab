@@ -293,7 +293,7 @@ MonoBehaviour:
   ladderLayer:
     serializedVersion: 2
     m_Bits: 128
-  playerSpeed: 5
+  playerSpeed: 8
   jumpingPower: 25
-  climbSpeed: 8
+  climbSpeed: 10
   gravity: 9.8

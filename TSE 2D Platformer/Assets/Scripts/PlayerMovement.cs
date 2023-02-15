@@ -14,8 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
     private bool isClimbing;
 
-    private float timeOffEdge = 0.1f;
-    private float edgeTimer;
+    private float timeBuffer = 0.1f;
+
+    private float edgeTimer, jumpBufferTimer;
 
     // Update is called once per frame
     void Update()
@@ -28,8 +29,45 @@ public class PlayerMovement : MonoBehaviour
         else isClimbing = false;
 
         //Extra jump time when player goes off an edge
-        if (isGrounded()) edgeTimer = timeOffEdge;
+        if (isGrounded())
+        {
+            edgeTimer = timeBuffer;
+
+            //Player jumps as soon as it touches the ground if jump buffer still active
+            if (jumpBufferTimer > 0f) rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        }
         else edgeTimer -= Time.deltaTime;
+
+        //Jump buffer timer
+        if (jumpBufferTimer > 0f) jumpBufferTimer -= Time.deltaTime;
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        horizontal = context.ReadValue<Vector2>().x;
+        vertical = context.ReadValue<Vector2>().y;
+    }
+
+    //Player jumping
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            //Create a jump buffer if the player jumps before hitting the ground
+            if (!isGrounded()) jumpBufferTimer = timeBuffer;
+
+            //Allow the player to jump if still in edge timer or on a ladder
+            if (edgeTimer > 0f || isLadder())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            }
+        }
+
+        //If space is held longer then jump higher
+        if (context.canceled && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
     }
 
     void FixedUpdate()
@@ -46,27 +84,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.gravityScale = gravity;
-        }
-    }
-
-    //Movement Input
-    public void Move(InputAction.CallbackContext context)
-    {
-        horizontal = context.ReadValue<Vector2>().x;
-        vertical = context.ReadValue<Vector2>().y;
-    }
-
-    //Player jumping
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed && edgeTimer > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-
-        if (context.canceled && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
 
