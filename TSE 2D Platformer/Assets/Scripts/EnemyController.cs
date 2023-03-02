@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.World.Generation;
+
 public class EnemyController : MonoBehaviour
 {
     private GameObject levelGen;
@@ -31,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
     private void CollisionCheck() //Handles gravity and getting unstuck from blocks
     {
-        if (levelGen.GetComponent<LevelGeneration>().levelFinished == true)
+        if (levelGen.GetComponent<LevelGenerationController>().levelFinished == true)
         {
             Collider2D insideBlock = Physics2D.OverlapCircle(transform.position, 0.1f, blockLayer);
             if (insideBlock != null) //If inside a block

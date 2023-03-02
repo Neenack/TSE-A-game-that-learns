@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.World.Generation;
+
 public class RoomTiler : MonoBehaviour
 {
     public GameObject block, ladder, trap, enemy;
@@ -12,7 +14,7 @@ public class RoomTiler : MonoBehaviour
     void Start()
     {
         levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
-        difficulty = levelGen.GetComponent<LevelGeneration>().difficulty;
+        difficulty = levelGen.GetComponent<LevelGenerationController>().difficulty;
 
         foreach (Transform child in transform)
         {
