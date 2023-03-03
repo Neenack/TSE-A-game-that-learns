@@ -26,8 +26,6 @@ namespace Controllers
           _worldController = GetComponent<WorldController>();
           _worldController.BeginSelf();
 
-          Debug.Log("B");
-          
           _actorController = GetComponent<ActorController>();
           _actorController.BeginSelf();
 

@@ -17,6 +17,7 @@ namespace Controllers.Actors
 
         public void BeginSelf()
         {
+            Debug.Log(GameObject.Find("Player"));
             _playerMovementState = GameObject.Find("Player").GetComponent<PlayerMovementStateComponent>();
 
             _playerController = GetComponent<PlayerController>();

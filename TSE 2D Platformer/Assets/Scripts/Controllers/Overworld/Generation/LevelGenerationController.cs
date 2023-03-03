@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.World.Interactable;
+
+using Overworld.Rooms.Interactable;
+using Overworld.Rooms.Generation;
+
 
 
 namespace Controllers.World.Generation
@@ -10,6 +15,8 @@ namespace Controllers.World.Generation
     {
         public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
         public GameObject door, blockObject, enemy, borderRoom;
+
+        public GameObject player;
 
         private int direction;
         public float moveAmount;
@@ -32,17 +39,19 @@ namespace Controllers.World.Generation
 
 
         // Start is called before the first frame update
-        void Start()
+        public void BeginSelf()
         {
             int rStartPos = Random.Range(0, arraySize);
             Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
             transform.position = startPos;
-            Instantiate(rooms[0], transform.position, Quaternion.identity);
+            GameObject newRoom = Instantiate(rooms[0], transform.position, Quaternion.identity);
+            newRoom.GetComponent<RoomGenerator>().BeginSelf();
 
             int randX = Random.Range(-2, 2);
             int randY = Random.Range(-2, 2);
             GameObject Entrance = Instantiate(door, new Vector2(transform.position.x + randX, transform.position.y + randY), Quaternion.identity);
             Entrance.GetComponent<DoorController>().type = 0;
+            Entrance.GetComponent<DoorController>().BeginSelf();
 
             direction = Random.Range(1, 5);
 
@@ -50,10 +59,23 @@ namespace Controllers.World.Generation
             maxX = minX + ((arraySize - 1) * moveAmount);
             minY = minX - ((arraySize - 1) * moveAmount);
 
-            //enabled = true;
+            while(stopGeneration != true)
+            {
+                Move();
+            }
+
+            /*if (type == 0 && oldPos == newPos && playerSpawned == false)
+                {
+                    GameObject Player = Instantiate(player, transform.position, Quaternion.identity);
+                    playerSpawned = true;
+                }*/
+
+            GameObject Player = Instantiate(player, Entrance.transform.position, Quaternion.identity);
+            Player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            Player.gameObject.name = "Player";
         }
 
-        void Update()
+        /*void Update()
         {
             if (generationDelayTimer <= 0 && stopGeneration == false) //generates a room every generationDelayTime
             {
@@ -61,7 +83,7 @@ namespace Controllers.World.Generation
                 generationDelayTimer = generationDelayTime;
             }
             else generationDelayTimer -= Time.unscaledDeltaTime;
-        }
+        }*/
 
         private void Move()
         {
@@ -74,7 +96,8 @@ namespace Controllers.World.Generation
                     transform.position = newPos;
 
                     int rand = Random.Range(0, 4);
-                    Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    GameObject newRoom = Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    newRoom.GetComponent<RoomGenerator>().BeginSelf();
 
                     //Prevents spawner from going back on itself
                     direction = Random.Range(1, 6);
@@ -97,7 +120,8 @@ namespace Controllers.World.Generation
                     transform.position = newPos;
 
                     int rand = Random.Range(0, 4);
-                    Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    GameObject newRoom = Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    newRoom.GetComponent<RoomGenerator>().BeginSelf();
 
                     //Prevents spawner from going back on itself
                     direction = Random.Range(3, 6);
@@ -121,12 +145,14 @@ namespace Controllers.World.Generation
                         if (downCounter >= 2) // check if the generator has moved down twice
                         {
                             roomDetection.GetComponent<RoomType>().DestroyRoom();
-                            Instantiate(rooms[3], transform.position, Quaternion.identity); //Create room 3 as it has all exits open
+                            GameObject newerRoom = Instantiate(rooms[3], transform.position, Quaternion.identity); //Create room 3 as it has all exits open
+                            newerRoom.GetComponent<RoomGenerator>().BeginSelf();
                         }
                         else //replace previous room with a room that has an open bottom
                         {
                             roomDetection.GetComponent<RoomType>().DestroyRoom();
-                            Instantiate(rooms[1], transform.position, Quaternion.identity); //Create room 1 as it has bottom open and top closed
+                            GameObject newerRoom = Instantiate(rooms[1], transform.position, Quaternion.identity); //Create room 1 as it has bottom open and top closed
+                            newerRoom.GetComponent<RoomGenerator>().BeginSelf();
                         }
                     }
 
@@ -134,7 +160,8 @@ namespace Controllers.World.Generation
                     transform.position = newPos;
 
                     int rand = Random.Range(2, 4);
-                    Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    GameObject newRoom = Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                    newRoom.GetComponent<RoomGenerator>().BeginSelf();
 
                     direction = Random.Range(1, 5);
                 }
@@ -144,6 +171,7 @@ namespace Controllers.World.Generation
                     int randY = Random.Range(-4, 0);
                     GameObject Exit = Instantiate(door, new Vector2(transform.position.x + randX, transform.position.y + randY), Quaternion.identity);
                     Exit.GetComponent<DoorController>().type = 1;
+                    Exit.GetComponent<DoorController>().BeginSelf();
 
                     Invoke("Fill", generationDelayTime);
                     stopGeneration = true; //if cant go down then stop generating
@@ -163,7 +191,8 @@ namespace Controllers.World.Generation
                     if (roomDetection == null)
                     {
                         int rand = Random.Range(0, rooms.Length);
-                        Instantiate(rooms[rand], positionCheck, Quaternion.identity);
+                        GameObject newRoom = Instantiate(rooms[rand], positionCheck, Quaternion.identity);
+                        newRoom.GetComponent<RoomGenerator>().BeginSelf();
                     }
                 }
             }
@@ -208,7 +237,11 @@ namespace Controllers.World.Generation
             if (blockDetector == null)
             {
                 GameObject borderBlock = Instantiate(border, position, Quaternion.identity);
-                borderBlock.transform.parent = transform;
+                borderBlock.transform.parent = transform;   
+                if(borderBlock.GetComponent<RoomTilerController>() != null)
+                {
+                    borderBlock.GetComponent<RoomTilerController>().BeginSelf();
+                }
             }
         }
         

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4074526591339826939}
-  - component: {fileID: 739979261166133029}
+  - component: {fileID: -7224472784020970818}
   m_Layer: 0
   m_Name: Full Block
   m_TagString: Untagged
@@ -132,7 +132,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &739979261166133029
+--- !u!114 &-7224472784020970818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,13 +141,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7809379526374865173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd3b99cac7d10947a0b740779277eff, type: 3}
+  m_Script: {fileID: 11500000, guid: 67b3b39fd47106645949010f91c85f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 6240189128207915390, guid: 0445281fef3852a47b0d39948ffcdee5, type: 3}
   ladder: {fileID: 6240189128207915390, guid: 7848a37c7c8120145aeda119b03f2208, type: 3}
   trap: {fileID: 6240189128207915390, guid: b33433e59385b7240b0656d290c96e8d, type: 3}
-  enemy: {fileID: 0}
+  enemy: {fileID: 7977717052116940463, guid: 06ea4b9fa0050b142965aa5bb77b2613, type: 3}
 --- !u!1001 &118589889092181155
 PrefabInstance:
   m_ObjectHideFlags: 0

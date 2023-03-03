@@ -12,7 +12,7 @@ namespace Controllers.World
 
         public void BeginSelf()
         {
-            //_levelGenerationController.BeginSelf();    
+            _levelGenerationController.BeginSelf();    
         }
     }
 }
