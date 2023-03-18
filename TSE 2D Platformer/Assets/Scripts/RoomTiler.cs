@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomTiler : MonoBehaviour
 {
     public GameObject block, ladder, trap, enemy;
+    public LayerMask blockLayer;
     private GameObject levelGen;
     private int difficulty; //1 - 10
 
@@ -56,6 +57,20 @@ public class RoomTiler : MonoBehaviour
         AddEnemies();
     }
 
+    private Vector2 randomPos()
+    {
+        int randX = Random.Range(-4, 5);
+        int randY = Random.Range(-4, 5);
+
+        return new Vector3(randX, randY);
+    }
+
+    private bool Collision(Vector2 pos)
+    {
+        if (Physics2D.OverlapCircle(pos, 0.1f, blockLayer) != null) return true;
+        else return false;
+    }
+
     private void AddEnemies()
     {
         if (enemy != null)
@@ -63,11 +78,38 @@ public class RoomTiler : MonoBehaviour
             int rand = Random.Range(1, 101);
             if (rand < (difficulty * 10))
             {
-                int randX = Random.Range(-4, 5);
-                int randY = Random.Range(-4, 5);
+                /*
+                while (Physics2D.OverlapCircle(transform.position + randPos, 0.1f, blockLayer) != null)
+                {
+                    randPos = randomPos();
+                }
 
-                GameObject newEnemy = Instantiate(enemy, new Vector2(transform.position.x + randX, transform.position.y + randY), Quaternion.identity);
+                while (Physics2D.OverlapCircle((transform.position + randPos) - new Vector3(0, 1, 0), 0.1f, blockLayer) == null)
+                {
+                    randPos = randomPos();
+                }
+                */
+
+                bool legalSpawn = false;
+                while (legalSpawn == false)
+                {
+                    Vector3 randPos = randomPos();
+                    if (!Collision(transform.position + randPos) && //Checks if not inside a block
+                        Collision(transform.position + randPos - new Vector3(0, 1, 0)) && //Checks its not floating in the air
+                        !Collision(transform.position + randPos + new Vector3(0, 1, 0)) && //Checks there is no block directly above it
+                        !Collision((transform.position + randPos) + new Vector3(1, 0, 0)) && //Checks nothing to the right
+                        Collision((transform.position + randPos) - new Vector3(0, 1, 0))) //Checks nothing to the left
+                    {
+                        GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
+                        newEnemy.transform.parent = transform;
+                        legalSpawn = true;
+                    }
+                }
+
+               //GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
+               //newEnemy.transform.parent = transform;
             }
         }
     }
+
 }

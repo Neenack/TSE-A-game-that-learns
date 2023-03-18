@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4981903955963512197}
   - component: {fileID: 7703078686831784573}
-  - component: {fileID: -7869241900003993431}
+  - component: {fileID: 4458961826834223419}
   - component: {fileID: 581823051116724286}
   m_Layer: 0
   m_Name: Enemy
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7869241900003993431
+--- !u!114 &4458961826834223419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,14 +95,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7977717052116940463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65cef3b378cdbb4c8261d531bc9bedc, type: 3}
+  m_Script: {fileID: 11500000, guid: 918c0cc4cc15b864f8d647ed20ed737d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockLayer:
+  speed: 3
+  raycastDistance: 0.2
+  wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  fallSpeed: 0.2
-  type: 0
 --- !u!61 &581823051116724286
 BoxCollider2D:
   m_ObjectHideFlags: 0

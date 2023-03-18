@@ -104,6 +104,9 @@ MonoBehaviour:
   ladder: {fileID: 6240189128207915390, guid: 7848a37c7c8120145aeda119b03f2208, type: 3}
   trap: {fileID: 6240189128207915390, guid: b33433e59385b7240b0656d290c96e8d, type: 3}
   enemy: {fileID: 7977717052116940463, guid: 06ea4b9fa0050b142965aa5bb77b2613, type: 3}
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &44810802406201784
 PrefabInstance:
   m_ObjectHideFlags: 0
