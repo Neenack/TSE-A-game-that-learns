@@ -221,6 +221,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoom: 5
+--- !u!1 &1904479487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904479488}
+  m_Layer: 0
+  m_Name: RoomsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1904479488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904479487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1916841231
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +263,7 @@ GameObject:
   - component: {fileID: 1916841233}
   - component: {fileID: 1916841232}
   m_Layer: 0
-  m_Name: Level Generation
+  m_Name: Level Generator
   m_TagString: LevelGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,13 +288,13 @@ MonoBehaviour:
   - {fileID: 4000929478561682528, guid: 65bbf7281bd979c46979b1c48be67735, type: 3}
   - {fileID: 4000929478561682528, guid: c47c4beb913856a41b16fab032f2a71b, type: 3}
   - {fileID: 4000929478561682528, guid: c47c4beb913856a41b16fab032f2a71b, type: 3}
+  roomContainer: {fileID: 1904479487}
   door: {fileID: 6295603055822971351, guid: f798c2b4e48e86042a20adbf0131c495, type: 3}
   blockObject: {fileID: 6240189128207915390, guid: 0445281fef3852a47b0d39948ffcdee5, type: 3}
-  enemy: {fileID: 7977717052116940463, guid: 06ea4b9fa0050b142965aa5bb77b2613, type: 3}
   borderRoom: {fileID: 7809379526374865173, guid: c4605ea96b2fbb943a424f37ea1fa4bd, type: 3}
   moveAmount: 10
   arraySize: 3
-  generationDelayTime: 0.2
+  generationDelayTime: 0.1
   levelFinished: 0
   room:
     serializedVersion: 2

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject door, blockObject, enemy, borderRoom;
+    public GameObject roomContainer, door, blockObject, borderRoom;
 
     private int direction;
     public float moveAmount;
@@ -31,12 +31,10 @@ public class LevelGeneration : MonoBehaviour
         int rStartPos = Random.Range(0, arraySize);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
         transform.position = startPos;
-        Instantiate(rooms[0], transform.position, Quaternion.identity);
 
-        int randX = Random.Range(-2, 2);
-        int randY = Random.Range(-2, 2);
-        GameObject Entrance = Instantiate(door, new Vector2(transform.position.x + randX, transform.position.y + randY), Quaternion.identity);
-        Entrance.GetComponent<DoorController>().type = 0;
+        CreateRoom(rooms[0], transform.position);
+
+        CreateDoor(0);
 
         direction = Random.Range(1, 5);
 
@@ -66,7 +64,7 @@ public class LevelGeneration : MonoBehaviour
                 transform.position = newPos;
 
                 int rand = Random.Range(0, 4);
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                CreateRoom(rooms[rand], transform.position);
 
                 //Prevents spawner from going back on itself
                 direction = Random.Range(1, 6);
@@ -89,7 +87,7 @@ public class LevelGeneration : MonoBehaviour
                 transform.position = newPos;
 
                 int rand = Random.Range(0, 4);
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                CreateRoom(rooms[rand], transform.position);
 
                 //Prevents spawner from going back on itself
                 direction = Random.Range(3, 6);
@@ -113,12 +111,12 @@ public class LevelGeneration : MonoBehaviour
                     if (downCounter >= 2) // check if the generator has moved down twice
                     {
                         roomDetection.GetComponent<RoomType>().DestroyRoom();
-                        Instantiate(rooms[3], transform.position, Quaternion.identity); //Create room 3 as it has all exits open
+                        CreateRoom(rooms[3], transform.position); //Create room 3 as it has all exits open
                     }
                     else //replace previous room with a room that has an open bottom
                     {
                         roomDetection.GetComponent<RoomType>().DestroyRoom();
-                        Instantiate(rooms[1], transform.position, Quaternion.identity); //Create room 1 as it has bottom open and top closed
+                        CreateRoom(rooms[1], transform.position); //Create room 1 as it has bottom open and top closed
                     }
                 }
 
@@ -126,22 +124,32 @@ public class LevelGeneration : MonoBehaviour
                 transform.position = newPos;
 
                 int rand = Random.Range(2, 4);
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                CreateRoom(rooms[rand], transform.position);
 
                 direction = Random.Range(1, 5);
             }
             else
             {
-                int randX = Random.Range(-4, 5);
-                int randY = Random.Range(-4, 0);
-                GameObject Exit = Instantiate(door, new Vector2(transform.position.x + randX, transform.position.y + randY), Quaternion.identity);
-                Exit.GetComponent<DoorController>().type = 1;
+                CreateDoor(1);
 
                 Invoke("Fill", generationDelayTime);
                 stopGeneration = true; //if cant go down then stop generating
             }
         }
         firstMove = false;
+    }
+
+    private void CreateRoom(GameObject room, Vector3 pos)
+    {
+        GameObject newRoom = Instantiate(room, pos, Quaternion.identity);
+
+        float xPos = (pos.x - 5) / moveAmount;
+        if (xPos < 0) xPos = -xPos;
+        float yPos = (pos.y - 5) / moveAmount;
+        if (yPos < 0) yPos = -yPos;
+
+        newRoom.transform.parent = roomContainer.transform;
+        newRoom.gameObject.name = "Room [" + yPos + "-" + xPos + "]";
     }
 
     private void Fill() //Loops through every space in the array and fills in any rooms that are free
@@ -155,7 +163,7 @@ public class LevelGeneration : MonoBehaviour
                 if (roomDetection == null)
                 {
                     int rand = Random.Range(0, rooms.Length);
-                    Instantiate(rooms[rand], positionCheck, Quaternion.identity);
+                    CreateRoom(rooms[rand], positionCheck);
                 }
             }
         }
@@ -202,6 +210,13 @@ public class LevelGeneration : MonoBehaviour
             GameObject borderBlock = Instantiate(border, position, Quaternion.identity);
             borderBlock.transform.parent = transform;
         }
+    }
+
+    private void CreateDoor(int type)
+    {
+        Vector3 randPos = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3));
+        GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
+        Door.GetComponent<DoorController>().type = type;
     }
     
 }

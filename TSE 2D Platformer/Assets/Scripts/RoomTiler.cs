@@ -78,18 +78,6 @@ public class RoomTiler : MonoBehaviour
             int rand = Random.Range(1, 101);
             if (rand < (difficulty * 10))
             {
-                /*
-                while (Physics2D.OverlapCircle(transform.position + randPos, 0.1f, blockLayer) != null)
-                {
-                    randPos = randomPos();
-                }
-
-                while (Physics2D.OverlapCircle((transform.position + randPos) - new Vector3(0, 1, 0), 0.1f, blockLayer) == null)
-                {
-                    randPos = randomPos();
-                }
-                */
-
                 bool legalSpawn = false;
                 while (legalSpawn == false)
                 {
@@ -105,9 +93,6 @@ public class RoomTiler : MonoBehaviour
                         legalSpawn = true;
                     }
                 }
-
-               //GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
-               //newEnemy.transform.parent = transform;
             }
         }
     }
