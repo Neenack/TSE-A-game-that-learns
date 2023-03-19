@@ -14,3 +14,6 @@ Increased border size
 18/03/23
 Enemies now move left to right, changing direction when colliding with a wall or an edge
 Unlimited levels!!
+
+19/03/23
+Fixed a bug that caused the exit to spawn under the level

@@ -225,7 +225,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void CreateDoor(int type)
     {
-        Vector3 randPos = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2));
+        Vector3 randPos = new Vector3(Random.Range(-2, 2), 2);
         GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
         Door.GetComponent<DoorController>().type = type;
         if (type == 0) Door.gameObject.name = "Entrance";

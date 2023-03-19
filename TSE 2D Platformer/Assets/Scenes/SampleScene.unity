@@ -293,7 +293,7 @@ MonoBehaviour:
   blockObject: {fileID: 6240189128207915390, guid: 0445281fef3852a47b0d39948ffcdee5, type: 3}
   borderRoom: {fileID: 7809379526374865173, guid: c4605ea96b2fbb943a424f37ea1fa4bd, type: 3}
   moveAmount: 10
-  arraySize: 3
+  arraySize: 5
   generationDelayTime: 0.1
   levelFinished: 0
   room:
@@ -302,7 +302,7 @@ MonoBehaviour:
   block:
     serializedVersion: 2
     m_Bits: 256
-  difficulty: 10
+  difficulty: 5
 --- !u!4 &1916841233
 Transform:
   m_ObjectHideFlags: 0
