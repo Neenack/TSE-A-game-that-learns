@@ -28,19 +28,29 @@ public class LevelGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int rStartPos = Random.Range(0, arraySize);
+        StartGeneration();
+    }
+
+    public void StartGeneration()
+    {
+        foreach (Transform child in transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in roomContainer.transform) { GameObject.Destroy(child.gameObject); }
+
+
+        int rStartPos = Random.Range(1, arraySize - 1);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
         transform.position = startPos;
 
         CreateRoom(rooms[0], transform.position);
-
         CreateDoor(0);
 
-        direction = Random.Range(1, 5);
+        direction = Random.Range(1, 4);
 
         minX = 5;
         maxX = minX + ((arraySize - 1) * moveAmount);
         minY = minX - ((arraySize - 1) * moveAmount);
+
+        stopGeneration = false;
     }
 
     void Update()
@@ -185,7 +195,6 @@ public class LevelGeneration : MonoBehaviour
             Border(leftBorder, blockObject);
             Border(rightBorder, blockObject);
 
-            levelFinished = true;
         }
 
         for (int i = 0; i <= arraySize; i++)
@@ -200,6 +209,8 @@ public class LevelGeneration : MonoBehaviour
             Border(leftBlockBorder, borderRoom);
             Border(rightBlockBorder, borderRoom);
         }
+
+        levelFinished = true;
     }
 
     private void Border(Vector2 position, GameObject border)
@@ -214,9 +225,12 @@ public class LevelGeneration : MonoBehaviour
 
     private void CreateDoor(int type)
     {
-        Vector3 randPos = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3));
+        Vector3 randPos = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2));
         GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
         Door.GetComponent<DoorController>().type = type;
+        if (type == 0) Door.gameObject.name = "Entrance";
+        if (type == 1) Door.gameObject.name = "Exit";
+        Door.transform.parent = roomContainer.transform;
     }
     
 }

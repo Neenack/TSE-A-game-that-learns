@@ -50,7 +50,9 @@ public class DoorController : MonoBehaviour
     {
         if (other.tag == "Player" && type == 1)
         {
-            Debug.Log("NEXT LEVEL");
+            GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
+            Destroy(currentPlayer);
+            levelGen.GetComponent<LevelGeneration>().StartGeneration();
         }
     }
 }
