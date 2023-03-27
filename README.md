@@ -17,3 +17,6 @@ Unlimited levels!!
 
 19/03/23
 Fixed a bug that caused the exit to spawn under the level
+
+27/03/23
+Added enemy and player sprites

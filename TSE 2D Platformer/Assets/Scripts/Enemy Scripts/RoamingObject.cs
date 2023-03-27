@@ -8,12 +8,14 @@ public class RoamingObject : MonoBehaviour
     public float raycastDistance = 0.5f;
     public LayerMask wallLayer;
 
-    private bool facingRight = true;
+    public bool facingRight = true;
+
 
     void Update()
     {
         // Calculate the new x position of the object based on its current direction and speed
         float newX = transform.position.x + (facingRight ? speed : -speed) * Time.deltaTime;
+        transform.localScale = (facingRight ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1));
 
         // Cast a ray in the direction the object is moving to detect walls
         Vector2 raycastOrigin = facingRight ? transform.position + Vector3.right * 0.5f : transform.position - Vector3.right * 0.5f;
@@ -27,6 +29,7 @@ public class RoamingObject : MonoBehaviour
         {
             facingRight = !facingRight;
         }
+
 
         // Set the object's new position
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
