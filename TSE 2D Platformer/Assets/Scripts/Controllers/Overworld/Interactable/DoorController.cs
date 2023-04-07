@@ -38,8 +38,10 @@ public class DoorController : MonoBehaviour
                 {
                     if (playerSpawned == false && type == 0)
                     {
-                        Instantiate(player, transform.position, Quaternion.identity);
+                        GameObject spawnedPlayer = Instantiate(player, transform.position, Quaternion.identity);
                         playerSpawned = true;
+
+                        spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
                     }
                 }
             }
