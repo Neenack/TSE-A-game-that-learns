@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Delegates.Actors.Player;
+
 
 
 namespace Actors.Player
@@ -14,10 +16,34 @@ namespace Actors.Player
         PlayerMovementState _movementState;
         PlayerGroundedState _groundedState;
 
+        PlayerTouchingLadderState _touchingLadderState;
+
         public void BeginSelf()
         {
             _movementState = PlayerMovementState.Idle;
             _groundedState = PlayerGroundedState.Grounded;
+            _touchingLadderState = PlayerTouchingLadderState.Not_Touching;
+            
+            SetupDelegates();
+        }
+
+        void OnDisable()
+        {
+            RemoveDelegates();
+        }
+
+        void SetupDelegates()
+        {
+
+            PlayerStateDelegates.onPlayerGroundedStateChange += SetGroundedState;
+            PlayerStateDelegates.onPlayerLadderTouchingStateChange += SetLadderTouchingState;
+        }
+
+        void RemoveDelegates()
+        {
+
+            PlayerStateDelegates.onPlayerGroundedStateChange -= SetGroundedState;
+            PlayerStateDelegates.onPlayerLadderTouchingStateChange -= SetLadderTouchingState;
         }
 
 
@@ -29,6 +55,27 @@ namespace Actors.Player
         public PlayerGroundedState GetGroundedState()
         {
             return _groundedState;
+        }
+
+        public PlayerTouchingLadderState GetLadderTouchingState()
+        {
+            return _touchingLadderState;
+        }
+
+
+        public void SetMovementState(PlayerMovementState pState)
+        {
+            _movementState = pState;
+        }
+
+        public void SetGroundedState(PlayerGroundedState pState)
+        {
+            _groundedState = pState;
+        }
+
+        public void SetLadderTouchingState(PlayerTouchingLadderState pState)
+        {
+            _touchingLadderState = pState;
         }
     }
 
@@ -43,5 +90,11 @@ namespace Actors.Player
     {
         Grounded,
         Aerial
+    }
+
+    public enum PlayerTouchingLadderState
+    {
+        Not_Touching,
+        Touching
     }
 }

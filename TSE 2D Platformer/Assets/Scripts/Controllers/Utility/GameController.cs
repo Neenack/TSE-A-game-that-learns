@@ -30,11 +30,13 @@ namespace Controllers.Utility
         void SetupDelegates()
         {
             GenerationDelegates.onSpawningPlayer += StartPlayer;
+            GenerationDelegates.onDestroyingPlayer += StopPlayer;
         }
 
         void RemoveDelegates()
         {
             GenerationDelegates.onSpawningPlayer -= StartPlayer;
+            GenerationDelegates.onDestroyingPlayer -= StopPlayer;
         }
 
         // Once the player has spawned, begin the playercontroller.
@@ -44,6 +46,13 @@ namespace Controllers.Utility
             _player.BeginSelf();
 
             _playerController.BeginSelf(_player);
+        }
+
+        void StopPlayer()
+        {
+            Destroy(_player.gameObject);
+
+            _playerController.PauseSelf();
         }
     }
 }

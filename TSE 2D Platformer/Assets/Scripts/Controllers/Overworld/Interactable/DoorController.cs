@@ -61,7 +61,14 @@ public class DoorController : MonoBehaviour
         if (other.tag == "Player" && type == 1)
         {
             GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
-            Destroy(currentPlayer);
+
+            //Destroy(currentPlayer);
+
+            if(GenerationDelegates.onDestroyingPlayer != null)
+            {
+                GenerationDelegates.onDestroyingPlayer();
+            }
+
             levelGen.GetComponent<LevelGeneration>().StartGeneration();
         }
     }

@@ -11,5 +11,9 @@ namespace Delegates.Actors.Player
     {
         public delegate void OnPlayerGroundedStateChange(PlayerGroundedState pState);
         public static OnPlayerGroundedStateChange onPlayerGroundedStateChange;
+
+
+        public delegate void OnPlayerLadderTouchingStateChange(PlayerTouchingLadderState pState);
+        public static OnPlayerLadderTouchingStateChange onPlayerLadderTouchingStateChange;
     }
 }

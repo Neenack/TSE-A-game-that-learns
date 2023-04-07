@@ -38,6 +38,8 @@ public class LevelGeneration : MonoBehaviour
     {
         foreach (Transform child in transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in doorsHolder.transform) { GameObject.Destroy(child.gameObject); }
 
 
         int rStartPos = Random.Range(1, arraySize - 1);

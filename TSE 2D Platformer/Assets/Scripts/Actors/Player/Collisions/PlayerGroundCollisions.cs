@@ -9,7 +9,7 @@ namespace Actors.Player.Collisions
     [RequireComponent(typeof(BoxCollider2D))]
     public class PlayerGroundCollisions : MonoBehaviour
     {
-        void OnCollisionEnter2D(Collision2D col)
+        void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.tag == "Walkable" && PlayerStateDelegates.onPlayerGroundedStateChange != null)
             {
@@ -18,7 +18,7 @@ namespace Actors.Player.Collisions
             }   
         }
 
-        void OnCollisionExit2D(Collision2D col)
+        void OnTriggerExit2D(Collider2D col)
         {
             if (col.gameObject.tag == "Walkable" && PlayerStateDelegates.onPlayerGroundedStateChange != null)
             {

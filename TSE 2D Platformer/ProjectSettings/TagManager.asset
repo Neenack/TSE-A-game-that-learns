@@ -9,6 +9,8 @@ TagManager:
   - Ladder
   - Trap
   - LevelGenerator
+  - Walkable
+  - Climbable
   layers:
   - Default
   - TransparentFX

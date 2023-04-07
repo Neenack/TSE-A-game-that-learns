@@ -9,7 +9,7 @@ namespace Actors.Player
     public class PlayerStats : MonoBehaviour
     {
         [SerializeField]
-        float _speed, _jumpPower;
+        float _speed, _jumpPower, _climbSpeed;
 
 
         public float GetSpeed()
@@ -21,6 +21,11 @@ namespace Actors.Player
         {
             return _jumpPower;
         }
+
+        public float GetClimbSpeed()
+        {
+            return _climbSpeed;
+        }
         
 
         void SetSpeed(float val)
@@ -31,6 +36,11 @@ namespace Actors.Player
         void SetJumpPower(float val)
         {
             _jumpPower = val;
+        }
+
+        void SetClimbSpeed(float val)
+        {
+            _climbSpeed = val;
         }
     }
 }

@@ -13,5 +13,8 @@ namespace Delegates.Actors.Player
 
         public delegate void OnPlayerJump();
         public static OnPlayerJump onPlayerJump;
+
+        public delegate void OnPlayerClimb(bool up);
+        public static OnPlayerClimb onPlayerClimb;
     }
 }

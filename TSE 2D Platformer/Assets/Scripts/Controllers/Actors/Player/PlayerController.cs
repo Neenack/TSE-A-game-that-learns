@@ -32,6 +32,11 @@ namespace Controllers.Actors.PlayerNS
             _jumpButtonReleased = true;
         }
 
+        public void PauseSelf()
+        {
+            enabled = false;
+        }
+
 
         void Update()
         {
@@ -48,11 +53,17 @@ namespace Controllers.Actors.PlayerNS
 
             else if (_horizontal == 0) PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
 
-            if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && PlayerMovementDelegates.onPlayerJump != null)
+            if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && _playerState.GetLadderTouchingState() != PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerJump != null)
             {
                 _jumpButtonReleased = false;
                 StartCoroutine(JumpTimer());
                 PlayerMovementDelegates.onPlayerJump();
+            }
+
+            else if(_vertical != 0 && _playerState.GetLadderTouchingState() == PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerClimb != null)
+            {
+                if(_vertical > 0) PlayerMovementDelegates.onPlayerClimb(true);
+                else PlayerMovementDelegates.onPlayerClimb(false);
             }
 
             else if(_vertical == 0) _jumpButtonReleased = true;

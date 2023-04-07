@@ -10,5 +10,8 @@ namespace Delegates.Utility
     {
         public delegate void OnSpawningPlayer();
         public static OnSpawningPlayer onSpawningPlayer;
+
+        public delegate void OnDestroyingPlayer();
+        public static OnDestroyingPlayer onDestroyingPlayer;
     }
 }

@@ -38,12 +38,18 @@ namespace Actors.Player
         {
             PlayerMovementDelegates.onPlayerMoveHorizontal += MoveHorizontal;
             PlayerMovementDelegates.onPlayerJump += Jump;
+            PlayerMovementDelegates.onPlayerClimb += Climb;
+
+            PlayerStateDelegates.onPlayerLadderTouchingStateChange += UpdatePlayerGravityOnLadderStateChange;
         }
 
         void RemoveDelegates()
         {
             PlayerMovementDelegates.onPlayerMoveHorizontal -= MoveHorizontal;
             PlayerMovementDelegates.onPlayerJump -= Jump;
+            PlayerMovementDelegates.onPlayerClimb -= Climb;
+
+            PlayerStateDelegates.onPlayerLadderTouchingStateChange -= UpdatePlayerGravityOnLadderStateChange;
         }
 
 
@@ -52,14 +58,37 @@ namespace Actors.Player
             _rigidBody.velocity = new Vector2(horizontalSpeed * GetComponent<PlayerStats>().GetSpeed(), _rigidBody.velocity.y);
         }
 
-        void IdleHorizontal()
-        {
-
-        }
-
         void Jump()
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetJumpPower());
+        }
+
+
+        void UpdatePlayerGravityOnLadderStateChange(PlayerTouchingLadderState pState)
+        {
+            if(pState == PlayerTouchingLadderState.Not_Touching)
+            {
+                _rigidBody.gravityScale = 6;
+            }
+
+            else
+            {
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 0);
+                _rigidBody.gravityScale = 0;
+            }
+        }
+
+        void Climb(bool up)
+        {
+            if(up)
+            {
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetClimbSpeed());
+            }
+
+            else
+            {
+                _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetClimbSpeed() * -1);
+            }
         }
 
 
