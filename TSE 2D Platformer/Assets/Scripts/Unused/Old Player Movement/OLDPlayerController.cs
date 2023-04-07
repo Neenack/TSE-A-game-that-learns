@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class OLDPlayerController : MonoBehaviour
 {
     private float horizontal, vertical;
     public float speed, gravity, jumpingPower, climbingSpeed;

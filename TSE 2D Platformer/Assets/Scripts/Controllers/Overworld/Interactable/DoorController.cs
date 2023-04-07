@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
+using Delegates.Utility;
+
+
 public class DoorController : MonoBehaviour
 {
     private GameObject levelGen;
@@ -42,6 +45,11 @@ public class DoorController : MonoBehaviour
                         playerSpawned = true;
 
                         spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
+
+                        if(GenerationDelegates.onSpawningPlayer != null)
+                        {
+                            GenerationDelegates.onSpawningPlayer();
+                        }
                     }
                 }
             }
