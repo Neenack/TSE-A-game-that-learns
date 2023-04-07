@@ -49,19 +49,24 @@ namespace Actors.Player
 
         void MoveHorizontal(float horizontalSpeed)
         {
-            _rigidBody.AddForce(new Vector2(horizontalSpeed * GetComponent<PlayerStats>().GetSpeed(), 0));
+            _rigidBody.velocity = new Vector2(horizontalSpeed * GetComponent<PlayerStats>().GetSpeed(), _rigidBody.velocity.y);
+        }
+
+        void IdleHorizontal()
+        {
+
         }
 
         void Jump()
         {
-            _rigidBody.AddForce(new Vector2(0, GetComponent<PlayerStats>().GetJumpPower()));
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetJumpPower());
         }
 
 
-        // Slow player on horizontal plane each frame to stop sliding and fast speeds
+        /* Slow player on horizontal plane each frame to stop sliding and fast speeds
         void FixedUpdate()
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x * 0.64f, _rigidBody.velocity.y);
-        }
+        }*/
     }
 }

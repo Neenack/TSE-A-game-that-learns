@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Actors.Player.Collisions
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(CircleCollider2D))]
 
     public class PlayerCollisions : MonoBehaviour
     {

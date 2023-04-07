@@ -46,6 +46,8 @@ namespace Controllers.Actors.PlayerNS
                 PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
             }
 
+            else if (_horizontal == 0) PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
+
             if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && PlayerMovementDelegates.onPlayerJump != null)
             {
                 _jumpButtonReleased = false;
