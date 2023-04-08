@@ -11,10 +11,19 @@ namespace Actors.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
+        // Stop FixedUpdate firing before everything is initialized
+        void Awake()
+        {
+            enabled = false;
+        }
+
+
         Rigidbody2D _rigidBody;
 
         public void BeginSelf()
         {
+            enabled = true;
+
             _rigidBody = GetComponent<Rigidbody2D>();
 
             SetupDelegates();
@@ -81,6 +90,16 @@ namespace Actors.Player
             {
                 _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetClimbSpeed() * -1);
             }
+        }
+
+
+
+
+        // Used to set the player's motion state
+        void FixedUpdate()
+        {
+            if(_rigidBody.velocity.magnitude > 0 && PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT != null) PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT(true);
+            else if(PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT != null) PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT(false); 
         }
     }
 }
