@@ -11,18 +11,10 @@ namespace Actors.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
-        // Stop FixedUpdate firing too early
-        void Awake()
-        {
-            enabled = false;
-        }
-
         Rigidbody2D _rigidBody;
 
         public void BeginSelf()
         {
-            enabled = true;
-
             _rigidBody = GetComponent<Rigidbody2D>();
 
             SetupDelegates();
@@ -90,12 +82,5 @@ namespace Actors.Player
                 _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetClimbSpeed() * -1);
             }
         }
-
-
-        /* Slow player on horizontal plane each frame to stop sliding and fast speeds
-        void FixedUpdate()
-        {
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x * 0.64f, _rigidBody.velocity.y);
-        }*/
     }
 }

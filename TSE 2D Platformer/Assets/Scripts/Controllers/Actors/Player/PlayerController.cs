@@ -46,13 +46,21 @@ namespace Controllers.Actors.PlayerNS
 
         void FixedUpdate()
         {
+            /// Handle Player Movement
+
+            // Handle left/ right walking
             if (_horizontal != 0 && PlayerMovementDelegates.onPlayerMoveHorizontal != null)
             {
                 PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
+
+                if(_horizontal > 0 && PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Right);
+                else if(PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Left);
             }
 
+            // Stop player
             else if (_horizontal == 0) PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
 
+            // Handle jumping
             if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && _playerState.GetLadderTouchingState() != PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerJump != null)
             {
                 _jumpButtonReleased = false;
@@ -60,25 +68,19 @@ namespace Controllers.Actors.PlayerNS
                 PlayerMovementDelegates.onPlayerJump();
             }
 
+            // Handle ladder movement
             else if(_vertical != 0 && _playerState.GetLadderTouchingState() == PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerClimb != null)
             {
                 if(_vertical > 0) PlayerMovementDelegates.onPlayerClimb(true);
                 else PlayerMovementDelegates.onPlayerClimb(false);
             }
 
+            // Jump button has been released
             else if(_vertical == 0) _jumpButtonReleased = true;
 
 
-            // To be added later, allowing the sprite to turn as the player does
-            /*if (_horizontal > 0 && PlayerMovementDelegates.onPlayerTurn != null)
-            {
-                PlayerMovementDelegates.onPlayerTurn(TravellingDirection.Right);
-            }
 
-            else if (_horizontal < 0 && PlayerMovementDelegates.onPlayerTurn != null)
-            {
-                PlayerMovementDelegates.onPlayerTurn(TravellingDirection.Left);
-            }*/
+            /// Handle Player Actions
         }
 
 

@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    // TODO: Create utility delegate to find player on spawn
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");

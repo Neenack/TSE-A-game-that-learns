@@ -48,6 +48,7 @@ namespace Controllers.Utility
             _playerController.BeginSelf(_player);
         }
 
+        // On player despawn, remove it and pause the playercontroller
         void StopPlayer()
         {
             Destroy(_player.gameObject);
