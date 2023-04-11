@@ -89,7 +89,8 @@ public class RoomTiler : MonoBehaviour
                         Collision((transform.position + randPos) - new Vector3(0, 1, 0))) //Checks nothing to the left
                     {
                         GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
-                        newEnemy.transform.parent = transform;
+                        //newEnemy.transform.parent = transform;
+                        newEnemy.transform.SetParent(GameObject.Find("EnemiesHolder").transform, true);
                         legalSpawn = true;
                     }
                 }

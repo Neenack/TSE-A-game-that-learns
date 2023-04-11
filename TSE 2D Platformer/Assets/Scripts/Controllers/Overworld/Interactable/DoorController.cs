@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
+using Delegates.Utility;
+
+
 public class DoorController : MonoBehaviour
 {
     private GameObject levelGen;
@@ -38,8 +41,15 @@ public class DoorController : MonoBehaviour
                 {
                     if (playerSpawned == false && type == 0)
                     {
-                        Instantiate(player, transform.position, Quaternion.identity);
+                        GameObject spawnedPlayer = Instantiate(player, transform.position, Quaternion.identity);
                         playerSpawned = true;
+
+                        spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
+
+                        if(GenerationDelegates.onSpawningPlayer != null)
+                        {
+                            GenerationDelegates.onSpawningPlayer();
+                        }
                     }
                 }
             }
@@ -51,7 +61,14 @@ public class DoorController : MonoBehaviour
         if (other.tag == "Player" && type == 1)
         {
             GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
-            Destroy(currentPlayer);
+
+            //Destroy(currentPlayer);
+
+            if(GenerationDelegates.onDestroyingPlayer != null)
+            {
+                GenerationDelegates.onDestroyingPlayer();
+            }
+
             levelGen.GetComponent<LevelGeneration>().StartGeneration();
         }
     }

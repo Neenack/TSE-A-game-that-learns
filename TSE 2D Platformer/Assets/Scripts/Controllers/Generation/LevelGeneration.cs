@@ -5,7 +5,10 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject roomContainer, door, blockObject, borderRoom;
+    public GameObject door, blockObject, borderRoom;
+
+    [SerializeField]
+    GameObject borderHolder, roomsHolder, doorsHolder;
 
     private int direction;
     public float moveAmount;
@@ -34,7 +37,9 @@ public class LevelGeneration : MonoBehaviour
     public void StartGeneration()
     {
         foreach (Transform child in transform) { GameObject.Destroy(child.gameObject); }
-        foreach (Transform child in roomContainer.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in doorsHolder.transform) { GameObject.Destroy(child.gameObject); }
 
 
         int rStartPos = Random.Range(1, arraySize - 1);
@@ -158,7 +163,8 @@ public class LevelGeneration : MonoBehaviour
         float yPos = (pos.y - 5) / moveAmount;
         if (yPos < 0) yPos = -yPos;
 
-        newRoom.transform.parent = roomContainer.transform;
+        //newRoom.transform.parent = roomsHolder.transform;
+        newRoom.transform.SetParent(roomsHolder.transform, true);
         newRoom.gameObject.name = "Room [" + yPos + "-" + xPos + "]";
     }
 
@@ -219,7 +225,8 @@ public class LevelGeneration : MonoBehaviour
         if (blockDetector == null)
         {
             GameObject borderBlock = Instantiate(border, position, Quaternion.identity);
-            borderBlock.transform.parent = transform;
+            borderBlock.transform.SetParent(borderHolder.transform, true);
+            //borderBlock.transform.parent = transform;
         }
     }
 
@@ -230,7 +237,8 @@ public class LevelGeneration : MonoBehaviour
         Door.GetComponent<DoorController>().type = type;
         if (type == 0) Door.gameObject.name = "Entrance";
         if (type == 1) Door.gameObject.name = "Exit";
-        Door.transform.parent = roomContainer.transform;
+        Door.transform.SetParent(doorsHolder.transform, true);
+        //Door.transform.parent = roomsHolder.transform;
     }
     
 }
