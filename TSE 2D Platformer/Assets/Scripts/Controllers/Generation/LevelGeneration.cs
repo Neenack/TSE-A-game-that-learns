@@ -5,7 +5,8 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject door, blockObject, borderRoom;
+    public GameObject door, blockObject, borderRoom, bg;
+
 
     [SerializeField]
     GameObject borderHolder, roomsHolder, doorsHolder;
@@ -45,6 +46,8 @@ public class LevelGeneration : MonoBehaviour
         int rStartPos = Random.Range(1, arraySize - 1);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
         transform.position = startPos;
+
+        SetBackground();
 
         CreateRoom(rooms[0], transform.position);
         CreateDoor(0);
@@ -152,6 +155,17 @@ public class LevelGeneration : MonoBehaviour
             }
         }
         firstMove = false;
+    }
+
+    private void SetBackground()
+    {
+        bg.transform.position = new Vector2(arraySize * moveAmount / 2, -arraySize * moveAmount / 2 + moveAmount);
+
+        SpriteRenderer bgR = bg.GetComponent<SpriteRenderer>();
+        bgR.drawMode = SpriteDrawMode.Tiled;
+        bgR.size = new Vector2(arraySize * moveAmount, arraySize * moveAmount);
+
+        bg.SetActive(true);
     }
 
     private void CreateRoom(GameObject room, Vector3 pos)

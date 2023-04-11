@@ -43,7 +43,12 @@ public class EnemyController : MonoBehaviour
                 if (type == 0)
                 {
                     Collider2D onGround = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.5f), 0.1f, blockLayer);
-                    if (onGround == null) //If enemy is on the ground
+                    Collider2D inBlock = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y), 0.1f, blockLayer);
+                    if (onGround == null) //If enemy is not on the ground
+                    {
+                        transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed);
+                    }
+                    if (inBlock != null) //If enemy is stuck in block
                     {
                         transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed);
                     }

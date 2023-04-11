@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class RoomTiler : MonoBehaviour
 {
@@ -81,18 +82,24 @@ public class RoomTiler : MonoBehaviour
                 bool legalSpawn = false;
                 while (legalSpawn == false)
                 {
-                    Vector3 randPos = randomPos();
-                    if (!Collision(transform.position + randPos) && //Checks if not inside a block
-                        Collision(transform.position + randPos - new Vector3(0, 1, 0)) && //Checks its not floating in the air
-                        !Collision(transform.position + randPos + new Vector3(0, 1, 0)) && //Checks there is no block directly above it
-                        !Collision((transform.position + randPos) + new Vector3(1, 0, 0)) && //Checks nothing to the right
-                        Collision((transform.position + randPos) - new Vector3(0, 1, 0))) //Checks nothing to the left
+                    Vector3 randPos =  randomPos();
+                    Vector3 newPos = transform.position + randPos;
+
+                    if (Physics2D.OverlapCircle(newPos, 0.2f, blockLayer) == null) //Checks if not inside a block
                     {
-                        GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
+                        GameObject newEnemy = Instantiate(enemy, newPos, Quaternion.identity);
                         //newEnemy.transform.parent = transform;
                         newEnemy.transform.SetParent(GameObject.Find("EnemiesHolder").transform, true);
                         legalSpawn = true;
                     }
+
+                    /*
+                    if (!Collision(transform.position + randPos) && //Checks if not inside a block
+                    Collision(transform.position + randPos - new Vector3(0, 1, 0)) && //Checks its not floating in the air
+                    !Collision(transform.position + randPos + new Vector3(0, 1, 0)) && //Checks there is no block directly above it
+                    !Collision((transform.position + randPos) + new Vector3(1, 0, 0)) && //Checks nothing to the right
+                    Collision((transform.position + randPos) - new Vector3(0, 1, 0))) //Checks nothing to the left
+                    */
                 }
             }
         }
