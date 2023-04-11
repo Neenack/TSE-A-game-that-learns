@@ -163,7 +163,7 @@ public class LevelGeneration : MonoBehaviour
 
         SpriteRenderer bgR = bg.GetComponent<SpriteRenderer>();
         bgR.drawMode = SpriteDrawMode.Tiled;
-        bgR.size = new Vector2(arraySize * moveAmount, arraySize * moveAmount);
+        bgR.size = new Vector2(arraySize * moveAmount + 1, arraySize * moveAmount + 1);
 
         bg.SetActive(true);
     }
