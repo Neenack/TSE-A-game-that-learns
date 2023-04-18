@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
-  _jumpPower: 17.5
+  _jumpPower: 20
   _climbSpeed: 6
 --- !u!114 &3309083310455189811
 MonoBehaviour:
