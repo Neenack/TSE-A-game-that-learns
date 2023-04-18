@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Delegates.Utility;
+
+
+
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
     public GameObject door, blockObject, borderRoom;
+    public GameObject player;
 
     [SerializeField]
     GameObject borderHolder, roomsHolder, doorsHolder;
@@ -40,6 +45,8 @@ public class LevelGeneration : MonoBehaviour
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in doorsHolder.transform) { GameObject.Destroy(child.gameObject); }
+        
+        if(ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
 
 
         int rStartPos = Random.Range(1, arraySize - 1);
@@ -49,6 +56,8 @@ public class LevelGeneration : MonoBehaviour
         CreateRoom(rooms[0], transform.position);
         CreateDoor(0);
 
+        if(ZoneDelegates.onZoneTickUpdate != null) ZoneDelegates.onZoneTickUpdate();
+
         direction = Random.Range(1, 4);
 
         minX = 5;
@@ -56,17 +65,38 @@ public class LevelGeneration : MonoBehaviour
         minY = minX - ((arraySize - 1) * moveAmount);
 
         stopGeneration = false;
+
+        StartCoroutine(GenerateRoom());
     }
 
-    void Update()
+    IEnumerator GenerateRoom()
     {
-        if (generationDelayTimer <= 0 && stopGeneration == false) //generates a room every generationDelayTime
+        while(!stopGeneration)
         {
-            Move();
-            generationDelayTimer = generationDelayTime;
+            if (generationDelayTimer <= 0 && stopGeneration == false) //generates a room every generationDelayTime
+            {
+                Move();
+                generationDelayTimer = generationDelayTime;
+                yield return null;
+            }
+            else generationDelayTimer -= Time.deltaTime;
+            yield return null;
         }
-        else generationDelayTimer -= Time.deltaTime;
+
+
+        Transform door0 = GameObject.Find("Entrance").transform;
+
+        GameObject spawnedPlayer = Instantiate(player, door0.position, Quaternion.identity);
+        spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
+
+        if(GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
+        if(ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
     }
+
+    /*void Update()
+    {
+        
+    }*/
 
     private void Move()
     {
@@ -148,10 +178,16 @@ public class LevelGeneration : MonoBehaviour
                 CreateDoor(1);
 
                 Invoke("Fill", generationDelayTime);
-                stopGeneration = true; //if cant go down then stop generating
+                stopGeneration = true; //if cant go down then stop generating                
             }
         }
         firstMove = false;
+
+
+        if(ZoneDelegates.onZoneTickUpdate != null)
+        {
+            ZoneDelegates.onZoneTickUpdate();
+        }
     }
 
     private void CreateRoom(GameObject room, Vector3 pos)

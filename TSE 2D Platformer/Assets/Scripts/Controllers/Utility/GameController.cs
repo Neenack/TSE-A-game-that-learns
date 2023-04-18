@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.UI;
 using Actors.Player;
 using Controllers.Actors.PlayerNS;
+using Controllers.Actors.EnemyNS;
 using Delegates.Utility;
 
 
@@ -12,13 +14,24 @@ namespace Controllers.Utility
     [RequireComponent (typeof(PlayerController))]
     public class GameController : MonoBehaviour
     {
+        [SerializeField]
+        UIController _uiController;
+
+
         Player _player;
 
         PlayerController _playerController;
+        EnemiesController _enemiesController;
 
         void Start()
         {
             _playerController = GetComponent<PlayerController>();
+            _enemiesController = GetComponent<EnemiesController>();
+
+            _enemiesController.BeginSelf();
+
+            _uiController.BeginSelf();
+
             SetupDelegates();
         }
 
