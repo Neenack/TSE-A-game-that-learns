@@ -11,11 +11,12 @@ namespace Actors.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
-        // Stop FixedUpdate firing too early
+        // Stop FixedUpdate firing before everything is initialized
         void Awake()
         {
             enabled = false;
         }
+
 
         Rigidbody2D _rigidBody;
 
@@ -92,10 +93,13 @@ namespace Actors.Player
         }
 
 
-        /* Slow player on horizontal plane each frame to stop sliding and fast speeds
+
+
+        // Used to set the player's motion state
         void FixedUpdate()
         {
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x * 0.64f, _rigidBody.velocity.y);
-        }*/
+            if(_rigidBody.velocity.magnitude > 0 && PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT != null) PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT(true);
+            else if(PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT != null) PlayerAnimationDelegates.tEMP_ON_PLAYER_MOVEMENT(false); 
+        }
     }
 }

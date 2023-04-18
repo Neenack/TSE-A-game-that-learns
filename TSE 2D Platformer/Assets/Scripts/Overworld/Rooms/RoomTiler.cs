@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Actors.EnemyNS;
+using Delegates.Actors.EnemyNS;
+
+
+
 public class RoomTiler : MonoBehaviour
 {
     public GameObject block, ladder, trap, enemy;
@@ -92,6 +97,8 @@ public class RoomTiler : MonoBehaviour
                         //newEnemy.transform.parent = transform;
                         newEnemy.transform.SetParent(GameObject.Find("EnemiesHolder").transform, true);
                         legalSpawn = true;
+
+                        if(EnemySpawningDelegates.onEnemySpawn != null) {EnemySpawningDelegates.onEnemySpawn(newEnemy.GetComponent<Enemy>()); };
                     }
                 }
             }

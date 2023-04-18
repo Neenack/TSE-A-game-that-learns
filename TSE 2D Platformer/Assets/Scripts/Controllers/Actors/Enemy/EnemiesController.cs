@@ -1,0 +1,84 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using Actors.EnemyNS;
+using Delegates.Actors.EnemyNS;
+using Delegates.Utility;
+
+
+
+namespace Controllers.Actors.EnemyNS
+{
+    public class EnemiesController : MonoBehaviour
+    {
+        List<Enemy> enemies;
+
+        public void BeginSelf()
+        {
+            enemies = new List<Enemy>();
+
+            SetupDelegates();
+        }
+
+        void OnDisable()
+        {
+            RemoveDelegates();
+        }
+
+        void SetupDelegates()
+        {
+            EnemySpawningDelegates.onEnemySpawn += AddEnemy;
+            EnemySpawningDelegates.onEnemyDespawn += EnemyDespawn;
+
+            EnemyStatsDelegates.onEnemyDeath += EnemyDeath;
+
+            ZoneDelegates.onZoneCompletion += DespawnAll;
+        }
+
+        void RemoveDelegates()
+        {
+            EnemySpawningDelegates.onEnemySpawn -= AddEnemy;
+            EnemySpawningDelegates.onEnemyDespawn -= EnemyDespawn;
+
+            EnemyStatsDelegates.onEnemyDeath -= EnemyDeath;
+
+            ZoneDelegates.onZoneCompletion -= DespawnAll;
+        }
+
+        void AddEnemy(Enemy e)
+        {
+            enemies.Add(e);
+
+            e.BeginSelf();
+        }
+
+        void EnemyDespawn(Enemy e)
+        {
+            enemies.Remove(e);
+
+            Destroy(e.gameObject);
+        }
+
+        void DespawnAll()
+        {
+            foreach(Enemy e in enemies)
+            {
+                Destroy(e.gameObject);
+            }
+
+            enemies.Clear();
+        }
+
+        void EnemyDeath(Enemy e)
+        {
+            // Here is where tracking stats & any enemy kill rewards go, as well as animations
+
+
+
+            enemies.Remove(e);
+
+            Destroy(e.gameObject);
+        }
+    }
+}

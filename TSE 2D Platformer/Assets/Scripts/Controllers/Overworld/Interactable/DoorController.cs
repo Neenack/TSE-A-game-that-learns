@@ -9,16 +9,13 @@ using Delegates.Utility;
 public class DoorController : MonoBehaviour
 {
     private GameObject levelGen;
-    public GameObject player;
     public LayerMask blockLayer;
     public int type; //0 = entrance   1 = exit
-    private bool playerSpawned;
 
     // Start is called before the first frame update
     void Start()
     {
         levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
-        playerSpawned = false;
     }
 
     private void Update()
@@ -39,18 +36,7 @@ public class DoorController : MonoBehaviour
                 }
                 else
                 {
-                    if (playerSpawned == false && type == 0)
-                    {
-                        GameObject spawnedPlayer = Instantiate(player, transform.position, Quaternion.identity);
-                        playerSpawned = true;
-
-                        spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
-
-                        if(GenerationDelegates.onSpawningPlayer != null)
-                        {
-                            GenerationDelegates.onSpawningPlayer();
-                        }
-                    }
+                    // Ex-player-spawner
                 }
             }
         }

@@ -15,5 +15,9 @@ namespace Delegates.Actors.Player
 
         public delegate void OnPlayerLadderTouchingStateChange(PlayerTouchingLadderState pState);
         public static OnPlayerLadderTouchingStateChange onPlayerLadderTouchingStateChange;
+
+
+        public delegate void OnPlayerTurn(PlayerFacingDirectionState pState);
+        public static OnPlayerTurn onPlayerTurn;
     }
 }

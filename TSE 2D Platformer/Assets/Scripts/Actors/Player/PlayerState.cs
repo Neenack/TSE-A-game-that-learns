@@ -18,11 +18,15 @@ namespace Actors.Player
 
         PlayerTouchingLadderState _touchingLadderState;
 
+        PlayerFacingDirectionState _facingDirectionState;
+
+        // Setup base state on spawn
         public void BeginSelf()
         {
             _movementState = PlayerMovementState.Idle;
             _groundedState = PlayerGroundedState.Grounded;
             _touchingLadderState = PlayerTouchingLadderState.Not_Touching;
+            _facingDirectionState = PlayerFacingDirectionState.Right;
             
             SetupDelegates();
         }
@@ -62,6 +66,11 @@ namespace Actors.Player
             return _touchingLadderState;
         }
 
+        public PlayerFacingDirectionState GetPlayerFacingDirectionState()
+        {
+            return _facingDirectionState;
+        }
+
 
         public void SetMovementState(PlayerMovementState pState)
         {
@@ -76,6 +85,11 @@ namespace Actors.Player
         public void SetLadderTouchingState(PlayerTouchingLadderState pState)
         {
             _touchingLadderState = pState;
+        }
+
+        public void SetPlayerFacingDirectionState(PlayerFacingDirectionState pState)
+        {
+            _facingDirectionState = pState;
         }
     }
 
@@ -96,5 +110,12 @@ namespace Actors.Player
     {
         Not_Touching,
         Touching
+    }
+
+
+    public enum PlayerFacingDirectionState
+    {
+        Right,
+        Left
     }
 }
