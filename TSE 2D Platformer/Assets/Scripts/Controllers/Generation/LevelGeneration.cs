@@ -9,11 +9,12 @@ using Delegates.Utility;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject door, blockObject, borderRoom, bg;
+    public GameObject door, blockObject, borderRoom, bgTile;
+
     public GameObject player;
 
     [SerializeField]
-    GameObject borderHolder, roomsHolder, doorsHolder;
+    GameObject borderHolder, roomsHolder, doorsHolder, backgroundHolder;
 
     private int direction;
     public float moveAmount;
@@ -48,12 +49,10 @@ public class LevelGeneration : MonoBehaviour
         
         if(ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
 
-
         int rStartPos = Random.Range(1, arraySize - 1);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
         transform.position = startPos;
 
-        SetBackground();
 
         CreateRoom(rooms[0], transform.position);
         CreateDoor(0);
@@ -192,17 +191,6 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
-    private void SetBackground()
-    {
-        bg.transform.position = new Vector2(arraySize * moveAmount / 2, -arraySize * moveAmount / 2 + moveAmount);
-
-        SpriteRenderer bgR = bg.GetComponent<SpriteRenderer>();
-        bgR.drawMode = SpriteDrawMode.Tiled;
-        bgR.size = new Vector2(arraySize * moveAmount + 1, arraySize * moveAmount + 1);
-
-        bg.SetActive(true);
-    }
-
     private void CreateRoom(GameObject room, Vector3 pos)
     {
         GameObject newRoom = Instantiate(room, pos, Quaternion.identity);
@@ -233,8 +221,27 @@ public class LevelGeneration : MonoBehaviour
             }
         }
         Invoke("CreateBorders", generationDelayTime);
+
+        Invoke("CreateBackground", generationDelayTime);
     }
 
+    private void CreateBackground()
+    {
+        for (float i = 0.25f; i <= (moveAmount * arraySize); i+=0.5f)
+        {
+            for (float j = 0; j <= (moveAmount * arraySize); j += 0.5f)
+            {
+                Vector2 pos = new Vector2(i - 0.5f, moveAmount - 1.75f - j);
+
+                Collider2D blockDetector = Physics2D.OverlapCircle(pos, 0.1f, block);
+                if (blockDetector == null)
+                {
+                    GameObject newTile = Instantiate(bgTile, pos, Quaternion.identity);
+                    newTile.transform.SetParent(backgroundHolder.transform, true);
+                }
+            }
+        }
+    }
 
     private void CreateBorders()
     {
