@@ -114,4 +114,10 @@ MonoBehaviour:
   - {fileID: 592642628, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
   - {fileID: 592642628, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
   - {fileID: 592642628, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: -948836396, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: -948836396, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: -1998470682, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: -1998470682, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: 6939120, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
+  - {fileID: 6939120, guid: b52aebe5d16e3a949931230e7917f6f0, type: 3}
   spriteRenderer: {fileID: 2592427918613176445}

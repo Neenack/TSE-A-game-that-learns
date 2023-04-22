@@ -13,11 +13,5 @@ public class ValidPosition : MonoBehaviour
             //Destroy(this.gameObject);
             transform.position += new Vector3(Random.Range(-1, 1), Random.Range(-1, 1));
         }
-
-        if (!Physics2D.OverlapCircle(transform.position - new Vector3(0,1,0), 0.1f, blockLayer))
-        {
-            //Destroy(this.gameObject);
-            transform.position -= new Vector3(0,1,0);
-        }
     }
 }

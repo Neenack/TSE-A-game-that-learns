@@ -1754,7 +1754,7 @@ MonoBehaviour:
   block:
     serializedVersion: 2
     m_Bits: 256
-  difficulty: 5
+  difficulty: 10
 --- !u!4 &1916841233
 Transform:
   m_ObjectHideFlags: 0

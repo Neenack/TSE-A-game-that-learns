@@ -84,14 +84,13 @@ public class LevelGeneration : MonoBehaviour
             yield return null;
         }
 
-
         Transform door0 = GameObject.Find("Entrance").transform;
 
         GameObject spawnedPlayer = Instantiate(player, door0.position, Quaternion.identity);
         spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
 
-        if(GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
-        if(ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
+        if (GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
+        if (ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
     }
 
     /*void Update()
@@ -289,6 +288,11 @@ public class LevelGeneration : MonoBehaviour
     private void CreateDoor(int type)
     {
         Vector3 randPos = new Vector3(Random.Range(-2, 2), 2);
+        while (Physics2D.OverlapCircle(transform.position + randPos, 0.1f, block) != null)
+        {
+            randPos.y--;
+        }
+        Debug.Log(transform.position + randPos);
         GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
         Door.GetComponent<DoorController>().type = type;
         if (type == 0) Door.gameObject.name = "Entrance";
