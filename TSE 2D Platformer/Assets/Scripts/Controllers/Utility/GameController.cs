@@ -17,6 +17,8 @@ namespace Controllers.Utility
         [SerializeField]
         UIController _uiController;
 
+        [SerializeField]
+        StatisticsTrackerController _statisticsTrackerController;
 
         Player _player;
 
@@ -31,6 +33,7 @@ namespace Controllers.Utility
             _enemiesController.BeginSelf();
 
             _uiController.BeginSelf();
+            _statisticsTrackerController.BeginSelf();
 
             SetupDelegates();
         }

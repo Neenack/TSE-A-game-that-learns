@@ -41,8 +41,6 @@ namespace Actors.Player.Actions
 
         void Attack()
         {
-            Debug.Log(_playerAttackingCollisions.GetEnemiesList().Count);
-
             foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)

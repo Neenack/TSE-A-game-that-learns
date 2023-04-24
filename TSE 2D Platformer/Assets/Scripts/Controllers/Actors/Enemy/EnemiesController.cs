@@ -95,8 +95,10 @@ namespace Controllers.Actors.EnemyNS
         void EnemyDeath(Enemy e)
         {
             // Here is where tracking stats & any enemy kill rewards go, as well as animations
-
-
+            if(StatisticsTrackingDelegates.onEnemyDeathTracking != null)
+            {
+                StatisticsTrackingDelegates.onEnemyDeathTracking();
+            }
 
 
             enemies.Remove(e);
