@@ -14,7 +14,9 @@ namespace Controllers.Actors.PlayerNS
 
         float _horizontal, _vertical;
 
-        bool _jumpButtonReleased, _jumpOnCooldown;
+        float _attack;
+
+        bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased;
 
         // Stop Update & Fixed Update from taking place until spawn
         void Awake()
@@ -30,6 +32,7 @@ namespace Controllers.Actors.PlayerNS
             enabled = true;
 
             _jumpButtonReleased = true;
+            _attackButtonReleased = true;
         }
 
         public void PauseSelf()
@@ -42,6 +45,8 @@ namespace Controllers.Actors.PlayerNS
         {
             _horizontal = Input.GetAxis("Horizontal");
             _vertical = Input.GetAxis("Jump");
+
+            _attack = Input.GetAxis("Attack");
         }
 
         void FixedUpdate()
@@ -81,6 +86,17 @@ namespace Controllers.Actors.PlayerNS
 
 
             /// Handle Player Actions
+            if(_attack > 0 && _attackButtonReleased && PlayerActionsDelegates.onPlayerAttack != null)
+            {
+                _attackButtonReleased = false;
+
+                PlayerActionsDelegates.onPlayerAttack();
+            }
+
+            else if(_attack == 0)
+            {
+                _attackButtonReleased = true;
+            }
         }
 
 

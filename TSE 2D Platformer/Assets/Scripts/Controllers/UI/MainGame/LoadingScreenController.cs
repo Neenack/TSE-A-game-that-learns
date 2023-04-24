@@ -52,7 +52,7 @@ namespace Controllers.UI.MainGame
 
         void RemoveDelegates()
         {
-            Debug.Log("LoadingScreenDelegatesRemoved");
+            //Debug.Log("LoadingScreenDelegatesRemoved");
 
             ZoneDelegates.onZoneCompletion -= BeginLoading;
 
@@ -66,7 +66,7 @@ namespace Controllers.UI.MainGame
             _thisCanvas.enabled = true;
 
             Debug.ClearDeveloperConsole();
-            Debug.Log("LoadingScreenBegin.");
+            //Debug.Log("LoadingScreenBegin.");
 
             _loadingBar.GetComponent<RectTransform>().offsetMin = new Vector2(MAX_BAR_OFFSET, BAR_OFFSET_FROM_BOTTOM);
             _loadingBar.GetComponent<RectTransform>().offsetMax = new Vector2(-MIN_BAR_OFFSET, -BAR_OFFSET_FROM_TOP);
@@ -85,7 +85,7 @@ namespace Controllers.UI.MainGame
             _currentTicks++;
 
             float barFurtherOffset = (MIN_BAR_OFFSET - MAX_BAR_OFFSET) * ((float)_currentTicks / (float)EXPECTED_TICKS);
-            Debug.Log(_currentTicks);
+            //Debug.Log(_currentTicks);
 
             _loadingBar.GetComponent<RectTransform>().offsetMin = new Vector2(MAX_BAR_OFFSET, BAR_OFFSET_FROM_BOTTOM);
             _loadingBar.GetComponent<RectTransform>().offsetMax = new Vector2(-MIN_BAR_OFFSET + barFurtherOffset, -BAR_OFFSET_FROM_TOP);

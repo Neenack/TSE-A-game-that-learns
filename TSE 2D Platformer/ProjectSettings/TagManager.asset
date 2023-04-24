@@ -11,6 +11,8 @@ TagManager:
   - LevelGenerator
   - Walkable
   - Climbable
+  - Enemy
+  - PlayerChildObjectTag
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Actors.Player.Actions;
 using Actors.Player.Collisions;
 using Actors.Player.Animation;
 
@@ -15,6 +16,7 @@ namespace Actors.Player
     [RequireComponent (typeof(PlayerCollisions))]
     [RequireComponent (typeof(PlayerSprite))]
     [RequireComponent (typeof(PlayerAnimations))]
+    [RequireComponent (typeof(PlayerAttacking))]
 
     public class Player : MonoBehaviour
     {
@@ -36,6 +38,9 @@ namespace Actors.Player
         [SerializeField]
         PlayerAnimations _animationsComponent;
 
+        [SerializeField]
+        PlayerAttacking _attackingComponent;
+
 
         // Setup scripts that need to begin
         public void BeginSelf()
@@ -44,6 +49,7 @@ namespace Actors.Player
             _stateComponent.BeginSelf();
             _spriteComponent.BeginSelf();
             _animationsComponent.BeginSelf();
+            _attackingComponent.BeginSelf();
         }
     }
 }

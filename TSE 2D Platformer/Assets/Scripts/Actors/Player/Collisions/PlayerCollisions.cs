@@ -18,6 +18,8 @@ namespace Actors.Player.Collisions
 
         void OnTriggerStay2D(Collider2D col)
         {
+            if(col.tag == "PlayerChildObjectTag") return;
+
 
             if (col.gameObject.tag == "Climbable" && PlayerStateDelegates.onPlayerLadderTouchingStateChange != null)
             {
@@ -29,6 +31,8 @@ namespace Actors.Player.Collisions
 
         void OnTriggerExit2D(Collider2D col)
         {
+            if(col.tag == "PlayerChildObjectTag") return;
+
             if (col.gameObject.tag == "Climbable" && PlayerStateDelegates.onPlayerLadderTouchingStateChange != null)
             {
 

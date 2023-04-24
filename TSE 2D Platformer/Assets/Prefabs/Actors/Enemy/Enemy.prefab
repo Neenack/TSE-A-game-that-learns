@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4458961826834223419}
   - component: {fileID: 581823051116724286}
   - component: {fileID: 8483954967656289300}
+  - component: {fileID: 6501235501774161121}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -115,7 +116,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.025814056, y: -0.027965546}
@@ -143,3 +144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0711e0abcac1e044ea47b0cba16f3bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6501235501774161121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977717052116940463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb30ce3c1324834bbcf012d1f0c8555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 1
+  _attackPower: 1
