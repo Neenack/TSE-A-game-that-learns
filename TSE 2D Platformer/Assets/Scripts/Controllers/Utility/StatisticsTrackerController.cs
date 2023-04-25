@@ -14,6 +14,7 @@ namespace Controllers.Utility
     [RequireComponent (typeof(ActionsTrackerController))]
     [RequireComponent (typeof(CombatTrackerController))]
     [RequireComponent (typeof(ItemsTrackerController))]
+    [RequireComponent (typeof(PlayerStateTrackerController))]
     public class StatisticsTrackerController : MonoBehaviour
     {
         bool first;
@@ -33,6 +34,10 @@ namespace Controllers.Utility
         [SerializeField]
         ItemsTrackerController _itemsStatisticsController;
 
+        [SerializeField]
+        PlayerStateTrackerController _playerStateTrackerController;
+        
+
         void Awake()
         {
             first = true;
@@ -45,6 +50,7 @@ namespace Controllers.Utility
             _actionsStatisticsController.BeginSelf();
             _combatStatisticsController.BeginSelf();
             _itemsStatisticsController.BeginSelf();
+            _playerStateTrackerController.BeginSelf();
 
             SetupDelegates();
         }
@@ -79,6 +85,7 @@ namespace Controllers.Utility
             _actionsStatisticsController.OnZoneCompletion();
             _combatStatisticsController.OnZoneCompletion();
             _itemsStatisticsController.OnZoneCompletion();
+            _playerStateTrackerController.OnZoneCompletion();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Controllers.Utility.Statistics
     public class CombatTrackerController : MonoBehaviour
     {
         // 0 = most recent, 11 = last
-        int[] _enemiesKilled = new int[11] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        int[] _enemiesKilled = new int[11] {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
         public void BeginSelf()
         {
@@ -54,7 +54,6 @@ namespace Controllers.Utility.Statistics
             {
                 if(_enemiesKilled[i] == -1)
                 {
-                    Debug.Log("A");
                     if(i > 1)
                     {
                         avg /= i - 1;
@@ -73,10 +72,7 @@ namespace Controllers.Utility.Statistics
         // Add 2 first time due to -1 being the check amount
         void IncrementEnemiesKilled()
         {
-            if(_enemiesKilled[0] == -1) _enemiesKilled[0]++;
             _enemiesKilled[0]++;
-
-            Debug.Log(GetEnemiesKilledAverage());
         }
 
 
@@ -90,7 +86,7 @@ namespace Controllers.Utility.Statistics
                 demo[i] = arr[i - 1];
             }
 
-            demo[0] = arr[demo.Length - 1];
+            demo[0] = 0;
 
             return demo;
         }

@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using Actors.Player;
+
+using Delegates.Utility;
+
+
+
+namespace Controllers.Overworld.Rooms
+{
+    public class RoomCollisionController : MonoBehaviour
+    {
+        BoxCollider2D _collider;
+
+        float _timeInRoom;
+
+        bool _explored;
+
+        void Awake()
+        {
+            _collider = GetComponent<BoxCollider2D>();
+            _timeInRoom = 0f;
+            _explored = false;
+        }
+
+        void OnTriggerStay2D(Collider2D col)
+        {
+            if (col.gameObject.tag == "Player" && !_explored)
+            {
+                if(col.GetComponent<PlayerMovement>().GetTimeNotMoving() < 3)
+                {
+                    _timeInRoom += Time.deltaTime;
+                }
+                
+                if(_timeInRoom >= 5 && !_explored)
+                {
+                    if(StatisticsTrackingDelegates.onRoomExplored != null)
+                    {
+                        StatisticsTrackingDelegates.onRoomExplored();
+                        _explored = true;
+                    }
+                }
+            }   
+        }
+    }
+}

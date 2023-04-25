@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7526832745709752693}
   - component: {fileID: 5178312538925515070}
   - component: {fileID: -2685942641293201780}
+  - component: {fileID: -8762226421404336318}
   m_Layer: 9
   m_Name: LRB
   m_TagString: Untagged
@@ -58,7 +59,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 10}
   m_EdgeRadius: 0
 --- !u!114 &5178312538925515070
 MonoBehaviour:
@@ -93,3 +94,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+--- !u!114 &-8762226421404336318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647211751713970481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0cdcb228d196fa40b453ecb58bf74a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
