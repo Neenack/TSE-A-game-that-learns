@@ -11,6 +11,7 @@ TagManager:
   - LevelGenerator
   - Walkable
   - Climbable
+  - Enemy
   layers:
   - Default
   - TransparentFX
