@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4981903955963512197}
   - component: {fileID: 7703078686831784573}
   - component: {fileID: 6213663242672340996}
-  - component: {fileID: 581823051116724286}
   - component: {fileID: -3219741462286827588}
   - component: {fileID: 8483954967656289300}
+  - component: {fileID: 581823051116724286}
   - component: {fileID: -7828372965015256413}
   m_Layer: 0
   m_Name: Screamer
@@ -104,6 +104,36 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &-3219741462286827588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977717052116940463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2a178301e2c1648a29cbe80e581274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screamInterval: 2
+  screamerBolt: {fileID: 204771710674145418, guid: 7d3205b2bbc9a184bb0cc643afc21036, type: 3}
+  range: 10
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &8483954967656289300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977717052116940463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0711e0abcac1e044ea47b0cba16f3bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &581823051116724286
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -130,35 +160,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5046663, y: 0.59208155}
   m_EdgeRadius: 0
---- !u!114 &-3219741462286827588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7977717052116940463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2a178301e2c1648a29cbe80e581274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screamInterval: 2
-  screamerBolt: {fileID: 204771710674145418, guid: 7d3205b2bbc9a184bb0cc643afc21036, type: 3}
-  blockLayer:
-    serializedVersion: 2
-    m_Bits: 256
---- !u!114 &8483954967656289300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7977717052116940463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0711e0abcac1e044ea47b0cba16f3bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &-7828372965015256413
 Rigidbody2D:
   serializedVersion: 4

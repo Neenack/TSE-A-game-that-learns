@@ -87,6 +87,10 @@ public class LevelGeneration : MonoBehaviour
         Transform door0 = GameObject.Find("Entrance").transform;
 
         GameObject spawnedPlayer = Instantiate(player, door0.position, Quaternion.identity);
+        while (Physics2D.OverlapCircle(spawnedPlayer.transform.position, 0.1f, block) != null)
+        {
+            spawnedPlayer.transform.position -= new Vector3(0, 1, 0);
+        }
         spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
 
         if (GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
@@ -292,7 +296,6 @@ public class LevelGeneration : MonoBehaviour
         {
             randPos.y--;
         }
-        Debug.Log(transform.position + randPos);
         GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
         Door.GetComponent<DoorController>().type = type;
         if (type == 0) Door.gameObject.name = "Entrance";

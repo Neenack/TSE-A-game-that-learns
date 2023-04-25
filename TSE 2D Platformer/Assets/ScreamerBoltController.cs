@@ -17,7 +17,7 @@ public class ScreamerBoltController : MonoBehaviour
 
     }
 
-    public void SetDirection(Vector3 dir, GameObject player)
+    public void SetDirection(Vector3 dir)
     {
         direction = dir;
         transform.right = -dir;

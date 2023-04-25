@@ -186,7 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b49b8aa3048824c825a9334da2c2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 7
+  maxJumpForce: 4
+  minJumpForce: 7
   jumpInterval: 2
   blockLayer:
     serializedVersion: 2
@@ -194,7 +195,6 @@ MonoBehaviour:
   groundCheck: {fileID: 10532407727527085}
   grounded: 0
   player: {fileID: 5799331612847786587, guid: 2c214d75cd6865340b8f854a5d2658e3, type: 3}
-  playerVisible: 0
 --- !u!50 &6970639391226608503
 Rigidbody2D:
   serializedVersion: 4

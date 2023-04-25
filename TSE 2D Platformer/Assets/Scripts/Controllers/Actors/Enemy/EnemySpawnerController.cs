@@ -1,4 +1,5 @@
 using Actors.EnemyNS;
+using Actors.Player;
 using Delegates.Actors.EnemyNS;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,8 +17,12 @@ public class EnemySpawnerController : MonoBehaviour
         levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
         difficulty = levelGen.GetComponent<LevelGeneration>().difficulty;
 
-        if (difficulty >= 5) maxEnemyType = 3;
-        else if (difficulty >= 8) maxEnemyType = 4;
+        Transform door0 = GameObject.Find("Entrance").transform;
+        float distToEntrance = Vector3.Distance(transform.position, door0.position);
+        if (distToEntrance <= 5) Destroy(this.gameObject);
+
+        if (difficulty >= 8) maxEnemyType = 4;
+        else if (difficulty >= 5) maxEnemyType = 3;
         else maxEnemyType = 2;
 
         GameObject newEnemy = Instantiate(enemies[Random.Range(0, maxEnemyType)], transform.position, Quaternion.identity);

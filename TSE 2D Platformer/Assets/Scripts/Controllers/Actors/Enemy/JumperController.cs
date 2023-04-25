@@ -2,10 +2,11 @@ using Actors.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class JumperController : MonoBehaviour
 {
-    public float jumpForce = 5f;
+    public float maxJumpForce, minJumpForce;
     public float jumpInterval = 2f;
     public LayerMask blockLayer;
     public Transform groundCheck;
@@ -29,7 +30,12 @@ public class JumperController : MonoBehaviour
             if (jumpTimer <= 0f)
             {
                 float randomDirection = Random.Range(-3f, 3f);
-                rb.velocity = new Vector2(randomDirection, jumpForce);
+
+                //If next to a wall, go the opposite direction
+                if (Physics2D.OverlapCircle(transform.position + Vector3.right, 0.1f, blockLayer) != null) randomDirection = Random.Range(-3f, 0);
+                if (Physics2D.OverlapCircle(transform.position - Vector3.right, 0.1f, blockLayer) != null) randomDirection = Random.Range(0, 3f);
+
+                rb.velocity = new Vector2(randomDirection, Random.Range(minJumpForce, maxJumpForce));
                 isJumping = true;
                 jumpTimer = jumpInterval;
             }
@@ -49,6 +55,6 @@ public class JumperController : MonoBehaviour
 
     private bool onGround()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, blockLayer);
+        return Physics2D.OverlapBox(groundCheck.position, new Vector2(0.757864f, 0.1f), 0);
     }
 }
