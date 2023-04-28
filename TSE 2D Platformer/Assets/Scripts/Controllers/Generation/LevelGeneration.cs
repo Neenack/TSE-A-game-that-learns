@@ -236,12 +236,8 @@ public class LevelGeneration : MonoBehaviour
             {
                 Vector2 pos = new Vector2(i - 0.5f, moveAmount - 1.75f - j);
 
-                Collider2D blockDetector = Physics2D.OverlapCircle(pos, 0.1f, block);
-                if (blockDetector == null)
-                {
-                    GameObject newTile = Instantiate(bgTile, pos, Quaternion.identity);
-                    newTile.transform.SetParent(backgroundHolder.transform, true);
-                }
+                GameObject newTile = Instantiate(bgTile, pos, Quaternion.identity);
+                newTile.transform.SetParent(backgroundHolder.transform, true);
             }
         }
     }
