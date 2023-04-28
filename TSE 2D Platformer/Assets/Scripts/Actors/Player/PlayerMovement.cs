@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.Utility.Statistics;
 
 using Delegates.Actors.Player;
 using Delegates.Utility;
@@ -69,6 +70,8 @@ namespace Actors.Player
         void Jump()
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, GetComponent<PlayerStats>().GetJumpPower());
+
+            if(StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Jump);
         }
 
 

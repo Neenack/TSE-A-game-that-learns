@@ -17,6 +17,7 @@ namespace Actors.Player
     [RequireComponent (typeof(PlayerSprite))]
     [RequireComponent (typeof(PlayerAnimations))]
     [RequireComponent (typeof(PlayerAttacking))]
+    [RequireComponent (typeof(PlayerInventory))]
 
     public class Player : MonoBehaviour
     {
@@ -41,6 +42,9 @@ namespace Actors.Player
         [SerializeField]
         PlayerAttacking _attackingComponent;
 
+        [SerializeField]
+        PlayerInventory _playerInventory;
+
 
         // Setup scripts that need to begin
         public void BeginSelf()
@@ -50,6 +54,7 @@ namespace Actors.Player
             _spriteComponent.BeginSelf();
             _animationsComponent.BeginSelf();
             _attackingComponent.BeginSelf();
+            _playerInventory.BeginSelf();
         }
     }
 }

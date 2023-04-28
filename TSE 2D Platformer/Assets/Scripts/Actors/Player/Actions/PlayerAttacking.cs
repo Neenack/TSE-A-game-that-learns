@@ -5,8 +5,11 @@ using UnityEngine;
 using Actors.Player.Collisions;
 using Actors.EnemyNS;
 
+using Controllers.Utility.Statistics;
+
 using Delegates.Actors.Player;
 using Delegates.Actors.EnemyNS;
+using Delegates.Utility;
 
 
 
@@ -52,6 +55,8 @@ namespace Actors.Player.Actions
             if(EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerAttackingCollisions.GetEnemiesList());
 
             _playerAttackingCollisions.ClearInRange();
+
+            if(StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
         }
     }
 }

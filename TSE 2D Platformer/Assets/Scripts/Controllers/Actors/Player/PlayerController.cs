@@ -14,9 +14,11 @@ namespace Controllers.Actors.PlayerNS
 
         float _horizontal, _vertical;
 
-        float _attack;
+        float _attack, _useItem;
+        float _numpad1, _numpad2, _numpad3, _numpad4;
 
-        bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased;
+        bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased, _useItemButtonReleased;
+        bool _numpad1Released, _numpad2Released, _numpad3Released, _numpad4Released;
 
         // Stop Update & Fixed Update from taking place until spawn
         void Awake()
@@ -33,6 +35,12 @@ namespace Controllers.Actors.PlayerNS
 
             _jumpButtonReleased = true;
             _attackButtonReleased = true;
+            _useItemButtonReleased = true;
+
+            _numpad1Released = true;
+            _numpad2Released = true;
+            _numpad3Released = true;
+            _numpad4Released = true;
         }
 
         public void PauseSelf()
@@ -47,6 +55,13 @@ namespace Controllers.Actors.PlayerNS
             _vertical = Input.GetAxis("Jump");
 
             _attack = Input.GetAxis("Attack");
+            _useItem = Input.GetAxis("UseItem");
+            
+
+            _numpad1 = Input.GetAxis("Numpad1");
+            _numpad2 = Input.GetAxis("Numpad2");
+            _numpad3 = Input.GetAxis("Numpad3");
+            _numpad4 = Input.GetAxis("Numpad4");
         }
 
         void FixedUpdate()
@@ -86,6 +101,7 @@ namespace Controllers.Actors.PlayerNS
 
 
             /// Handle Player Actions
+            // Attacking
             if(_attack > 0 && _attackButtonReleased && PlayerActionsDelegates.onPlayerAttack != null)
             {
                 _attackButtonReleased = false;
@@ -96,6 +112,76 @@ namespace Controllers.Actors.PlayerNS
             else if(_attack == 0)
             {
                 _attackButtonReleased = true;
+            }
+
+
+            // Using Item
+            if(_useItem > 0 && _useItemButtonReleased && PlayerActionsDelegates.onPlayerUseItem != null)
+            {
+                _useItemButtonReleased = false;
+
+                PlayerActionsDelegates.onPlayerUseItem();
+            }
+
+            else if(_useItem == 0)
+            {
+                _useItemButtonReleased = true;
+            }
+
+
+            // Numpad1
+            if(_numpad1 > 0 && _numpad1Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
+            {
+                _numpad1Released = false;
+
+                PlayerActionsDelegates.onPlayerSwitchItem(1);
+            }
+
+            else if(_numpad1 == 0)
+            {
+                _numpad1Released = true;
+            }
+
+
+            // Numpad1
+            if(_numpad2 > 0 && _numpad2Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
+            {
+                _numpad2Released = false;
+
+                PlayerActionsDelegates.onPlayerSwitchItem(2);
+            }
+
+            else if(_numpad2 == 0)
+            {
+                _numpad2Released = true;
+            }
+
+
+            // Numpad1
+            if(_numpad3 > 0 && _numpad3Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
+            {
+                _numpad3Released = false;
+
+                PlayerActionsDelegates.onPlayerSwitchItem(3);
+            }
+
+            else if(_numpad3 == 0)
+            {
+                _numpad3Released = true;
+            }
+
+
+            // Numpad1
+            if(_numpad4 > 0 && _numpad4Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
+            {
+                _numpad4Released = false;
+
+                PlayerActionsDelegates.onPlayerSwitchItem(4);
+            }
+
+            else if(_numpad4 == 0)
+            {
+                _numpad4Released = true;
             }
         }
 

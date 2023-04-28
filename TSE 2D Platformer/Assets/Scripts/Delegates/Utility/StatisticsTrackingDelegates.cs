@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.Utility.Statistics;
+
 
 
 namespace Delegates.Utility
@@ -16,5 +18,8 @@ namespace Delegates.Utility
 
         public delegate void OnIdleTracking(bool isIdle);
         public static OnIdleTracking onIdleTracking;
+
+        public delegate void OnActionTracking(ActionType aType);
+        public static OnActionTracking onActionTracking;
     }
 }
