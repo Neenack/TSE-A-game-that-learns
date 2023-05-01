@@ -31,6 +31,8 @@ namespace Controllers.Actors.EnemyNS
             EnemySpawningDelegates.onEnemySpawn += AddEnemy;
             EnemySpawningDelegates.onEnemyDespawn += EnemyDespawn;
 
+            EnemyStatsDelegates.onEnemyHit += EnemyHit;
+            EnemyStatsDelegates.onEnemyDeathCheck += CheckEnemyDeath;
             EnemyStatsDelegates.onEnemyDeath += EnemyDeath;
 
             ZoneDelegates.onZoneCompletion += DespawnAll;
@@ -41,6 +43,8 @@ namespace Controllers.Actors.EnemyNS
             EnemySpawningDelegates.onEnemySpawn -= AddEnemy;
             EnemySpawningDelegates.onEnemyDespawn -= EnemyDespawn;
 
+            EnemyStatsDelegates.onEnemyHit -= EnemyHit;
+            EnemyStatsDelegates.onEnemyDeathCheck -= CheckEnemyDeath;
             EnemyStatsDelegates.onEnemyDeath -= EnemyDeath;
 
             ZoneDelegates.onZoneCompletion -= DespawnAll;
@@ -70,10 +74,31 @@ namespace Controllers.Actors.EnemyNS
             enemies.Clear();
         }
 
+
+        void EnemyHit(Enemy e)
+        {
+            e.GetComponent<EnemyStats>().HpChange(1, false);
+        }
+
+        void CheckEnemyDeath(List<Enemy> Es)
+        {
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                if(Es.Contains(enemies[i]))
+                {
+                    EnemyDeath(enemies[i]);
+                    i++;
+                }
+            }
+        }
+
         void EnemyDeath(Enemy e)
         {
             // Here is where tracking stats & any enemy kill rewards go, as well as animations
-
+            if(StatisticsTrackingDelegates.onEnemyDeathTracking != null)
+            {
+                StatisticsTrackingDelegates.onEnemyDeathTracking();
+            }
 
 
             enemies.Remove(e);

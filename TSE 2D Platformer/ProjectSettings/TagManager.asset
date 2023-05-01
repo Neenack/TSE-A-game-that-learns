@@ -12,6 +12,7 @@ TagManager:
   - Walkable
   - Climbable
   - Enemy
+  - PlayerChildObjectTag
   layers:
   - Default
   - TransparentFX

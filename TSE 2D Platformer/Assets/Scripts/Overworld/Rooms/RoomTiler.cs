@@ -98,7 +98,11 @@ public class RoomTiler : MonoBehaviour
                         newEnemy.transform.SetParent(GameObject.Find("EnemiesHolder").transform, true);
                         legalSpawn = true;
 
-                        //if(EnemySpawningDelegates.onEnemySpawn != null) {EnemySpawningDelegates.onEnemySpawn(newEnemy.GetComponent<Enemy>()); };
+                        if(EnemySpawningDelegates.onEnemySpawn != null) {EnemySpawningDelegates.onEnemySpawn(newEnemy.GetComponent<Enemy>()); };
+
+                        // For some godforsaken reason, having this enabled in the prefab causes spawning to fail
+                        // Turning it on after is a necessity... I have no idea why
+                        newEnemy.gameObject.GetComponent<BoxCollider2D>().enabled = true;
                     }
                 }
             }

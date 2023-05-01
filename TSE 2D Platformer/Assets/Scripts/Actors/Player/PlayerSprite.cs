@@ -38,8 +38,8 @@ namespace Actors.Player
 
         void FlipSprite(PlayerFacingDirectionState pState)
         {
-            if(pState == PlayerFacingDirectionState.Right) _sprite.flipX = false;
-            else _sprite.flipX = true;
+            if(pState == PlayerFacingDirectionState.Right) gameObject.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            else gameObject.transform.localScale = new Vector3(-0.7f, 0.7f, 0.7f);
         }
     }
 }

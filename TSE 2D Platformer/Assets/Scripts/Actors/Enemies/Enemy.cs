@@ -8,6 +8,8 @@ using Delegates.Actors.EnemyNS;
 
 namespace Actors.EnemyNS
 {
+    [RequireComponent (typeof(EnemyStats))]
+
     public class Enemy : MonoBehaviour
     {
         public void BeginSelf()
