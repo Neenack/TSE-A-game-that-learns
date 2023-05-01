@@ -93,7 +93,8 @@ public class RoomTiler : MonoBehaviour
                         !Collision((transform.position + randPos) + new Vector3(1, 0, 0)) && //Checks nothing to the right
                         Collision((transform.position + randPos) - new Vector3(0, 1, 0))) //Checks nothing to the left
                     {
-                        GameObject newEnemy = Instantiate(enemy, transform.position + randPos, Quaternion.identity);
+                        
+                        GameObject newEnemy = Instantiate(enemy.GetComponent<EnemySpawnerController>().GetEnemies()[Random.Range(0,enemy.GetComponent<EnemySpawnerController>().GetEnemies().Length)], transform.position + randPos, Quaternion.identity);
                         //newEnemy.transform.parent = transform;
                         newEnemy.transform.SetParent(GameObject.Find("EnemiesHolder").transform, true);
                         legalSpawn = true;
@@ -103,6 +104,7 @@ public class RoomTiler : MonoBehaviour
                         // For some godforsaken reason, having this enabled in the prefab causes spawning to fail
                         // Turning it on after is a necessity... I have no idea why
                         newEnemy.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                        //if(EnemySpawningDelegates.onEnemySpawn != null) {EnemySpawningDelegates.onEnemySpawn(newEnemy.GetComponent<Enemy>()); };
                     }
                 }
             }

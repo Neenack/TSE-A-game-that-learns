@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 2948737841726004127}
   - component: {fileID: 7072479686703636417}
   - component: {fileID: 5735228503681255993}
+
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -148,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
-  _jumpPower: 17.5
+  _jumpPower: 20
   _climbSpeed: 6
 --- !u!114 &3309083310455189811
 MonoBehaviour:
@@ -253,6 +254,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7072479686703636417
+
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,6 +372,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+
 --- !u!1 &6467883018104261366
 GameObject:
   m_ObjectHideFlags: 0

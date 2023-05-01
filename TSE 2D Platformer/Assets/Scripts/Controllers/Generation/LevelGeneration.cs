@@ -9,11 +9,12 @@ using Delegates.Utility;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject[] rooms; //0 = LR  1 = LRB  2 = LRT  3 = LRTB  4 = R
-    public GameObject door, blockObject, borderRoom;
+    public GameObject door, blockObject, borderRoom, bgTile;
+
     public GameObject player;
 
     [SerializeField]
-    GameObject borderHolder, roomsHolder, doorsHolder;
+    GameObject borderHolder, roomsHolder, doorsHolder, backgroundHolder;
 
     private int direction;
     public float moveAmount;
@@ -48,10 +49,10 @@ public class LevelGeneration : MonoBehaviour
         
         if(ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
 
-
         int rStartPos = Random.Range(1, arraySize - 1);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);
         transform.position = startPos;
+
 
         CreateRoom(rooms[0], transform.position);
         CreateDoor(0);
@@ -83,14 +84,17 @@ public class LevelGeneration : MonoBehaviour
             yield return null;
         }
 
-
         Transform door0 = GameObject.Find("Entrance").transform;
 
         GameObject spawnedPlayer = Instantiate(player, door0.position, Quaternion.identity);
+        while (Physics2D.OverlapCircle(spawnedPlayer.transform.position, 0.1f, block) != null)
+        {
+            spawnedPlayer.transform.position -= new Vector3(0, 1, 0);
+        }
         spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
 
-        if(GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
-        if(ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
+        if (GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
+        if (ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
     }
 
     /*void Update()
@@ -220,8 +224,23 @@ public class LevelGeneration : MonoBehaviour
             }
         }
         Invoke("CreateBorders", generationDelayTime);
+
+        Invoke("CreateBackground", generationDelayTime);
     }
 
+    private void CreateBackground()
+    {
+        for (float i = 0.25f; i <= (moveAmount * arraySize); i+=0.5f)
+        {
+            for (float j = 0; j <= (moveAmount * arraySize); j += 0.5f)
+            {
+                Vector2 pos = new Vector2(i - 0.5f, moveAmount - 1.75f - j);
+
+                GameObject newTile = Instantiate(bgTile, pos, Quaternion.identity);
+                newTile.transform.SetParent(backgroundHolder.transform, true);
+            }
+        }
+    }
 
     private void CreateBorders()
     {
@@ -269,6 +288,10 @@ public class LevelGeneration : MonoBehaviour
     private void CreateDoor(int type)
     {
         Vector3 randPos = new Vector3(Random.Range(-2, 2), 2);
+        while (Physics2D.OverlapCircle(transform.position + randPos, 0.1f, block) != null)
+        {
+            randPos.y--;
+        }
         GameObject Door = Instantiate(door, transform.position + randPos, Quaternion.identity);
         Door.GetComponent<DoorController>().type = type;
         if (type == 0) Door.gameObject.name = "Entrance";

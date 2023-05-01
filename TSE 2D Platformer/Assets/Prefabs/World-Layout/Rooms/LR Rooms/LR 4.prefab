@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8875456395482733717}
   - component: {fileID: 3050679469646970851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LR 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   block: {fileID: 6240189128207915390, guid: 0445281fef3852a47b0d39948ffcdee5, type: 3}
   ladder: {fileID: 6240189128207915390, guid: 7848a37c7c8120145aeda119b03f2208, type: 3}
   trap: {fileID: 6240189128207915390, guid: b33433e59385b7240b0656d290c96e8d, type: 3}
-  enemy: {fileID: 7977717052116940463, guid: 06ea4b9fa0050b142965aa5bb77b2613, type: 3}
+  enemy: {fileID: 7718052628622634856, guid: 52498a1c9d7ef2d40b0a9d9322b5af12, type: 3}
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
