@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 8774167689316383560}
   - component: {fileID: 7891536942155917539}
   - component: {fileID: 8094739758188141653}
+  - component: {fileID: -2850963317366022865}
+  - component: {fileID: -8571679947230292259}
   - component: {fileID: 7930750144919097046}
   - component: {fileID: 7503772936928311121}
   - component: {fileID: 2948737841726004127}
@@ -205,8 +207,33 @@ MonoBehaviour:
   _collisionsComponent: {fileID: 7891536942155917539}
   _spriteComponent: {fileID: 7930750144919097046}
   _animationsComponent: {fileID: 7503772936928311121}
-  _attackingComponent: {fileID: 7072479686703636417}
+  _attackingComponent: {fileID: -2850963317366022865}
   _playerInventory: {fileID: 5735228503681255993}
+--- !u!114 &-2850963317366022865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799331612847786587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568d7509ddf5c734f8bad1262548e6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerAttackingCollisions: {fileID: -8571679947230292259}
+--- !u!114 &-8571679947230292259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799331612847786587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e8763b9c96e274f9366d830663d507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7930750144919097046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,10 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 7206319375559973479, guid: 44824a7c9f56f494683e4b14b9c2b3f9, type: 3}
   throwSpeed: 10
-  m_Script: {fileID: 11500000, guid: 568d7509ddf5c734f8bad1262548e6a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerAttackingCollisions: {fileID: 229753390000473524}
 --- !u!114 &5735228503681255993
 MonoBehaviour:
   m_ObjectHideFlags: 0

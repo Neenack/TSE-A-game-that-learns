@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 581823051116724286}
   - component: {fileID: 8483954967656289300}
   - component: {fileID: 4692748426757143076}
+  - component: {fileID: 6501235501774161121}
   m_Layer: 0
   m_Name: Angry Bob
   m_TagString: Enemy
@@ -132,7 +133,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0355525, y: -0.18377852}
@@ -181,3 +182,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6501235501774161121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977717052116940463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb30ce3c1324834bbcf012d1f0c8555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 0
+  _attackPower: 0
