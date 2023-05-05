@@ -14,7 +14,7 @@ namespace Actors.Player.Collisions
         List<Enemy> enemiesInRange;
 
         public void BeginSelf()
-        {   
+        {
             enemiesInRange = new List<Enemy>();
 
             SetupDelegates();

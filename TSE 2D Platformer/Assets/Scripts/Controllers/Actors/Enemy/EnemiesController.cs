@@ -68,7 +68,11 @@ namespace Controllers.Actors.EnemyNS
         {
             foreach(Enemy e in enemies)
             {
-                Destroy(e.gameObject);
+                if (e != null)
+                {
+                    Destroy(e.gameObject);
+                }
+                
             }
 
             enemies.Clear();

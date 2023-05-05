@@ -20,9 +20,16 @@ namespace Actors.Player.Actions
         [SerializeField]
         PlayerAttackCollisions _playerAttackingCollisions;
 
+        [SerializeField]
+        GameObject _attackObjectChild;
+        PlayerAttackCollisions _playerChildAttackingCollisions;
+
         public void BeginSelf()
         {
             _playerAttackingCollisions.BeginSelf();
+
+            _playerChildAttackingCollisions = _attackObjectChild.GetComponent<PlayerAttackCollisions>();
+            _playerChildAttackingCollisions.BeginSelf();
 
             SetupDelegates();
         }
@@ -52,11 +59,25 @@ namespace Actors.Player.Actions
                 }
             }
 
-            if(EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerAttackingCollisions.GetEnemiesList());
+            if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerAttackingCollisions.GetEnemiesList());
 
             _playerAttackingCollisions.ClearInRange();
 
-            if(StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
+            //Need to check child object (attack object) too
+            foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
+            {
+                if (EnemyStatsDelegates.onEnemyHit != null)
+                {
+                    EnemyStatsDelegates.onEnemyHit(e);
+                }
+            }
+
+            if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerChildAttackingCollisions.GetEnemiesList());
+
+            _playerChildAttackingCollisions.ClearInRange();
+
+
+            if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
         }
     }
 }

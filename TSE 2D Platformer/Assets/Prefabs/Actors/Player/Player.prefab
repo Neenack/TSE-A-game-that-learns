@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAttackingCollisions: {fileID: -8571679947230292259}
+  _attackObjectChild: {fileID: 6000265548897579138}
 --- !u!114 &-8571679947230292259
 MonoBehaviour:
   m_ObjectHideFlags: 0
