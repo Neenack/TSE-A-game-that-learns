@@ -27,12 +27,9 @@ namespace Controllers.Overworld.Rooms
 
         void OnTriggerStay2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Player" && !_explored)
+            if (col.gameObject.tag == "Player")
             {
-                if(col.GetComponent<PlayerMovement>().GetTimeNotMoving() < 3)
-                {
-                    _timeInRoom += Time.deltaTime;
-                }
+                _timeInRoom += Time.deltaTime;
                 
                 if(_timeInRoom >= 5 && !_explored)
                 {
@@ -43,6 +40,12 @@ namespace Controllers.Overworld.Rooms
                     }
                 }
             }   
+        }
+
+
+        public float GetTimeInRoom()
+        {
+            return _timeInRoom;
         }
     }
 }

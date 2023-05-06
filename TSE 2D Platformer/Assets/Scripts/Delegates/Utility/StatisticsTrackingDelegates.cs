@@ -21,5 +21,11 @@ namespace Delegates.Utility
 
         public delegate void OnActionTracking(ActionType aType);
         public static OnActionTracking onActionTracking;
+
+        public delegate void OnEnemyNearMiss();
+        public static OnEnemyNearMiss onEnemyNearMiss;
+
+        public delegate void OnProjectileNearMiss();
+        public static OnProjectileNearMiss onProjectileNearMiss;
     }
 }

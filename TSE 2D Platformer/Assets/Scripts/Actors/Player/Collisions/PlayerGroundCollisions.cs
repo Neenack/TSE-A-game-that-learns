@@ -11,7 +11,7 @@ namespace Actors.Player.Collisions
     {
         void OnTriggerStay2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Walkable" && PlayerStateDelegates.onPlayerGroundedStateChange != null)
+            if ((col.gameObject.tag == "Walkable" || col.gameObject.tag == "Enemy") && PlayerStateDelegates.onPlayerGroundedStateChange != null)
             {
                 PlayerStateDelegates.onPlayerGroundedStateChange(PlayerGroundedState.Grounded);
                 return;
@@ -20,7 +20,7 @@ namespace Actors.Player.Collisions
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Walkable" && PlayerStateDelegates.onPlayerGroundedStateChange != null)
+            if ((col.gameObject.tag == "Walkable" || col.gameObject.tag == "Enemy") && PlayerStateDelegates.onPlayerGroundedStateChange != null)
             {
                 PlayerStateDelegates.onPlayerGroundedStateChange(PlayerGroundedState.Aerial);
                 return;
