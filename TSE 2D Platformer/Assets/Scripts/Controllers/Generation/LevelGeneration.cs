@@ -97,10 +97,19 @@ public class LevelGeneration : MonoBehaviour
         if (ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
     }
 
-    /*void Update()
+    void Update()
     {
-        
-    }*/
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            difficulty--;
+            Debug.Log("Difficulty: " + difficulty);
+        }
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            difficulty++;
+            Debug.Log("Difficulty: " + difficulty);
+        }
+    }
 
     private void Move()
     {

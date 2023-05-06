@@ -22,21 +22,15 @@ public class DoorController : MonoBehaviour
     {
         if (levelGen.GetComponent<LevelGeneration>().levelFinished == true)
         {
-            if (Physics2D.OverlapCircle(transform.position, 0.1f, blockLayer) != null)
+            if (Physics2D.OverlapCircle(transform.position, 0.1f, blockLayer))
             {
-                Vector3 newPos = transform.position - new Vector3(0, 1, 0);
-                transform.position = newPos;
+                transform.position += new Vector3(Random.Range(-1, 1), Random.Range(-1, 1));
             }
             else
             {
-                if (Physics2D.OverlapCircle(transform.position - new Vector3(0, 1, 0), 0.1f, blockLayer) == null)
+                if (!Physics2D.OverlapCircle(transform.position - new Vector3(0,1,0), 0.1f, blockLayer))
                 {
-                    Vector3 newPos = transform.position - new Vector3(0, 1, 0);
-                    transform.position = newPos;
-                }
-                else
-                {
-                    // Ex-player-spawner
+                    transform.position -= new Vector3(0,1,0);
                 }
             }
         }
