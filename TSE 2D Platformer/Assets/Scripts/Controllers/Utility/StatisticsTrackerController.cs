@@ -40,8 +40,17 @@ namespace Controllers.Utility
         //If true, write stats to file
         [SerializeField]
         bool _trainingMode;
+        //Needed for writing stats
         StreamWriter _writer;
         string _fileName = Directory.GetCurrentDirectory() + "/training_data.csv";
+        GameObject _levelGen;
+        LevelGeneration _levelGenScript;
+        int _difficulty;
+        int _newDifficulty;
+        bool _storeStatsOnClosing = false;
+        List<float> _dataPoint = new List<float>();
+        string _dataPointString;
+
 
         void Awake()
         {
@@ -63,7 +72,9 @@ namespace Controllers.Utility
             if (_trainingMode == true)
             {
                 _writer = new StreamWriter( _fileName, true);
-                _writer.WriteLine("TEST, TEST2");
+                _levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
+                _levelGenScript = _levelGen.GetComponent<LevelGeneration>();
+                _difficulty = _levelGenScript.difficulty;             
             }
         }
 
@@ -72,6 +83,13 @@ namespace Controllers.Utility
         {
             if (_writer != null)
             {
+                //Writes final stats (if level vompleted without difficulty change)
+                if (_storeStatsOnClosing == true)
+                {
+                    WriteDataPoint();
+                }
+                
+                //Close file
                 _writer.Close();
             }
         }
@@ -107,6 +125,51 @@ namespace Controllers.Utility
             _combatStatisticsController.OnZoneCompletion();
             _itemsStatisticsController.OnZoneCompletion();
             _playerStateTrackerController.OnZoneCompletion();
+
+            //If difficulty changes, track previous results
+            if (_trainingMode == false)
+            {
+                return;
+            }
+            _newDifficulty = _levelGenScript.difficulty;
+            if (_difficulty != _newDifficulty)
+            {
+                WriteDataPoint();
+                _difficulty = _newDifficulty;
+                _storeStatsOnClosing = false;
+
+            }
+
+            //If a level has been completed regardelss of difficulty change, stats should be stored when the game closes
+            else
+            {
+                _storeStatsOnClosing = true;
+            }
+        }
+
+        void WriteDataPoint()
+        {
+            //Add features to data point
+            _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
+            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Jump));
+            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Item));
+            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Attack));
+            _dataPoint.Add(_combatStatisticsController.GetEnemiesKilledAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
+            //Turn into string with commas to write to csv
+            foreach (float feature in _dataPoint)
+            {
+                Debug.Log(feature);
+                _dataPointString += feature + ",";
+            }
+            //Remove final comma
+            _dataPointString = _dataPointString.Substring(0, _dataPointString.Length - 1);
+            Debug.Log(_dataPointString);
+            _writer.WriteLine(_dataPointString);
+
+            //Reset datapoint vars
+            _dataPoint.Clear();
+            _dataPointString = string.Empty;
         }
     }
 }

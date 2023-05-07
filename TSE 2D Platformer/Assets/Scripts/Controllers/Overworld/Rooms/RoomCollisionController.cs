@@ -29,12 +29,12 @@ namespace Controllers.Overworld.Rooms
         {
             if (col.gameObject.tag == "Player" && !_explored)
             {
-                if(col.GetComponent<PlayerMovement>().GetTimeNotMoving() < 3)
+                if(col.GetComponent<PlayerMovement>().GetTimeNotMoving() < 1)
                 {
                     _timeInRoom += Time.deltaTime;
                 }
                 
-                if(_timeInRoom >= 5 && !_explored)
+                if(_timeInRoom >= 2 && !_explored)
                 {
                     if(StatisticsTrackingDelegates.onRoomExplored != null)
                     {
