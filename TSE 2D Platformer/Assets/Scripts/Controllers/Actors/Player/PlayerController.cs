@@ -11,6 +11,12 @@ namespace Controllers.Actors.PlayerNS
     public class PlayerController : MonoBehaviour
     {
         PlayerState _playerState;
+        GameObject _player;
+        Vector3 _startingPosition;
+        SpriteRenderer _playerSpriteRenderer;
+        CircleCollider2D _playerCircleCollider;
+        Rigidbody2D _playerRigidbody;
+        float _gravityScale;
 
         float _horizontal, _vertical;
 
@@ -20,6 +26,7 @@ namespace Controllers.Actors.PlayerNS
         bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased, _useItemButtonReleased;
         bool _numpad1Released, _numpad2Released, _numpad3Released, _numpad4Released;
 
+        float _respawnTimer = 1;
         // Stop Update & Fixed Update from taking place until spawn
         void Awake()
         {
@@ -30,6 +37,12 @@ namespace Controllers.Actors.PlayerNS
         public void BeginSelf(Player player)
         {
             _playerState = player.GetComponent<PlayerState>();
+            _player = GameObject.FindGameObjectWithTag("Player");
+            _startingPosition = _player.transform.position;
+            _playerSpriteRenderer = _player.GetComponent<SpriteRenderer>();
+            _playerCircleCollider = _player.GetComponent<CircleCollider2D>();
+            _playerRigidbody = _player.GetComponent<Rigidbody2D>();
+            _gravityScale = _playerRigidbody.gravityScale;
 
             enabled = true;
 
@@ -66,68 +79,81 @@ namespace Controllers.Actors.PlayerNS
 
         void FixedUpdate()
         {
-            /// Handle Player Movement
-
-            // Handle left/ right walking
-            if (_horizontal != 0 && PlayerMovementDelegates.onPlayerMoveHorizontal != null)
+            //Reactivate collider and hitbox when alive
+            if (_playerState.GetPlayerDeathState() == PlayerDeathState.Alive && _playerSpriteRenderer.enabled == false && _playerCircleCollider.enabled == false)
             {
-                PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
-
-                if(_horizontal > 0 && PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Right);
-                else if(PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Left);
+                _playerSpriteRenderer.enabled = true;
+                _playerCircleCollider.enabled = true;
+                _playerRigidbody.gravityScale = _gravityScale;
             }
 
-            // Stop player
-            else if (_horizontal == 0) PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
-
-            // Handle jumping
-            if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && _playerState.GetLadderTouchingState() != PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerJump != null)
+            //Player only moves if not dead
+            if (_playerState.GetPlayerDeathState() == PlayerDeathState.Alive)
             {
-                _jumpButtonReleased = false;
-                StartCoroutine(JumpTimer());
-                PlayerMovementDelegates.onPlayerJump();
+                /// Handle Player Movement
+
+                // Handle left/ right walking
+                if (_horizontal != 0 && PlayerMovementDelegates.onPlayerMoveHorizontal != null)
+                {
+                    PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
+
+                    if (_horizontal > 0 && PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Right);
+                    else if (PlayerStateDelegates.onPlayerTurn != null) PlayerStateDelegates.onPlayerTurn(PlayerFacingDirectionState.Left);
+                }
+
+                // Stop player
+                else if (_horizontal == 0) PlayerMovementDelegates.onPlayerMoveHorizontal(_horizontal);
+
+                // Handle jumping
+                if (_vertical > 0 && !_jumpOnCooldown && _jumpButtonReleased && _playerState.GetGroundedState() == PlayerGroundedState.Grounded && _playerState.GetLadderTouchingState() != PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerJump != null)
+                {
+                    _jumpButtonReleased = false;
+                    StartCoroutine(JumpTimer());
+                    PlayerMovementDelegates.onPlayerJump();
+                }
+
+                // Handle ladder movement
+                else if (_vertical != 0 && _playerState.GetLadderTouchingState() == PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerClimb != null)
+                {
+                    if (_vertical > 0) PlayerMovementDelegates.onPlayerClimb(true);
+                    else PlayerMovementDelegates.onPlayerClimb(false);
+                }
+
+                // Jump button has been released
+                else if (_vertical == 0) _jumpButtonReleased = true;
+
+
+
+                /// Handle Player Actions
+                // Attacking
+                if (_attack > 0 && _attackButtonReleased && PlayerActionsDelegates.onPlayerAttack != null)
+                {
+                    _attackButtonReleased = false;
+                    
+                    PlayerActionsDelegates.onPlayerAttack();
+                }
+
+                else if (_attack == 0)
+                {
+                    _attackButtonReleased = true;
+                }
+
+
+                // Using Item
+                if (_useItem > 0 && _useItemButtonReleased && PlayerActionsDelegates.onPlayerUseItem != null)
+                {
+                    _useItemButtonReleased = false;
+
+                    PlayerActionsDelegates.onPlayerUseItem();
+                }
+
+                else if (_useItem == 0)
+                {
+                    _useItemButtonReleased = true;
+                }
             }
-
-            // Handle ladder movement
-            else if(_vertical != 0 && _playerState.GetLadderTouchingState() == PlayerTouchingLadderState.Touching && PlayerMovementDelegates.onPlayerClimb != null)
-            {
-                if(_vertical > 0) PlayerMovementDelegates.onPlayerClimb(true);
-                else PlayerMovementDelegates.onPlayerClimb(false);
-            }
-
-            // Jump button has been released
-            else if(_vertical == 0) _jumpButtonReleased = true;
-
-
-
-            /// Handle Player Actions
-            // Attacking
-            if(_attack > 0 && _attackButtonReleased && PlayerActionsDelegates.onPlayerAttack != null)
-            {
-                _attackButtonReleased = false;
-
-                PlayerActionsDelegates.onPlayerAttack();
-            }
-
-            else if(_attack == 0)
-            {
-                _attackButtonReleased = true;
-            }
-
-
-            // Using Item
-            if(_useItem > 0 && _useItemButtonReleased && PlayerActionsDelegates.onPlayerUseItem != null)
-            {
-                _useItemButtonReleased = false;
-
-                PlayerActionsDelegates.onPlayerUseItem();
-            }
-
-            else if(_useItem == 0)
-            {
-                _useItemButtonReleased = true;
-            }
-
+           
+            CheckPlayerDeath();
 
             // Numpad1
             if(_numpad1 > 0 && _numpad1Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
@@ -185,7 +211,6 @@ namespace Controllers.Actors.PlayerNS
             }
         }
 
-
         // Fix that stops player from jumping every frame since they haven't entirely left the ground yet.
         IEnumerator JumpTimer()
         {
@@ -193,6 +218,43 @@ namespace Controllers.Actors.PlayerNS
             yield return new WaitForSeconds(0.05f);
             _jumpOnCooldown = false;
         }
+
+        void CheckPlayerDeath()
+        {
+            //Handles player death - moves player back to the start of the level, and disables collider and renderer for a second
+            if (_playerState.GetPlayerDeathState() == PlayerDeathState.Dead)
+            {
+                if (_playerCircleCollider.enabled == true && _playerSpriteRenderer.enabled == true)
+                {
+                    _playerSpriteRenderer.enabled = false;
+                    _playerCircleCollider.enabled = false;
+                    _playerRigidbody.gravityScale = 0.0f;
+                    _playerRigidbody.velocity = Vector3.zero;
+                    
+
+                    //Reset bools: prevents input not working on spawning
+                    _jumpButtonReleased = true;
+                    _jumpOnCooldown = false;
+                    _useItemButtonReleased = true;
+                    _attackButtonReleased = true;
+
+                    //Set timer
+                    _respawnTimer = 1;
+                }
+                //1 second timer
+                else                 
+                {
+                    if (_respawnTimer > 0)
+                    {                      
+                        _respawnTimer -= Time.deltaTime;
+                        return;
+                    }
+
+                    //Spawn player after timer - moves player to starting point
+                    _player.transform.position = _startingPosition;
+                    PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Alive);
+                }
+            }
+        }
     }
 }
-

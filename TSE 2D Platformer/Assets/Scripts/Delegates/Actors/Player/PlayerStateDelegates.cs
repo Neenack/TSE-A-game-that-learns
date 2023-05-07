@@ -19,5 +19,13 @@ namespace Delegates.Actors.Player
 
         public delegate void OnPlayerTurn(PlayerFacingDirectionState pState);
         public static OnPlayerTurn onPlayerTurn;
+
+        public delegate void OnPlayerDeathStateChange(PlayerDeathState pState);
+        public static OnPlayerDeathStateChange onPlayerDeathStateChange;
+
+        public delegate PlayerDeathState GetPlayerDeathState();
+        public static GetPlayerDeathState getPlayerDeathState;
+
+
     }
 }

@@ -18,26 +18,42 @@ namespace Actors.Player.Collisions
 
         void OnTriggerStay2D(Collider2D col)
         {
-            if(col.tag == "PlayerChildObjectTag") return;
+            if (col.tag == "PlayerChildObjectTag") return;
 
 
             if (col.gameObject.tag == "Climbable" && PlayerStateDelegates.onPlayerLadderTouchingStateChange != null)
             {
-                
+
                 PlayerStateDelegates.onPlayerLadderTouchingStateChange(PlayerTouchingLadderState.Touching);
                 return;
-            }   
+            }
+
+            //Handles player death
+            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyProjectile" || col.gameObject.tag == "Trap")
+            {
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+            }
         }
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if(col.tag == "PlayerChildObjectTag") return;
+            if (col.tag == "PlayerChildObjectTag") return;
 
             if (col.gameObject.tag == "Climbable" && PlayerStateDelegates.onPlayerLadderTouchingStateChange != null)
             {
 
                 PlayerStateDelegates.onPlayerLadderTouchingStateChange(PlayerTouchingLadderState.Not_Touching);
                 return;
+            }
+
+        }
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            //Handles player death
+            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyProjectile" || col.gameObject.tag == "Trap")
+            {
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
             }
         }
     }

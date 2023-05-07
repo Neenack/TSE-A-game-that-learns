@@ -13,6 +13,7 @@ TagManager:
   - Climbable
   - Enemy
   - PlayerChildObjectTag
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

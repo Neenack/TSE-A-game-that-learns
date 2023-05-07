@@ -20,6 +20,8 @@ namespace Actors.Player
 
         PlayerFacingDirectionState _facingDirectionState;
 
+        PlayerDeathState _playerDeathState;
+
         // Setup base state on spawn
         public void BeginSelf()
         {
@@ -27,7 +29,8 @@ namespace Actors.Player
             _groundedState = PlayerGroundedState.Grounded;
             _touchingLadderState = PlayerTouchingLadderState.Not_Touching;
             _facingDirectionState = PlayerFacingDirectionState.Right;
-            
+            _playerDeathState = PlayerDeathState.Alive;
+
             SetupDelegates();
         }
 
@@ -41,6 +44,8 @@ namespace Actors.Player
 
             PlayerStateDelegates.onPlayerGroundedStateChange += SetGroundedState;
             PlayerStateDelegates.onPlayerLadderTouchingStateChange += SetLadderTouchingState;
+            PlayerStateDelegates.onPlayerDeathStateChange += SetPlayerDeathState;
+            PlayerStateDelegates.getPlayerDeathState += GetPlayerDeathState;
         }
 
         void RemoveDelegates()
@@ -48,6 +53,8 @@ namespace Actors.Player
 
             PlayerStateDelegates.onPlayerGroundedStateChange -= SetGroundedState;
             PlayerStateDelegates.onPlayerLadderTouchingStateChange -= SetLadderTouchingState;
+            PlayerStateDelegates.onPlayerDeathStateChange -= SetPlayerDeathState;
+            PlayerStateDelegates.getPlayerDeathState -= GetPlayerDeathState;
         }
 
 
@@ -71,6 +78,11 @@ namespace Actors.Player
             return _facingDirectionState;
         }
 
+        public PlayerDeathState GetPlayerDeathState()
+        {
+            return _playerDeathState;
+        }
+
 
         public void SetMovementState(PlayerMovementState pState)
         {
@@ -90,6 +102,11 @@ namespace Actors.Player
         public void SetPlayerFacingDirectionState(PlayerFacingDirectionState pState)
         {
             _facingDirectionState = pState;
+        }
+
+        public void SetPlayerDeathState (PlayerDeathState pState)
+        {
+            _playerDeathState = pState;
         }
     }
 
@@ -117,5 +134,11 @@ namespace Actors.Player
     {
         Right,
         Left
+    }
+
+    public enum PlayerDeathState
+    {
+        Dead,
+        Alive
     }
 }
