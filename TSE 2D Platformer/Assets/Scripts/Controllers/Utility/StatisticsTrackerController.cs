@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 using Controllers.Utility.Statistics;
 
 using Delegates.Utility;
@@ -36,7 +36,12 @@ namespace Controllers.Utility
 
         [SerializeField]
         PlayerStateTrackerController _playerStateTrackerController;
-        
+
+        //If true, write stats to file
+        [SerializeField]
+        bool _trainingMode;
+        StreamWriter _writer;
+        string _fileName = Directory.GetCurrentDirectory() + "/training_data.csv";
 
         void Awake()
         {
@@ -53,6 +58,22 @@ namespace Controllers.Utility
             _playerStateTrackerController.BeginSelf();
 
             SetupDelegates();
+
+            //if in training mode, open file
+            if (_trainingMode == true)
+            {
+                _writer = new StreamWriter( _fileName, true);
+                _writer.WriteLine("TEST, TEST2");
+            }
+        }
+
+        //Needed for closing file
+        void OnApplicationQuit()
+        {
+            if (_writer != null)
+            {
+                _writer.Close();
+            }
         }
 
         void OnDisable()

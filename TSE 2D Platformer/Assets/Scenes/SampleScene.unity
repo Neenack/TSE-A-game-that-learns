@@ -1271,6 +1271,7 @@ MonoBehaviour:
   _combatStatisticsController: {fileID: 1327595037}
   _itemsStatisticsController: {fileID: 1327595036}
   _playerStateTrackerController: {fileID: 1327595041}
+  _trainingMode: 1
 --- !u!4 &1327595035
 Transform:
   m_ObjectHideFlags: 0
@@ -1916,7 +1917,7 @@ MonoBehaviour:
   block:
     serializedVersion: 2
     m_Bits: 256
-  difficulty: 10
+  difficulty: 1
 --- !u!4 &1916841233
 Transform:
   m_ObjectHideFlags: 0

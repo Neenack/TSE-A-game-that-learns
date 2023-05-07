@@ -55,7 +55,7 @@ namespace Controllers.Utility.Statistics
 
 
         // Get all the stats from the previous (upto) 10 stages
-        float GetActionsPerformedAverage(ActionType _aType)
+        public float GetActionsPerformedAverage(ActionType _aType)
         {
             float avg = 0;
 
