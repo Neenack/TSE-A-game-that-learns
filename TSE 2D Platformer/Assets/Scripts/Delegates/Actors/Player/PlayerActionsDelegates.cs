@@ -22,5 +22,11 @@ namespace Delegates.Actors.Player
 
         public delegate void OnPlayerUseRope();
         public static OnPlayerUseRope onPlayerUseRope;
+
+        public delegate void OnVaseInRange(ItemVaseController v);
+        public static OnVaseInRange onVaseInRange;
+
+        public delegate void OnVaseDestroyed();
+        public static OnVaseDestroyed onVaseDestroyed;
     }
 }

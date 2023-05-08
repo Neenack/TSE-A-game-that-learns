@@ -51,7 +51,7 @@ namespace Actors.Player.Actions
 
         void Attack()
         {
-            foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
+            /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)
                 {
@@ -61,7 +61,7 @@ namespace Actors.Player.Actions
 
             if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerAttackingCollisions.GetEnemiesList());
 
-            _playerAttackingCollisions.ClearInRange();
+            _playerAttackingCollisions.ClearInRange();*/
 
             //Need to check child object (attack object) too
             foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
@@ -76,8 +76,20 @@ namespace Actors.Player.Actions
 
             _playerChildAttackingCollisions.ClearInRange();
 
+            for(int i = 0; i < _playerAttackingCollisions.GetVasesList().Count; i++)
+            {
+                DestroyVase(_playerAttackingCollisions.GetVasesList()[i]);
+                i++;
+            }
 
             if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
+        }
+
+        void DestroyVase(ItemVaseController vase)
+        {
+            Destroy(vase.gameObject);
+
+            if(PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
         }
     }
 }

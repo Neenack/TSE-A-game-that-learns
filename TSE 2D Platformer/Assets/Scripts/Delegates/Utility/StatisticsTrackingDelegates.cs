@@ -44,5 +44,8 @@ namespace Delegates.Utility
 
         public delegate void OnPlayerHitByTrap();
         public static OnPlayerHitByTrap onPlayerHitByTrap;
+
+        public delegate void OnVaseDestroyed();
+        public static OnVaseDestroyed onVaseDestroyed;
     }
 }

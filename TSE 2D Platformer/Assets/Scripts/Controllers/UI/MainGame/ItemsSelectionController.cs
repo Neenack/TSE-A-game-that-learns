@@ -48,6 +48,8 @@ namespace Controllers.UI.MainGame
             GenerationDelegates.onInventoryInitialized += OnInventoryInitialized;
             PlayerActionsDelegates.onPlayerSwitchItem += SetBackgrounds;
             PlayerActionsDelegates.onPlayerUseItem += SetText;
+
+            StatisticsTrackingDelegates.onVaseDestroyed += SetText;
         }
 
         void RemoveDelegates()
@@ -55,6 +57,8 @@ namespace Controllers.UI.MainGame
             GenerationDelegates.onInventoryInitialized -= OnInventoryInitialized;
             PlayerActionsDelegates.onPlayerSwitchItem -= SetBackgrounds;
             PlayerActionsDelegates.onPlayerUseItem -= SetText;
+
+            StatisticsTrackingDelegates.onVaseDestroyed -= SetText;
         }
 
 

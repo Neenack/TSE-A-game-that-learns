@@ -40,12 +40,14 @@ namespace Actors.Player
         {
             PlayerActionsDelegates.onPlayerSwitchItem += SwitchActiveItem;
             PlayerActionsDelegates.onPlayerUseItem += UseItem;
+            PlayerActionsDelegates.onVaseDestroyed += RecieveNewItem;
         }
 
         void RemoveDelegates()
         {
             PlayerActionsDelegates.onPlayerSwitchItem -= SwitchActiveItem;
             PlayerActionsDelegates.onPlayerUseItem -= UseItem;
+            PlayerActionsDelegates.onVaseDestroyed -= RecieveNewItem;
         }
 
 
@@ -77,6 +79,19 @@ namespace Actors.Player
 
                 if(StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Item);
             }
+        }
+
+
+        // Unused parameter to not add new delegate
+        // Unused parameter deleted, unsure if it was actually needed
+        // Nothing seemed to break
+        void RecieveNewItem()
+        {
+            // 2 because max exclusive for some reason I will never comprehend
+            _amounts[Random.Range(0, 2)]++;
+
+            // Used to update UI display
+            if(StatisticsTrackingDelegates.onVaseDestroyed != null) StatisticsTrackingDelegates.onVaseDestroyed();
         }
     }
 }
