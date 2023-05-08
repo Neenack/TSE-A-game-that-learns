@@ -18,6 +18,8 @@ namespace Controllers.Utility.Statistics
         int[] _nearMissesEnemy = new int[11] {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         int[] _nearMissesProjectile = new int[11] {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
+        int[] _bombKills = new int[11] {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+
         public void BeginSelf()
         {
             SetupDelegates();
@@ -34,6 +36,7 @@ namespace Controllers.Utility.Statistics
             StatisticsTrackingDelegates.onEnemyDeathTracking += IncrementEnemiesKilled;
             StatisticsTrackingDelegates.onEnemyNearMiss += IncrementNearMissesEnemy;
             StatisticsTrackingDelegates.onProjectileNearMiss += IncrementNearMissesProjectile;
+            StatisticsTrackingDelegates.onBombKill += IncrementBombKills;
         }
 
         void RemoveDelegates()
@@ -41,6 +44,7 @@ namespace Controllers.Utility.Statistics
             StatisticsTrackingDelegates.onEnemyDeathTracking -= IncrementEnemiesKilled;
             StatisticsTrackingDelegates.onEnemyNearMiss -= IncrementNearMissesEnemy;
             StatisticsTrackingDelegates.onProjectileNearMiss -= IncrementNearMissesProjectile;
+            StatisticsTrackingDelegates.onBombKill -= IncrementBombKills;
         }
 
 
@@ -54,6 +58,9 @@ namespace Controllers.Utility.Statistics
 
             if(_nearMissesProjectile[0] == -1) _nearMissesProjectile[0] = 0;
             _nearMissesProjectile = ShiftRight(_nearMissesProjectile);
+
+            if(_bombKills[0] == -1) _bombKills[0] = 0;
+            _bombKills = ShiftRight(_bombKills);
         }
 
 
@@ -124,6 +131,28 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
+        float GetBombKillsAverage()
+        {
+            float avg = 0;
+
+            for(int i = 1; i <= 10; i++)
+            {
+                if(_bombKills[i] == -1)
+                {
+                    if(i > 1)
+                    {
+                        avg /= i - 1;
+                    }
+                    return avg;
+                }
+
+                avg += _bombKills[i];
+            }
+
+            avg /= 10;
+            return avg;
+        }
+
         // Add 1 every enemy kill
         // Add 2 first time due to -1 being the check amount
         void IncrementEnemiesKilled()
@@ -139,6 +168,11 @@ namespace Controllers.Utility.Statistics
         void IncrementNearMissesProjectile()
         {
             _nearMissesProjectile[0]++;
+        }
+
+        void IncrementBombKills()
+        {
+            _bombKills[0]++;
         }
 
 

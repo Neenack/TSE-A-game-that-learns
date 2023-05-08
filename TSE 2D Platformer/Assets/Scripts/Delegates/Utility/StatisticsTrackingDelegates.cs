@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Actors.EnemyNS;
+
 using Controllers.Utility.Statistics;
 
 
@@ -27,5 +29,20 @@ namespace Delegates.Utility
 
         public delegate void OnProjectileNearMiss();
         public static OnProjectileNearMiss onProjectileNearMiss;
+
+        public delegate void OnBombKill();
+        public static OnBombKill onBombKill;
+
+        public delegate void OnRopeUsed();
+        public static OnRopeUsed onRopeUsed;
+
+        public delegate void OnEnemyDetected();
+        public static OnEnemyDetected onEnemyDetected;
+
+        public delegate void OnPlayerHitByEnemy(EnemyType eT);
+        public static OnPlayerHitByEnemy onPlayerHitByEnemy;
+
+        public delegate void OnPlayerHitByTrap();
+        public static OnPlayerHitByTrap onPlayerHitByTrap;
     }
 }

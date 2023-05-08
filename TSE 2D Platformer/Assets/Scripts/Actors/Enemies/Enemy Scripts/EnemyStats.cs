@@ -18,10 +18,19 @@ namespace Actors.EnemyNS
         [SerializeField]
         int _attackPower;
 
+        [SerializeField]
+        EnemyType _type;
+
 
         void BeginSelf()
         {
             _currentHp = _maxHp;
+        }
+
+
+        public EnemyType GetType()
+        {
+            return _type;
         }
 
         
@@ -44,5 +53,12 @@ namespace Actors.EnemyNS
                 EnemyStatsDelegates.onEnemyDeath(this.gameObject.GetComponent<Enemy>());
             }
         }
+    }
+
+    public enum EnemyType
+    {
+        AngryBob,
+        Jumper,
+        Screamer
     }
 }

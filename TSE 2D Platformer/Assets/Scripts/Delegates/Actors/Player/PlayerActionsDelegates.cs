@@ -16,5 +16,11 @@ namespace Delegates.Actors.Player
 
         public delegate void OnPlayerSwitchItem(int itemNum);
         public static OnPlayerSwitchItem onPlayerSwitchItem;
+
+        public delegate void OnPlayerUseBomb();
+        public static OnPlayerUseBomb onPlayerUseBomb;
+
+        public delegate void OnPlayerUseRope();
+        public static OnPlayerUseRope onPlayerUseRope;
     }
 }

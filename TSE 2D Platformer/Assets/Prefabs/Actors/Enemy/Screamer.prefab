@@ -268,3 +268,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _attackPower: 0
+  _type: 2
