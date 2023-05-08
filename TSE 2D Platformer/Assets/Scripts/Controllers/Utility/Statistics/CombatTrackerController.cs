@@ -65,7 +65,7 @@ namespace Controllers.Utility.Statistics
 
 
         // Get all the stats from the previous (upto) 10 stages
-        float GetEnemiesKilledAverage()
+        public float GetEnemiesKilledAverage()
         {
             float avg = 0;
 

@@ -50,7 +50,7 @@ namespace Controllers.Utility.Statistics
 
 
         // Get all the stats from the previous (upto) 10 stages
-        float GetRoomsExploredAverage()
+        public float GetRoomsExploredAverage()
         {
             float avg = 0;
 

@@ -78,7 +78,7 @@ namespace Controllers.Utility.Statistics
 
 
         // Get all the stats from the previous (upto) 10 stages
-        float GetIdleTimeAverage()
+        public float GetIdleTimeAverage()
         {
             float avg = 0;
 
