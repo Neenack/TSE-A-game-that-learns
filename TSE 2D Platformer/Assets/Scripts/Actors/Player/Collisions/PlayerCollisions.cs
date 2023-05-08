@@ -32,7 +32,7 @@ namespace Actors.Player.Collisions
             }
 
             //Handles player death
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyProjectile" || col.gameObject.tag == "Trap")
+            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Projectile" || col.gameObject.tag == "Trap")
             {
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
             }
@@ -54,7 +54,7 @@ namespace Actors.Player.Collisions
         private void OnCollisionEnter2D(Collision2D col)
         {
             //Handles player death
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyProjectile" || col.gameObject.tag == "Trap")
+            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Projectile" || col.gameObject.tag == "Trap")
             {
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
             }

@@ -100,7 +100,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetEnemiesDetectedAverage()
+        public float GetEnemiesDetectedAverage()
         {
             float avg = 0;
 
@@ -122,7 +122,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetDeathToAngryBobAverage()
+        public float GetDeathToAngryBobAverage()
         {
             float avg = 0;
 
@@ -144,7 +144,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetDeathToJumperAverage()
+        public float GetDeathToJumperAverage()
         {
             float avg = 0;
 
@@ -166,7 +166,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetDeathToScreamerAverage()
+        public float GetDeathToScreamerAverage()
         {
             float avg = 0;
 
@@ -188,7 +188,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetDeathToTrap()
+        public float GetDeathToTrap()
         {
             float avg = 0;
 

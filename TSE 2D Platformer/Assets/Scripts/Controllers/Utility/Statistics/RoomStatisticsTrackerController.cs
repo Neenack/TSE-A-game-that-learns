@@ -72,6 +72,29 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
+        // Get all the stats from the previous (upto) 10 stages
+        public float GetLongestRoomTimeAverage()
+        {
+            float avg = 0;
+
+            for (int i = 1; i <= 10; i++)
+            {
+                if (_longestTimeInRoom[i] == -1)
+                {
+                    if (i > 1)
+                    {
+                        avg /= i - 1;
+                    }
+                    return avg;
+                }
+
+                avg += _longestTimeInRoom[i];
+            }
+
+            avg /= 10;
+            return avg;
+        }
+
         // Add 1 every enemy kill
         // Add 2 first time due to -1 being the check amount
         void IncrementRoomsExplored()

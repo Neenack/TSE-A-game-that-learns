@@ -87,7 +87,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetNearMissesWithEnemyAverage()
+        public float GetNearMissesWithEnemyAverage()
         {
             float avg = 0;
 
@@ -109,7 +109,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetNearMissesWithProjectileAverage()
+        public float GetNearMissesWithProjectileAverage()
         {
             float avg = 0;
 
@@ -131,7 +131,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
-        float GetBombKillsAverage()
+        public float GetBombKillsAverage()
         {
             float avg = 0;
 

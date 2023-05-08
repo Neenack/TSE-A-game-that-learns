@@ -150,12 +150,22 @@ namespace Controllers.Utility
         void WriteDataPoint()
         {
             //Add features to data point
+            _dataPoint.Add(_timeStatisticsController.GetZoneTimeAverage());
             _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
+            _dataPoint.Add(_roomStatisticsController.GetLongestRoomTimeAverage());
             _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Jump));
             _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Item));
             _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Attack));
             _dataPoint.Add(_combatStatisticsController.GetEnemiesKilledAverage());
+            _dataPoint.Add(_combatStatisticsController.GetNearMissesWithEnemyAverage());
+            _dataPoint.Add(_combatStatisticsController.GetNearMissesWithProjectileAverage());
+            _dataPoint.Add(_combatStatisticsController.GetBombKillsAverage());
             _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetEnemiesDetectedAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetDeathToAngryBobAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetDeathToScreamerAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetDeathToJumperAverage());
+            _dataPoint.Add(_playerStateTrackerController.GetDeathToTrap());
             //Turn into string with commas to write to csv
             foreach (float feature in _dataPoint)
             {

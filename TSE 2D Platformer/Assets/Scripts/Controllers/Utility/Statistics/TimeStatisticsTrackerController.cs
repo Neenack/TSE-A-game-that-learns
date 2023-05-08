@@ -56,7 +56,7 @@ namespace Controllers.Utility.Statistics
 
 
         // Get all the stats from the previous (upto) 10 stages
-        float GetZoneTimeAverage()
+        public float GetZoneTimeAverage()
         {
             float avg = 0;
 
