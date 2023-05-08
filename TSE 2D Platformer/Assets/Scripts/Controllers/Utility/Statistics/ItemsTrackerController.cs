@@ -42,13 +42,18 @@ namespace Controllers.Utility.Statistics
             _ropesUsed = ShiftRight(_ropesUsed);
         }
 
+        public void ClearStats()
+        {
+            _ropesUsed = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
         void IncrementRopesUsed()
         {
             _ropesUsed[0]++;
         }
 
 
-        float GetRopesUsedAverage()
+        public float GetRopesUsedAverage()
         {
             float avg = 0;
 

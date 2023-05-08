@@ -160,6 +160,7 @@ namespace Controllers.Utility
             _dataPoint.Add(_combatStatisticsController.GetNearMissesWithEnemyAverage());
             _dataPoint.Add(_combatStatisticsController.GetNearMissesWithProjectileAverage());
             _dataPoint.Add(_combatStatisticsController.GetBombKillsAverage());
+            _dataPoint.Add(_itemsStatisticsController.GetRopesUsedAverage());
             _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
             _dataPoint.Add(_playerStateTrackerController.GetEnemiesDetectedAverage());
             _dataPoint.Add(_playerStateTrackerController.GetDeathToAngryBobAverage());
@@ -176,6 +177,14 @@ namespace Controllers.Utility
             _dataPointString = _dataPointString.Substring(0, _dataPointString.Length - 1);
             Debug.Log(_dataPointString);
             _writer.WriteLine(_dataPointString);
+
+            //Reset stats: want fresh stats for each difficulty when collecting training data
+            _timeStatisticsController.ClearStats();
+            _roomStatisticsController.ClearStats();
+            _actionsStatisticsController.ClearStats();
+            _combatStatisticsController.ClearStats();
+            _itemsStatisticsController.ClearStats();
+            _playerStateTrackerController.ClearStats();
 
             //Reset datapoint vars
             _dataPoint.Clear();

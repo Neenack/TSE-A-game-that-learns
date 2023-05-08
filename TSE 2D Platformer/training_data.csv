@@ -1,5 +1,12 @@
-Time,Rooms Explored,Longest Time in 1 room,Jumps,Items Used,Attacks,Enemies killed,Near misses with enemies,Near misses with projectiles,Bomb Kills,Idle time,Enemies Detected,Death by Angry Bob,Death by Screamer,Death by Jumper,Death by trap
-40.75162,8,6.199995,26,0,1,1,0,0,0,0,1,0,0,0,1
-31.58765,5,6.479995,13,0,1,1,0,0,0,1.15759,1,0,0,0,0
-86.77165,10,19.44025,36,0,14,11,9,4,0,1.013565,12,1,2,0,9
-38.26273,9,6.099995,23,0,2,1,1,0,0,0,8,1,0,0,1
+Time,Rooms Explored,Longest Time in 1 room,Jumps,Items Used,Attacks,Enemies killed,Near misses with enemies,Near misses with projectiles,Bomb Kills,Ropes used,Idle time,Enemies Detected,Death by Angry Bob,Death by Screamer,Death by Jumper,Death by trap
+28.86602,7,4.359997,11,0,6,4.5,2,0,0,0,2.147554,5,0.5,0,0.5,0
+68.60453,9,12.42009,21,7,5,2,5,0,0,2,2.952115,2,2,0,0,1
+30.42301,5,5.739995,7,1,1,1,1,0,0,0,0,2,1,0,0,0
+46.07072,7,6.719995,17,5,0,0,1,0,0,0,0.574288,3,1,0,0,2
+34.62473,5,9.120019,13,1,1,0,0,0,0,0,3.316185,2,0,0,0,0
+27.32442,5,5.299996,11,2,0,1,2,0,1,0,0,1,0,0,0,0
+68.29066,11,7.499994,27,2,9,7,9,0,0,0,0,10,3,0,0,0
+21.55197,3,3.699997,12,0,6,4,2,0,0,0,0,6,0,0,0,0
+252.3822,17,60.44119,124,5,19,15,17,5,1,0,1.071095,9,2,3,3,6
+44.93698,9,12.4601,18,3,3,3,3,0,0,0,0,2,1,0,0,0
+66.30073,8,17.60021,19,4,7,6,3,3,0,1,0,6,0,1,0,0

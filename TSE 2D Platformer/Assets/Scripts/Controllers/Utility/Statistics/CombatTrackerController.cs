@@ -63,6 +63,15 @@ namespace Controllers.Utility.Statistics
             _bombKills = ShiftRight(_bombKills);
         }
 
+        public void ClearStats()
+        {
+            _enemiesKilled = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _nearMissesEnemy = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _nearMissesProjectile = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _bombKills = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
+
 
         // Get all the stats from the previous (upto) 10 stages
         public float GetEnemiesKilledAverage()
