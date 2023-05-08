@@ -113,10 +113,13 @@ public class RoomTiler : MonoBehaviour
 
     private void AddItems()
     {
+        int spawnChance = 4;
+        if (difficulty < 5) { spawnChance = 3; }
+
         if (itemVase != null)
         {
             int rand = Random.Range(1, levelSize * levelSize);
-            if (rand <= ((levelSize * levelSize) / 3)) //The 3 indicates that roughly 1/3 roughly the rooms will contain an item vase
+            if (rand <= ((levelSize * levelSize) / spawnChance)) //The 3 indicates that roughly 1/3 roughly the rooms will contain an item vase
             {
                 bool legalSpawn = false;
                 while (legalSpawn == false)

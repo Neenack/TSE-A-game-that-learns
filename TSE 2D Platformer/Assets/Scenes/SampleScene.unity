@@ -1938,6 +1938,8 @@ MonoBehaviour:
   roomsHolder: {fileID: 422608933}
   doorsHolder: {fileID: 1738904103}
   backgroundHolder: {fileID: 1056215805}
+  ropeHolder: {fileID: 1858137936}
+  itemHolder: {fileID: 279636872}
   moveAmount: 10
   arraySize: 5
   generationDelayTime: 0.1
