@@ -46,6 +46,7 @@ public class LevelGeneration : MonoBehaviour
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in doorsHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in backgroundHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in ropeHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in itemHolder.transform) { GameObject.Destroy(child.gameObject); }
 

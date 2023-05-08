@@ -27,22 +27,33 @@ public class DoorController : MonoBehaviour
                 transform.position -= new Vector3(0,1,0);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            NewLevel();
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && type == 1)
         {
-            GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
-
-            //Destroy(currentPlayer);
-
-            if(GenerationDelegates.onDestroyingPlayer != null)
-            {
-                GenerationDelegates.onDestroyingPlayer();
-            }
-
-            levelGen.GetComponent<LevelGeneration>().StartGeneration();
+            NewLevel();
         }
+    }
+
+    private void NewLevel()
+    {
+        GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        //Destroy(currentPlayer);
+
+        if (GenerationDelegates.onDestroyingPlayer != null)
+        {
+            GenerationDelegates.onDestroyingPlayer();
+        }
+
+        levelGen.GetComponent<LevelGeneration>().StartGeneration();
     }
 }
