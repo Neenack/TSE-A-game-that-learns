@@ -101,13 +101,20 @@ public class LevelGeneration : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Comma))
         {
-            difficulty--;
-            Debug.Log("Difficulty: " + difficulty);
+            if (difficulty > 1)
+            {
+                difficulty--;
+                Debug.Log("Difficulty: " + difficulty);
+            }
         }
         if (Input.GetKeyDown(KeyCode.Period))
         {
-            difficulty++;
-            Debug.Log("Difficulty: " + difficulty);
+            if (difficulty < 10)
+            {
+                difficulty++;
+                Debug.Log("Difficulty: " + difficulty);
+            }
+                
         }
     }
 
