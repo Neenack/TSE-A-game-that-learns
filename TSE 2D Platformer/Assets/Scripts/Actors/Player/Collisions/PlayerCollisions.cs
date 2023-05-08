@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Actors.EnemyNS;
+
 using Delegates.Actors.Player;
+using Delegates.Utility;
 
 
 namespace Actors.Player.Collisions

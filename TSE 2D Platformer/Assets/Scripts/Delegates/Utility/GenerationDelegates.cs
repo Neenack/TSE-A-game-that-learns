@@ -13,5 +13,9 @@ namespace Delegates.Utility
 
         public delegate void OnDestroyingPlayer();
         public static OnDestroyingPlayer onDestroyingPlayer;
+
+
+        public delegate void OnInventoryInitialized();
+        public static OnInventoryInitialized onInventoryInitialized;
     }
 }

@@ -15,6 +15,8 @@ TagManager:
   - PlayerChildObjectTag
   - EnemyProjectile
   - Door
+  - Projectile
+  - Trap
   layers:
   - Default
   - TransparentFX

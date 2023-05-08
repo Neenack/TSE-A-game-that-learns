@@ -135,6 +135,7 @@ namespace Controllers.Utility.Statistics
             return avg;
         }
 
+
         // Add 1 every enemy kill
         // Add 2 first time due to -1 being the check amount
         void IncrementActionsUsed(ActionType aType)

@@ -15,8 +15,8 @@ namespace Actors.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
-        Item[] _inventory = new Item[4] {new TestItemBaseScript(), null, null, null}; 
-        int[] _amounts = new int[4] {5, 0, 0, 0};
+        Item[] _inventory = new Item[4] {new BombItem(), new RopeItem(), null, null}; 
+        int[] _amounts = new int[4] {5, 5, 0, 0};
 
         int _selectedItem;
 
@@ -24,6 +24,11 @@ namespace Actors.Player
         {
             _selectedItem = 1;
             SetupDelegates();
+
+            if(GenerationDelegates.onInventoryInitialized != null)
+            {
+                GenerationDelegates.onInventoryInitialized();
+            }
         }
 
         void OnDisable()
@@ -42,6 +47,19 @@ namespace Actors.Player
             PlayerActionsDelegates.onPlayerSwitchItem -= SwitchActiveItem;
             PlayerActionsDelegates.onPlayerUseItem -= UseItem;
         }
+
+
+        public int GetSelectedItem()
+        {
+            return _selectedItem;
+        }
+
+        public int GetAmount(int itemNum)
+        {
+            return _amounts[itemNum];
+        }
+
+
 
         void SwitchActiveItem(int itemNum)
         {

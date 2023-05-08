@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Delegates.Actors.EnemyNS;
+using Delegates.Utility;
 
 
 
@@ -12,6 +13,8 @@ namespace Actors.EnemyNS
 
     public class Enemy : MonoBehaviour
     {
+        bool _detected;
+
         public void BeginSelf()
         {
             SetupDelegates();
@@ -30,6 +33,8 @@ namespace Actors.EnemyNS
                     }
                 }
             }
+
+            _detected = false;
         }
 
         void SetupDelegates()
@@ -40,6 +45,16 @@ namespace Actors.EnemyNS
         void RemoveDelegates()
         {
 
+        }
+
+        public void SetDetected()
+        {
+            if(!_detected)
+            {
+                _detected = true;
+
+                if(StatisticsTrackingDelegates.onEnemyDetected != null) StatisticsTrackingDelegates.onEnemyDetected();
+            }
         }
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Delegates.Utility;
+
 public class RopeController : MonoBehaviour
 {
     public LayerMask blockLayer;
@@ -13,6 +15,9 @@ public class RopeController : MonoBehaviour
         {
             GameObject newRope = Instantiate(this.gameObject, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
             newRope.transform.SetParent(GameObject.Find("RopeHolder").transform, true);
+
+
+            if(StatisticsTrackingDelegates.onRopeUsed != null) StatisticsTrackingDelegates.onRopeUsed();
         }
     }
 }
