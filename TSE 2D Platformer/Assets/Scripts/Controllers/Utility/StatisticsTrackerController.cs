@@ -20,6 +20,9 @@ namespace Controllers.Utility
         bool first;
 
         [SerializeField]
+        EnemySpawnerTrackerController _enemySpawnController;
+
+        [SerializeField]
         TimeStatisticsTrackerController _timeStatisticsController;
         
         [SerializeField]
@@ -59,6 +62,7 @@ namespace Controllers.Utility
         
         public void BeginSelf()
         {
+            _enemySpawnController.BeginSelf();
             _timeStatisticsController.BeginSelf();
             _roomStatisticsController.BeginSelf();
             _actionsStatisticsController.BeginSelf();
@@ -118,7 +122,7 @@ namespace Controllers.Utility
                 first = false;
                 return;
             }
-
+            _enemySpawnController.OnZoneCompletion();
             _timeStatisticsController.OnZoneCompletion();
             _roomStatisticsController.OnZoneCompletion();
             _actionsStatisticsController.OnZoneCompletion();
@@ -150,6 +154,8 @@ namespace Controllers.Utility
         void WriteDataPoint()
         {
             //Add features to data point
+            _dataPoint.Add(_enemySpawnController.GetEnemiesSpawnedAverage());
+            _dataPoint.Add(_enemySpawnController.GetTrapsSpawnedAverage());
             _dataPoint.Add(_timeStatisticsController.GetZoneTimeAverage());
             _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
             _dataPoint.Add(_roomStatisticsController.GetLongestRoomTimeAverage());
@@ -179,6 +185,7 @@ namespace Controllers.Utility
             _writer.WriteLine(_dataPointString);
 
             //Reset stats: want fresh stats for each difficulty when collecting training data
+            _enemySpawnController.ClearStats();
             _timeStatisticsController.ClearStats();
             _roomStatisticsController.ClearStats();
             _actionsStatisticsController.ClearStats();
