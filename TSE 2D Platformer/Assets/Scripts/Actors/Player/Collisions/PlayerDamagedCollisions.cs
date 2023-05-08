@@ -5,6 +5,7 @@ using UnityEngine;
 
 using Actors.EnemyNS;
 
+using Delegates.Actors.Player;
 using Delegates.Utility;
 
 
@@ -18,11 +19,28 @@ namespace Actors.Player.Collisions
         void Start()
         {
             _isDead = false;
+            SetupDelegates();
         }
+
+        void OnDisable()
+        {
+            RemoveDelegates();
+        }
+
+        public void SetupDelegates()
+        {
+            PlayerStateDelegates.onPlayerDeathStateChange += SetIsDead;
+        }
+
+        public void RemoveDelegates()
+        {
+            PlayerStateDelegates.onPlayerDeathStateChange -= SetIsDead;
+        }
+
 
         void OnTriggerEnter2D(Collider2D col)
         {
-            if(col.gameObject.tag == "Player") return;
+            if(col.gameObject.tag == "Player" || _isDead) return;
 
             if(col.gameObject.tag == "Enemy")
             {
@@ -49,6 +67,15 @@ namespace Actors.Player.Collisions
         void OnTriggerExit2D(Collider2D col)
         {
             if(col.tag == "Player") return;
+        }
+
+
+        void SetIsDead(PlayerDeathState pDS)
+        {
+            if(pDS == PlayerDeathState.Alive)
+            {
+                _isDead = false;
+            }
         }
     }
 }

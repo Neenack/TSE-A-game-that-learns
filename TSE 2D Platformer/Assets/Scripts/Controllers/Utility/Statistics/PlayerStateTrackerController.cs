@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Actors.EnemyNS;
 
+using Delegates.Actors.Player;
 using Delegates.Utility;
 
 

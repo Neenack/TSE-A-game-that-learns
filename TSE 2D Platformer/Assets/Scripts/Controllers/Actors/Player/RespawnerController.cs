@@ -93,7 +93,7 @@ public class RespawnerController : MonoBehaviour
                 _player.transform.position = transform.position;
 
                 //Change player state
-                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Alive);
+                if(PlayerStateDelegates.onPlayerDeathStateChange != null) PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Alive);
 
                 //reset boolean and clear last positions
                 _validPosition = true;
