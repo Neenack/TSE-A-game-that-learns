@@ -95,6 +95,9 @@ public class LevelGeneration : MonoBehaviour
         }
         spawnedPlayer.transform.SetParent(GameObject.Find("PlayerHolder").transform, true);
 
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(door0.transform.position, 10);
+        foreach (Collider2D collider in colliders) { if (collider.gameObject.tag == "Enemy") { Destroy(collider.gameObject); } }
+
         if (GenerationDelegates.onSpawningPlayer != null) GenerationDelegates.onSpawningPlayer();
         if (ZoneDelegates.onZoneGenerationFinish != null) ZoneDelegates.onZoneGenerationFinish();
     }
