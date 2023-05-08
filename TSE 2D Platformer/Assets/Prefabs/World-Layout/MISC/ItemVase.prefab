@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6440271193815421564}
   - component: {fileID: 3968618096540454742}
   - component: {fileID: -62259146126558239}
+  - component: {fileID: -5742184797674950141}
   m_Layer: 0
   m_Name: ItemVase
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 7981351678bc43344b8b72f8a35cba34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,3 +98,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b2dded047acb44489c6ad432e289fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &-5742184797674950141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463337906159257163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6662090fd98a3641a4ee66cbdaa0e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 256

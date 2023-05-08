@@ -14,7 +14,7 @@ public class LevelGeneration : MonoBehaviour
     public GameObject player;
 
     [SerializeField]
-    GameObject borderHolder, roomsHolder, doorsHolder, backgroundHolder;
+    GameObject borderHolder, roomsHolder, doorsHolder, backgroundHolder, ropeHolder, itemHolder;
 
     private int direction;
     public float moveAmount;
@@ -46,8 +46,10 @@ public class LevelGeneration : MonoBehaviour
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in doorsHolder.transform) { GameObject.Destroy(child.gameObject); }
-        
-        if(ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
+        foreach (Transform child in ropeHolder.transform) { GameObject.Destroy(child.gameObject); }
+        foreach (Transform child in itemHolder.transform) { GameObject.Destroy(child.gameObject); }
+
+        if (ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
 
         int rStartPos = Random.Range(1, arraySize - 1);
         Vector2 startPos = new Vector2(5 + (rStartPos * moveAmount), 5);

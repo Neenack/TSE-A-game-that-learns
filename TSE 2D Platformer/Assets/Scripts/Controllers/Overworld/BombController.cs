@@ -38,7 +38,7 @@ public class BombController : MonoBehaviour
             foreach (Collider2D collider in colliders)
             {
                 if (collider.gameObject.layer != LayerMask.NameToLayer("Background") && collider.gameObject.tag != "Player"
-                    && collider.gameObject.layer != LayerMask.NameToLayer("Room"))
+                    && collider.gameObject.layer != LayerMask.NameToLayer("Room") && collider.gameObject.tag != "Door")
                 {
                     Destroy(collider.gameObject);
                 }
