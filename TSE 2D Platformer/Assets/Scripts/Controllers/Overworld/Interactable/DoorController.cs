@@ -30,7 +30,7 @@ public class DoorController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            NewLevel();
+            NewLevel(false);
         }
 
     }
@@ -39,11 +39,11 @@ public class DoorController : MonoBehaviour
     {
         if (other.tag == "Player" && type == 1)
         {
-            NewLevel();
+            NewLevel(true);
         }
     }
 
-    private void NewLevel()
+    private void NewLevel(bool levelFinished)
     {
         GameObject currentPlayer = GameObject.FindGameObjectWithTag("Player");
 
@@ -54,6 +54,6 @@ public class DoorController : MonoBehaviour
             GenerationDelegates.onDestroyingPlayer();
         }
 
-        levelGen.GetComponent<LevelGeneration>().StartGeneration();
+        levelGen.GetComponent<LevelGeneration>().StartGeneration(levelFinished);
     }
 }

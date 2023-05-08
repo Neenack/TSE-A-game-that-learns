@@ -11,6 +11,9 @@ namespace Delegates.Utility
         public delegate void OnZoneCompletion();
         public static OnZoneCompletion onZoneCompletion;
 
+        public delegate void OnZoneCompletionRestart();
+        public static OnZoneCompletionRestart onZoneCompletionRestart;
+
         public delegate void OnZoneGenerationStart();
         public static OnZoneGenerationStart onZoneGenerationStart;
 

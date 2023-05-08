@@ -52,7 +52,7 @@ namespace Controllers.Utility
         int _newDifficulty;
         bool _storeStatsOnClosing = false;
         List<float> _dataPoint = new List<float>();
-        string _dataPointString;
+        string _dataPointString = string.Empty;
 
 
         void Awake()
@@ -87,10 +87,10 @@ namespace Controllers.Utility
         {
             if (_writer != null)
             {
-                //Writes final stats (if level vompleted without difficulty change)
+                //Writes final stats (if level completed without difficulty change - only complete levels are overwritten)
                 if (_storeStatsOnClosing == true)
                 {
-                    WriteDataPoint();
+                    WriteDataPoint(false, true);
                 }
                 
                 //Close file
@@ -107,11 +107,13 @@ namespace Controllers.Utility
         void SetupDelegates()
         {
             ZoneDelegates.onZoneCompletion += OnZoneCompletion;
+            ZoneDelegates.onZoneCompletionRestart += OnZoneCompletionRestart;
         }
 
         void RemoveDelegates()
         {
             ZoneDelegates.onZoneCompletion -= OnZoneCompletion;
+            ZoneDelegates.onZoneCompletionRestart -= OnZoneCompletionRestart;
         }
 
 
@@ -119,6 +121,7 @@ namespace Controllers.Utility
         {
             if(first)
             {
+                Debug.Log("FIRST");
                 first = false;
                 return;
             }
@@ -130,7 +133,7 @@ namespace Controllers.Utility
             _itemsStatisticsController.OnZoneCompletion();
             _playerStateTrackerController.OnZoneCompletion();
 
-            //If difficulty changes, track previous results
+            //If difficulty changes, track previous results and write them
             if (_trainingMode == false)
             {
                 return;
@@ -138,53 +141,24 @@ namespace Controllers.Utility
             _newDifficulty = _levelGenScript.difficulty;
             if (_difficulty != _newDifficulty)
             {
-                WriteDataPoint();
+                WriteDataPoint(true, true);
                 _difficulty = _newDifficulty;
                 _storeStatsOnClosing = false;
 
             }
 
-            //If a level has been completed regardelss of difficulty change, stats should be stored when the game closes
+            //If a level has been completed regardelss of difficulty change, stats should be stored when the game closes/restarts
             else
             {
                 _storeStatsOnClosing = true;
+                WriteDataPoint(true, false);
             }
         }
 
-        void WriteDataPoint()
+        void OnZoneCompletionRestart()
         {
-            //Add features to data point
-            _dataPoint.Add(_enemySpawnController.GetEnemiesSpawnedAverage());
-            _dataPoint.Add(_enemySpawnController.GetTrapsSpawnedAverage());
-            _dataPoint.Add(_timeStatisticsController.GetZoneTimeAverage());
-            _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
-            _dataPoint.Add(_roomStatisticsController.GetLongestRoomTimeAverage());
-            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Jump));
-            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Item));
-            _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Attack));
-            _dataPoint.Add(_combatStatisticsController.GetEnemiesKilledAverage());
-            _dataPoint.Add(_combatStatisticsController.GetNearMissesWithEnemyAverage());
-            _dataPoint.Add(_combatStatisticsController.GetNearMissesWithProjectileAverage());
-            _dataPoint.Add(_combatStatisticsController.GetBombKillsAverage());
-            _dataPoint.Add(_itemsStatisticsController.GetRopesUsedAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetEnemiesDetectedAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetDeathToAngryBobAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetDeathToScreamerAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetDeathToJumperAverage());
-            _dataPoint.Add(_playerStateTrackerController.GetDeathToTrap());
-            //Turn into string with commas to write to csv
-            foreach (float feature in _dataPoint)
-            {
-                Debug.Log(feature);
-                _dataPointString += feature + ",";
-            }
-            //Remove final comma
-            _dataPointString = _dataPointString.Substring(0, _dataPointString.Length - 1);
-            Debug.Log(_dataPointString);
-            _writer.WriteLine(_dataPointString);
 
-            //Reset stats: want fresh stats for each difficulty when collecting training data
+            //Reset stats: allows player to reset their run if they want the predictions to be reset
             _enemySpawnController.ClearStats();
             _timeStatisticsController.ClearStats();
             _roomStatisticsController.ClearStats();
@@ -193,9 +167,80 @@ namespace Controllers.Utility
             _itemsStatisticsController.ClearStats();
             _playerStateTrackerController.ClearStats();
 
-            //Reset datapoint vars
-            _dataPoint.Clear();
-            _dataPointString = string.Empty;
+            //If level has restarted, don't want OnZoneCompletion() to also be called
+            first = true;
+
+            //Write data for any completed levels
+            if (_dataPointString != string.Empty)
+            {
+                WriteDataPoint(false, true);
+                _storeStatsOnClosing = false;
+            }
+        }
+
+        void WriteDataPoint(bool collectData, bool write)
+        {
+            
+
+            //Add features to data point
+            if (collectData == true)
+            {
+                //If data is being collected, rewrite existing data
+                //Reset datapoint vars
+                _dataPoint.Clear();
+                _dataPointString = string.Empty;
+                
+                _dataPoint.Add(_enemySpawnController.GetEnemiesSpawnedAverage());
+                _dataPoint.Add(_enemySpawnController.GetTrapsSpawnedAverage());
+                _dataPoint.Add(_timeStatisticsController.GetZoneTimeAverage());
+                _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
+                _dataPoint.Add(_roomStatisticsController.GetLongestRoomTimeAverage());
+                _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Jump));
+                _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Item));
+                _dataPoint.Add(_actionsStatisticsController.GetActionsPerformedAverage(ActionType.Attack));
+                _dataPoint.Add(_combatStatisticsController.GetEnemiesKilledAverage());
+                _dataPoint.Add(_combatStatisticsController.GetNearMissesWithEnemyAverage());
+                _dataPoint.Add(_combatStatisticsController.GetNearMissesWithProjectileAverage());
+                _dataPoint.Add(_combatStatisticsController.GetBombKillsAverage());
+                _dataPoint.Add(_itemsStatisticsController.GetRopesUsedAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetEnemiesDetectedAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetDeathToAngryBobAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetDeathToScreamerAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetDeathToJumperAverage());
+                _dataPoint.Add(_playerStateTrackerController.GetDeathToTrap());
+
+                //Turn into string with commas to write to csv
+                foreach (float feature in _dataPoint)
+                {
+                    _dataPointString += feature + ",";
+                }
+                //Remove final comma
+                _dataPointString = _dataPointString.Substring(0, _dataPointString.Length - 1);
+
+            }
+            
+
+            if (write == true)
+            {
+                Debug.Log("Writing: " + _dataPointString);
+                _writer.WriteLine(_dataPointString);
+
+                //Reset stats: want fresh stats for each difficulty when collecting training data
+                _enemySpawnController.ClearStats();
+                _timeStatisticsController.ClearStats();
+                _roomStatisticsController.ClearStats();
+                _actionsStatisticsController.ClearStats();
+                _combatStatisticsController.ClearStats();
+                _itemsStatisticsController.ClearStats();
+                _playerStateTrackerController.ClearStats();
+
+                //Reset datapoint vars
+                _dataPoint.Clear();
+                _dataPointString = string.Empty;
+
+            }
+           
         }
     }
 }

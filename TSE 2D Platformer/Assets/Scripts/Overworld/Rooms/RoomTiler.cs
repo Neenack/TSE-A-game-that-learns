@@ -55,7 +55,6 @@ public class RoomTiler : MonoBehaviour
                 {
                     GameObject newTrap = Instantiate(trap, child.position, Quaternion.identity);
                     newTrap.transform.parent = transform;
-                    Debug.Log("Instantiate");
                     if (EnemySpawningDelegates.onTrapSpawn != null)EnemySpawningDelegates.onTrapSpawn();
                 }
                 else Destroy(child.gameObject);

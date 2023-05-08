@@ -37,10 +37,10 @@ public class LevelGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartGeneration();
+        StartGeneration(true);
     }
 
-    public void StartGeneration()
+    public void StartGeneration(bool levelFinished)
     {
         foreach (Transform child in transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
@@ -50,6 +50,8 @@ public class LevelGeneration : MonoBehaviour
         foreach (Transform child in ropeHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in itemHolder.transform) { GameObject.Destroy(child.gameObject); }
 
+
+        if (levelFinished == false && ZoneDelegates.onZoneCompletionRestart != null) { ZoneDelegates.onZoneCompletionRestart(); }
         if (ZoneDelegates.onZoneCompletion != null) { ZoneDelegates.onZoneCompletion(); }
 
         int rStartPos = Random.Range(1, arraySize - 1);
@@ -60,7 +62,8 @@ public class LevelGeneration : MonoBehaviour
         CreateRoom(rooms[0], transform.position);
         CreateDoor(0);
 
-        if(ZoneDelegates.onZoneTickUpdate != null) ZoneDelegates.onZoneTickUpdate();
+        if (ZoneDelegates.onZoneTickUpdate != null) ZoneDelegates.onZoneTickUpdate();
+        
 
         direction = Random.Range(1, 4);
 
