@@ -20,6 +20,9 @@ namespace Controllers.Utility
         bool first;
 
         [SerializeField]
+        EnemySpawnerTrackerController _enemySpawnController;
+
+        [SerializeField]
         TimeStatisticsTrackerController _timeStatisticsController;
         
         [SerializeField]
@@ -59,6 +62,7 @@ namespace Controllers.Utility
         
         public void BeginSelf()
         {
+            _enemySpawnController.BeginSelf();
             _timeStatisticsController.BeginSelf();
             _roomStatisticsController.BeginSelf();
             _actionsStatisticsController.BeginSelf();
@@ -118,7 +122,7 @@ namespace Controllers.Utility
                 first = false;
                 return;
             }
-
+            _enemySpawnController.OnZoneCompletion();
             _timeStatisticsController.OnZoneCompletion();
             _roomStatisticsController.OnZoneCompletion();
             _actionsStatisticsController.OnZoneCompletion();
@@ -150,6 +154,8 @@ namespace Controllers.Utility
         void WriteDataPoint()
         {
             //Add features to data point
+            _dataPoint.Add(_enemySpawnController.GetEnemiesSpawnedAverage());
+            _dataPoint.Add(_enemySpawnController.GetTrapsSpawnedAverage());
             _dataPoint.Add(_timeStatisticsController.GetZoneTimeAverage());
             _dataPoint.Add(_roomStatisticsController.GetRoomsExploredAverage());
             _dataPoint.Add(_roomStatisticsController.GetLongestRoomTimeAverage());
@@ -160,6 +166,7 @@ namespace Controllers.Utility
             _dataPoint.Add(_combatStatisticsController.GetNearMissesWithEnemyAverage());
             _dataPoint.Add(_combatStatisticsController.GetNearMissesWithProjectileAverage());
             _dataPoint.Add(_combatStatisticsController.GetBombKillsAverage());
+            _dataPoint.Add(_itemsStatisticsController.GetRopesUsedAverage());
             _dataPoint.Add(_playerStateTrackerController.GetIdleTimeAverage());
             _dataPoint.Add(_playerStateTrackerController.GetEnemiesDetectedAverage());
             _dataPoint.Add(_playerStateTrackerController.GetDeathToAngryBobAverage());
@@ -176,6 +183,15 @@ namespace Controllers.Utility
             _dataPointString = _dataPointString.Substring(0, _dataPointString.Length - 1);
             Debug.Log(_dataPointString);
             _writer.WriteLine(_dataPointString);
+
+            //Reset stats: want fresh stats for each difficulty when collecting training data
+            _enemySpawnController.ClearStats();
+            _timeStatisticsController.ClearStats();
+            _roomStatisticsController.ClearStats();
+            _actionsStatisticsController.ClearStats();
+            _combatStatisticsController.ClearStats();
+            _itemsStatisticsController.ClearStats();
+            _playerStateTrackerController.ClearStats();
 
             //Reset datapoint vars
             _dataPoint.Clear();

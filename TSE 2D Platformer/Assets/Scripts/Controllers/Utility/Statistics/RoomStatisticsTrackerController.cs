@@ -48,6 +48,12 @@ namespace Controllers.Utility.Statistics
             _longestTimeInRoom = ShiftRightFloat(_longestTimeInRoom);
         }
 
+        public void ClearStats()
+        {
+            _roomsExplored = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _longestTimeInRoom = new float[11] { -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
 
         // Get all the stats from the previous (upto) 10 stages
         public float GetRoomsExploredAverage()

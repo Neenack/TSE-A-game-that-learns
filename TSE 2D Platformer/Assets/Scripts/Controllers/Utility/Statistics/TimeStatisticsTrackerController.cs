@@ -54,6 +54,11 @@ namespace Controllers.Utility.Statistics
             }   
         }
 
+        public void ClearStats()
+        {
+            _levelCompletionTime = new float[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
 
         // Get all the stats from the previous (upto) 10 stages
         public float GetZoneTimeAverage()

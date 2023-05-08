@@ -76,6 +76,16 @@ namespace Controllers.Utility.Statistics
             _deathToTrap = ShiftRight(_deathToTrap);
         }
 
+        public void ClearStats()
+        {
+            _idleTime = new float[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _enemiesDetected = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _deathToAngryBob = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _deathToJumper = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _deathToScreamer = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _deathToTrap = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
 
         // Get all the stats from the previous (upto) 10 stages
         public float GetIdleTimeAverage()

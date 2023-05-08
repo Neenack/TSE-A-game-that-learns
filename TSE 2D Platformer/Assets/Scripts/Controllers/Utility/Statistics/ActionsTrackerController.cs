@@ -53,6 +53,15 @@ namespace Controllers.Utility.Statistics
             _attacksPerformed = ShiftRight(_attacksPerformed);
         }
 
+        public void ClearStats()
+        {
+            _actionsPerformed = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _jumpsPerformed = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _itemsUsed = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+            _attacksPerformed = new int[11] { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        }
+
+
 
         // Get all the stats from the previous (upto) 10 stages
         public float GetActionsPerformedAverage(ActionType _aType)

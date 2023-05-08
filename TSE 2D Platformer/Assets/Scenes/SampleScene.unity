@@ -2185,6 +2185,7 @@ GameObject:
   - component: {fileID: 1327595037}
   - component: {fileID: 1327595036}
   - component: {fileID: 1327595041}
+  - component: {fileID: 1327595042}
   m_Layer: 0
   m_Name: StatisticsTracker
   m_TagString: Untagged
@@ -2204,6 +2205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1a4687d4bf8b7499292c7a0257aafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemySpawnController: {fileID: 1327595042}
   _timeStatisticsController: {fileID: 1327595040}
   _roomStatisticsController: {fileID: 1327595039}
   _actionsStatisticsController: {fileID: 1327595038}
@@ -2296,6 +2298,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 282fef6107a40754fba0e0bcb21301a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1327595042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327595033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac532e2254fb5a14b815099c2ee16da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1356618034
@@ -3734,7 +3748,7 @@ MonoBehaviour:
   block:
     serializedVersion: 2
     m_Bits: 256
-  difficulty: 1
+  difficulty: 3
 --- !u!4 &1916841233
 Transform:
   m_ObjectHideFlags: 0
