@@ -18,6 +18,9 @@ namespace Actors.Player.Collisions
         [SerializeField]
         PlayerGroundCollisions _groundCollisionDetector;
 
+        [SerializeField] AudioSource sound;
+        [SerializeField] AudioClip death;
+
         bool _isDead = false;
 
         public void BeginSelf()
@@ -95,6 +98,7 @@ namespace Actors.Player.Collisions
             //Handles player death
             if (col.gameObject.tag == "Enemy")
             {
+                sound.clip = death; sound.Play();
                 if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(col.gameObject.GetComponent<EnemyStats>().GetType());
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
                 _isDead = true;
@@ -102,6 +106,7 @@ namespace Actors.Player.Collisions
 
             else if (col.gameObject.tag == "Projectile")
             {
+                sound.clip = death; sound.Play();
                 if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(EnemyType.Screamer);
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
                 _isDead = true;
@@ -109,6 +114,7 @@ namespace Actors.Player.Collisions
 
             else if (col.gameObject.tag == "Trap")
             {
+                sound.clip = death; sound.Play();
                 if (StatisticsTrackingDelegates.onPlayerHitByTrap != null) StatisticsTrackingDelegates.onPlayerHitByTrap();
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
                 _isDead = true;
