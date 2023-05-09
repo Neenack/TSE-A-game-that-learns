@@ -5,7 +5,7 @@ using Microsoft.ML.Data;
 
 namespace K_Means_Plus_Plus
 {
-    public class ClusterPrediction : MonoBehaviour
+    public class ClusterPrediction
     {
         [ColumnName("PredictedLabel")] //ID of predicted cluster
         public uint PredictedClusterId;

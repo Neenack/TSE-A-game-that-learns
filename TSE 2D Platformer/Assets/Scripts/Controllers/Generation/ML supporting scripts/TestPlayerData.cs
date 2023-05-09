@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace K_Means_Plus_Plus
 {
-    internal class TestPlayerData : MonoBehaviour
+    internal class TestPlayerData
     {
         internal static readonly PlayerData BadPlayer = new PlayerData
         {

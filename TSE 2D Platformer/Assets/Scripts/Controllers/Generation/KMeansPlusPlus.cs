@@ -48,7 +48,7 @@ public class KMeansPlusPlus : MonoBehaviour
 
         goodClusterID = int.Parse(goodClusterLine[1]);
         badClusterID = int.Parse(badClusterLine[1]);
-        
+
         //Prediction for TestIrisData.cs
         var prediction = predictor.Predict(TestPlayerData.BadPlayer);
         Debug.Log($"Cluster: {prediction.PredictedClusterId}");
