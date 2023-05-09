@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &609951550356723787
 Transform:
   m_ObjectHideFlags: 0
@@ -398,7 +398,6 @@ MonoBehaviour:
   _animationsComponent: {fileID: 7503772936928311121}
   _attackingComponent: {fileID: -2850963317366022865}
   _playerInventory: {fileID: 5735228503681255993}
-  _respawnerChild: {fileID: 0}
 --- !u!114 &-2850963317366022865
 MonoBehaviour:
   m_ObjectHideFlags: 0

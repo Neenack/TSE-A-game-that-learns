@@ -18,10 +18,31 @@ namespace Actors.Player.Collisions
         [SerializeField]
         PlayerGroundCollisions _groundCollisionDetector;
 
+        bool _isDead = false;
+
+        public void BeginSelf()
+        {
+            SetupDelegates();
+        }
+
+        void OnDisable()
+        {
+            RemoveDelegates();
+        }
+
+        public void SetupDelegates()
+        {
+            PlayerStateDelegates.onPlayerDeathStateChange += SetIsDead;
+        }
+
+        public void RemoveDelegates()
+        {
+            PlayerStateDelegates.onPlayerDeathStateChange -= SetIsDead;
+        }
 
         void OnTriggerStay2D(Collider2D col)
         {
-            if (col.tag == "PlayerChildObjectTag") return;
+            if (col.tag == "PlayerChildObjectTag" || _isDead) return;
 
 
             if (col.gameObject.tag == "Climbable" && PlayerStateDelegates.onPlayerLadderTouchingStateChange != null)
@@ -32,9 +53,25 @@ namespace Actors.Player.Collisions
             }
 
             //Handles player death
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Projectile" || col.gameObject.tag == "Trap")
+            if (col.gameObject.tag == "Enemy")
             {
+                if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(col.gameObject.GetComponent<EnemyStats>().GetType());
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
+            }
+
+            else if (col.gameObject.tag == "Projectile")
+            {
+                if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(EnemyType.Screamer);
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
+            }
+
+            else if (col.gameObject.tag == "Trap")
+            {
+                if (StatisticsTrackingDelegates.onPlayerHitByTrap != null) StatisticsTrackingDelegates.onPlayerHitByTrap();
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
             }
         }
 
@@ -53,11 +90,38 @@ namespace Actors.Player.Collisions
 
         private void OnCollisionEnter2D(Collision2D col)
         {
+            if (col.gameObject.tag == "PlayerChildObjectTag" || _isDead) return;
             //Handles player death
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Projectile" || col.gameObject.tag == "Trap")
+            //Handles player death
+            if (col.gameObject.tag == "Enemy")
             {
+                if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(col.gameObject.GetComponent<EnemyStats>().GetType());
                 PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
             }
+
+            else if (col.gameObject.tag == "Projectile")
+            {
+                if (StatisticsTrackingDelegates.onPlayerHitByEnemy != null) StatisticsTrackingDelegates.onPlayerHitByEnemy(EnemyType.Screamer);
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
+            }
+
+            else if (col.gameObject.tag == "Trap")
+            {
+                if (StatisticsTrackingDelegates.onPlayerHitByTrap != null) StatisticsTrackingDelegates.onPlayerHitByTrap();
+                PlayerStateDelegates.onPlayerDeathStateChange(PlayerDeathState.Dead);
+                _isDead = true;
+            }
+        }
+
+        void SetIsDead(PlayerDeathState pDS)
+        {
+            if (pDS == PlayerDeathState.Alive)
+            {
+                _isDead = false;
+            }
+
         }
     }
 }

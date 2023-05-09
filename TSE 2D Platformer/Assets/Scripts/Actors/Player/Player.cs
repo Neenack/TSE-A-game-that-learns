@@ -51,6 +51,7 @@ namespace Actors.Player
         {
             _movementComponent.BeginSelf();
             _stateComponent.BeginSelf();
+            _collisionsComponent.BeginSelf();    
             _spriteComponent.BeginSelf();
             _animationsComponent.BeginSelf();
             _attackingComponent.BeginSelf();
