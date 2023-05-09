@@ -46,8 +46,8 @@ public class BombController : MonoBehaviour
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.layer != LayerMask.NameToLayer("Background") && collider.gameObject.tag != "Player"
-                    && collider.gameObject.layer != LayerMask.NameToLayer("Room") && collider.gameObject.tag != "Door" && collider.gameObject.tag != "Enemy")
+                if (collider.gameObject.layer != LayerMask.NameToLayer("Background") && collider.gameObject.tag != "Player" && collider.gameObject.tag != "PlayerChildObjectTag" 
+                 && collider.gameObject.layer != LayerMask.NameToLayer("Room") && collider.gameObject.tag != "Door" && collider.gameObject.tag != "Enemy")
                 {
                     Destroy(collider.gameObject);
                 }
