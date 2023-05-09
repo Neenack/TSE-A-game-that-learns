@@ -20,6 +20,7 @@ public class RopeBallController : MonoBehaviour
             float ropeX = Mathf.Round(transform.position.x);
             float ropeY = Mathf.Round(transform.position.y);
             GameObject newRope = Instantiate(rope, new Vector3(ropeX, ropeY, 0), Quaternion.identity);
+            newRope.GetComponent<RopeController>().PlaySound();
             newRope.transform.SetParent(GameObject.Find("RopeHolder").transform, true);
             Destroy(this.gameObject);
         }

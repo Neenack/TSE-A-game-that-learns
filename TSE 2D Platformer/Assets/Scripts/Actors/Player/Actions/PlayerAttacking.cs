@@ -24,6 +24,9 @@ namespace Actors.Player.Actions
         GameObject _attackObjectChild;
         PlayerAttackCollisions _playerChildAttackingCollisions;
 
+        [SerializeField] AudioSource attackSound;
+        [SerializeField] AudioClip attack, breakVase, enemyDeath;
+
         public void BeginSelf()
         {
             _playerAttackingCollisions.BeginSelf();
@@ -51,6 +54,9 @@ namespace Actors.Player.Actions
 
         void Attack()
         {
+            attackSound.clip = attack;
+            attackSound.Play();
+
             /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)
@@ -68,6 +74,8 @@ namespace Actors.Player.Actions
             {
                 if (EnemyStatsDelegates.onEnemyHit != null)
                 {
+                    attackSound.clip = enemyDeath;
+                    attackSound.Play();
                     EnemyStatsDelegates.onEnemyHit(e);
                 }
             }
@@ -87,9 +95,12 @@ namespace Actors.Player.Actions
 
         void DestroyVase(ItemVaseController vase)
         {
+            attackSound.clip = breakVase;
+            attackSound.Play();
+
             Destroy(vase.gameObject);
 
-            if(PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
+            if (PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
         }
     }
 }

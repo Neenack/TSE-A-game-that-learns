@@ -11,6 +11,9 @@ public class BombThrowing : MonoBehaviour
     public GameObject bombPrefab;
     public float throwSpeed = 10f;
 
+    public AudioSource sound;
+    public AudioClip throwSoundEffect;
+
     void Start()
     {
         SetupDelegates();
@@ -33,6 +36,9 @@ public class BombThrowing : MonoBehaviour
 
     void ThrowBomb()
     {
+        sound.clip = throwSoundEffect;
+        sound.Play();
+
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane; // Set the z-position to the near clip plane of the camera
         Vector3 throwDirection = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;

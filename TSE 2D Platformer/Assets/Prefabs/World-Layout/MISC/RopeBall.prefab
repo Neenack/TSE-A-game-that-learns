@@ -140,3 +140,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rope: {fileID: 8181579586517208006, guid: 2e7318dbf2b8c4c448473d1fb69db65f, type: 3}
+  ropeHolder: {fileID: 0}

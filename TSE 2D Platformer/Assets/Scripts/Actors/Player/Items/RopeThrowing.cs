@@ -10,6 +10,9 @@ public class RopeThrowing : MonoBehaviour
     public GameObject ropeBall;
     public float throwSpeed = 15f;
 
+    public AudioSource sound;
+    public AudioClip throwSoundEffect;
+
     void Start()
     {
         SetupDelegates();
@@ -32,6 +35,9 @@ public class RopeThrowing : MonoBehaviour
 
     void ThrowRope()
     {
+        sound.clip = throwSoundEffect;
+        sound.Play();
+
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane; // Set the z-position to the near clip plane of the camera
         Vector3 throwDirection = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;
