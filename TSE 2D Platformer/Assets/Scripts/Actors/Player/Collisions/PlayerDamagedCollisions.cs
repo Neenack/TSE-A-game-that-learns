@@ -15,6 +15,8 @@ namespace Actors.Player.Collisions
     {
         bool _isDead;
 
+        public AudioSource soundEffect;
+
 
         void Start()
         {
@@ -74,6 +76,8 @@ namespace Actors.Player.Collisions
         {
             if(pDS == PlayerDeathState.Alive)
             {
+                soundEffect.Play();
+
                 _isDead = false;
             }
         }

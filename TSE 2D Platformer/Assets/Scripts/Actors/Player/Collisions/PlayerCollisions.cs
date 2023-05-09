@@ -18,6 +18,9 @@ namespace Actors.Player.Collisions
         [SerializeField]
         PlayerGroundCollisions _groundCollisionDetector;
 
+        [SerializeField] AudioSource sound;
+        [SerializeField] AudioClip death;
+
 
         void OnTriggerStay2D(Collider2D col)
         {

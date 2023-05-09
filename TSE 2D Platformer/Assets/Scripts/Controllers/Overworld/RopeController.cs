@@ -7,6 +7,7 @@ using Delegates.Utility;
 public class RopeController : MonoBehaviour
 {
     public LayerMask blockLayer;
+    public AudioSource ropeSound;
 
     // Start is called before the first frame update
     void Start()
@@ -19,5 +20,10 @@ public class RopeController : MonoBehaviour
 
             if(StatisticsTrackingDelegates.onRopeUsed != null) StatisticsTrackingDelegates.onRopeUsed();
         }
+    }
+
+    public void PlaySound()
+    {
+        ropeSound.Play();
     }
 }
