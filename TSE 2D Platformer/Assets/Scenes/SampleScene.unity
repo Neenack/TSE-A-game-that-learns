@@ -1000,6 +1000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd88e61d9c725e42b2d99cddf4b3b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  cam: {fileID: 0}
   zoom: 5
 --- !u!1 &545727287
 GameObject:
@@ -1960,6 +1962,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiController: {fileID: 1561716797}
   _statisticsTrackerController: {fileID: 1327595034}
+  _player: {fileID: 0}
+  _playerController: {fileID: 0}
+  _enemiesController: {fileID: 0}
 --- !u!114 &1221975218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1972,6 +1977,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48c19d990c8638f41869ee776fa80a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerState: {fileID: 0}
+  _player: {fileID: 0}
+  _startingPosition: {x: 0, y: 0, z: 0}
+  _playerSpriteRenderer: {fileID: 0}
+  _playerCircleCollider: {fileID: 0}
+  _playerRigidbody: {fileID: 0}
+  _gravityScale: 0
+  _horizontal: 0
+  _vertical: 0
+  _attack: 0
+  _useItem: 0
+  _numpad1: 0
+  _numpad2: 0
+  _numpad3: 0
+  _numpad4: 0
+  _jumpButtonReleased: 0
+  _jumpOnCooldown: 0
+  _attackButtonReleased: 0
+  _useItemButtonReleased: 0
+  _numpad1Released: 0
+  _numpad2Released: 0
+  _numpad3Released: 0
+  _numpad4Released: 0
+  _respawnTimer: 1
 --- !u!114 &1221975219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984,6 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab511f72cfa25547b6edb49549eff86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &1270078558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1a4687d4bf8b7499292c7a0257aafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  first: 0
   _enemySpawnController: {fileID: 1327595042}
   _timeStatisticsController: {fileID: 1327595040}
   _roomStatisticsController: {fileID: 1327595039}
@@ -2213,6 +2244,14 @@ MonoBehaviour:
   _itemsStatisticsController: {fileID: 1327595036}
   _playerStateTrackerController: {fileID: 1327595041}
   _trainingMode: 1
+  _fileName: C:\Users\Jamie\Documents\GitHub\TSE-A-game-that-learns\TSE 2D Platformer/training_data.csv
+  _levelGen: {fileID: 0}
+  _levelGenScript: {fileID: 0}
+  _difficulty: 0
+  _newDifficulty: 0
+  _storeStatsOnClosing: 0
+  _dataPoint: []
+  _dataPointString: 
 --- !u!4 &1327595035
 Transform:
   m_ObjectHideFlags: 0
@@ -2240,6 +2279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e55b468f19b6b2418f00c2552cb664f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ropesUsed: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _itemsCollected: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!114 &1327595037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2252,6 +2293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b600bcd6bf7854db493eec495cc1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesKilled: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _nearMissesEnemy: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _nearMissesProjectile: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _bombKills: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!114 &1327595038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2264,6 +2309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1eec72bf2704d4da93b8c9d825bcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _actionsPerformed: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _jumpsPerformed: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _itemsUsed: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _attacksPerformed: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!114 &1327595039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2276,6 +2325,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa59fd967f365949a4dc957da379bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roomsExplored: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _longestTimeInRoom:
+  - -2
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
 --- !u!114 &1327595040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,6 +2350,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe4c5b802d7784479bb390ac1880d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelCompletionTime:
+  - 0
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
 --- !u!114 &1327595041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2300,6 +2374,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282fef6107a40754fba0e0bcb21301a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idleTime:
+  - 0
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  _enemiesDetected: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _deathToAngryBob: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _deathToJumper: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _deathToScreamer: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _deathToTrap: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!114 &1327595042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2312,6 +2403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac532e2254fb5a14b815099c2ee16da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesSpawned: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  _trapsSpawned: 00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!1 &1356618034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,6 +2747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisCanvas: {fileID: 1631091209}
   _loadingBar: {fileID: 1825965242}
+  _currentTicks: 0
   _loadingScreenText: {fileID: 41081936}
 --- !u!114 &1561716797
 MonoBehaviour:
@@ -2667,6 +2761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d829b6be38d64cf4690372c1fb4132b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingScreenController: {fileID: 0}
+  _itemsSelectionController: {fileID: 0}
 --- !u!114 &1561716798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2679,6 +2775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c57d751cf0fea42afce40971fa767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInventory: {fileID: 0}
   _backgrounds:
   - {fileID: 1694753001}
   - {fileID: 1291971308}
@@ -3701,6 +3798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916841233}
   - component: {fileID: 1916841232}
+  - component: {fileID: 1916841234}
   m_Layer: 0
   m_Name: Level Generator
   m_TagString: LevelGenerator
@@ -3738,16 +3836,22 @@ MonoBehaviour:
   backgroundHolder: {fileID: 1056215805}
   ropeHolder: {fileID: 1858137936}
   itemHolder: {fileID: 279636872}
+  direction: 0
   moveAmount: 10
   arraySize: 5
+  generationDelayTimer: 0
   generationDelayTime: 0.1
+  minX: 0
+  maxX: 0
+  minY: 0
+  stopGeneration: 0
   levelFinished: 0
   room:
-    serializedVersion: 2
     m_Bits: 512
   block:
-    serializedVersion: 2
     m_Bits: 256
+  downCounter: 0
+  firstMove: 1
   difficulty: 10
 --- !u!4 &1916841233
 Transform:
@@ -3764,6 +3868,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1916841234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916841231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5899805f1262864b9644230f0422374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodClusterID: 0
+  badClusterID: 0
 --- !u!1 &1929535413
 GameObject:
   m_ObjectHideFlags: 0
@@ -3848,6 +3966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 1954300247}
   _levelGen: {fileID: 1916841231}
+  _levelGenScript: {fileID: 0}
 --- !u!114 &1954300247
 MonoBehaviour:
   m_ObjectHideFlags: 0
