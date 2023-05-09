@@ -4,14 +4,20 @@ using UnityEngine;
 using Microsoft.ML;
 using System.IO;
 using K_Means_Plus_Plus;
+
+using TMPro;
 public class KMeansPlusPlus : MonoBehaviour
 {
     int goodClusterID;
     int badClusterID;
 
+    public GameObject _text;
+    public TextMeshProUGUI _textMesh;
+
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {      
+        _textMesh = _text.GetComponent<TextMeshProUGUI>();
         //File path to file where trained model is stored
         string _modelPath = Path.Combine(Directory.GetCurrentDirectory(), "Model", "KMeansClusteringModel.zip");
 
@@ -72,6 +78,7 @@ public class KMeansPlusPlus : MonoBehaviour
         if (clusterID == goodClusterID)
         {
             Debug.Log("Good Player");
+            _textMesh.text = "Good Player";
         }
         else if (clusterID == badClusterID)
         {
