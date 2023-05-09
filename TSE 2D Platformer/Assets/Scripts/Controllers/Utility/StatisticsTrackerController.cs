@@ -157,6 +157,14 @@ namespace Controllers.Utility
 
         void OnZoneCompletionRestart()
         {
+            //Some functionality needed - easiest just to call and then reset over
+            _enemySpawnController.OnZoneCompletion();
+            _timeStatisticsController.OnZoneCompletion();
+            _roomStatisticsController.OnZoneCompletion();
+            _actionsStatisticsController.OnZoneCompletion();
+            _combatStatisticsController.OnZoneCompletion();
+            _itemsStatisticsController.OnZoneCompletion();
+            _playerStateTrackerController.OnZoneCompletion();
 
             //Reset stats: allows player to reset their run if they want the predictions to be reset
             _enemySpawnController.ClearStats();

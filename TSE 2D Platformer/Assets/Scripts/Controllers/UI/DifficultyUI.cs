@@ -6,16 +6,14 @@ using TMPro;
 public class DifficultyUI : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI _text;
-    GameObject _levelGen;
+    public TextMeshProUGUI _text;
+    public GameObject _levelGen;
     LevelGeneration _levelGenScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        _levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
         _levelGenScript = _levelGen.GetComponent<LevelGeneration>();
-        _text = GetComponent<TextMeshProUGUI>();
         
     }
 
