@@ -24,6 +24,14 @@ public class DoorController : MonoBehaviour
         {
             if (!Physics2D.OverlapCircle(transform.position - new Vector3(0,1,0), 0.1f, blockLayer))
             {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f);
+                foreach (Collider2D collider in colliders)
+                {
+                    if (collider.gameObject.tag == "Trap")
+                    {
+                        Destroy(collider.gameObject);
+                    }
+                }
                 transform.position -= new Vector3(0,1,0);
             }
         }
