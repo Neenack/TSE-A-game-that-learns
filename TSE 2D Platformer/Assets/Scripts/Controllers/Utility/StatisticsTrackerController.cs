@@ -5,7 +5,7 @@ using System.IO;
 using Controllers.Utility.Statistics;
 
 using Delegates.Utility;
-
+using K_Means_Plus_Plus;
 
 namespace Controllers.Utility
 {
@@ -121,7 +121,6 @@ namespace Controllers.Utility
         {
             if(first)
             {
-                Debug.Log("FIRST");
                 first = false;
                 return;
             }
@@ -132,6 +131,8 @@ namespace Controllers.Utility
             _combatStatisticsController.OnZoneCompletion();
             _itemsStatisticsController.OnZoneCompletion();
             _playerStateTrackerController.OnZoneCompletion();
+
+            //If training mode is turned off, use machine learning algorithm
 
             //If difficulty changes, track previous results and write them
             if (_trainingMode == false)
@@ -250,5 +251,42 @@ namespace Controllers.Utility
             }
            
         }
+
+        //Needed by the ML algorithm
+        //Traps spawned isn't used due to data still being innacurate
+        public PlayerData GetStatsForPrediction()
+        {
+
+            PlayerData newPrediction = new PlayerData()
+            {
+                //Increase with skill
+                EnemiesSpawned = _enemySpawnController.GetEnemiesSpawnedAverage(),
+                RoomsExplored = _roomStatisticsController.GetRoomsExploredAverage(),
+                ItemsUsed = _actionsStatisticsController.GetActionsPerformedAverage(ActionType.Item),
+                EnemiesKilled = _combatStatisticsController.GetEnemiesKilledAverage(),
+                NearMissesWithEnemies = _combatStatisticsController.GetNearMissesWithEnemyAverage(),
+                NearMissesWithProjectiles = _combatStatisticsController.GetNearMissesWithProjectileAverage(),
+                BombKills = _combatStatisticsController.GetBombKillsAverage(),
+                RopesUsed = _itemsStatisticsController.GetRopesUsedAverage(),
+
+
+
+                //Decrease with skill
+                Time = _timeStatisticsController.GetZoneTimeAverage(),
+                LongestTimeIn1Room = _roomStatisticsController.GetLongestRoomTimeAverage(),
+                Jumps = _actionsStatisticsController.GetActionsPerformedAverage(ActionType.Jump),
+                Attacks = _actionsStatisticsController.GetActionsPerformedAverage(ActionType.Attack),
+                IdleTime = _playerStateTrackerController.GetIdleTimeAverage(),
+                EnemiesDetected = _playerStateTrackerController.GetEnemiesDetectedAverage(),
+                DeathByAngryBob = _playerStateTrackerController.GetDeathToAngryBobAverage(),
+                DeathByScreamer = _playerStateTrackerController.GetDeathToScreamerAverage(),
+                DeathByJumper = _playerStateTrackerController.GetDeathToJumperAverage(),
+                DeathByTrap = _playerStateTrackerController.GetDeathToTrap(),
+            };
+            return newPrediction;
+
+        }
+         
+
     }
 }

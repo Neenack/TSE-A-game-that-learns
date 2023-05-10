@@ -2463,7 +2463,7 @@ MonoBehaviour:
   _combatStatisticsController: {fileID: 1327595037}
   _itemsStatisticsController: {fileID: 1327595036}
   _playerStateTrackerController: {fileID: 1327595041}
-  _trainingMode: 1
+  _trainingMode: 0
 --- !u!4 &1327595035
 Transform:
   m_ObjectHideFlags: 0
@@ -4028,6 +4028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5899805f1262864b9644230f0422374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _statsTracker: {fileID: 1327595033}
   _text: {fileID: 996055595}
   _textMesh: {fileID: 0}
 --- !u!1 &1929535413

@@ -10,94 +10,82 @@ namespace K_Means_Plus_Plus
         {
 
             //Increase with skill
-            NearMissesWithEnemy = 0,
+            EnemiesSpawned = 0,
+            RoomsExplored = 0,
+            ItemsUsed = 0,
+            EnemiesKilled = 0,
+            NearMissesWithEnemies = 0,
             NearMissesWithProjectiles = 0,
-            EnemiesKilled = 2,
-            ItemsPickedUp = 1,
-            RoomsExplored = 13,
-            InputsOverTime = 0,
-            EnemiesAvoided = 2,
-            EnemiesKilledWithBombs = 0,
-            RopesUsed = 1,
-            ZeroRoomsEntered = 0,
-            Collectibles = 0,
+            BombKills = 0,
+            RopesUsed = 0,
+
 
 
             //Decrease with skill
-            Deaths = 4,
-            Time = 440,
-            AngryBobDeaths = 1,
-            ScreamerDeaths = 0,
-            JumperDeaths = 0,
-            DeathByTrap1 = 2,
-            DeathByTrap2 = 0,
-            DeathByTrap3 = 1,
-            WallCollisions = 26,
-            Jumps = 45,
-            TimeIdle = 22,
-            LongestTimeInOneRoom = 69
+            Time = 200,
+            LongestTimeIn1Room = 0,
+            Jumps = 0,
+            Attacks = 0,
+            IdleTime = 0,
+            EnemiesDetected = 0,
+            DeathByAngryBob = 0,
+            DeathByScreamer = 0,
+            DeathByJumper = 0,
+            DeathByTrap = 0,
         };
 
         internal static readonly PlayerData AveragePlayer = new PlayerData
         {
             //Increase with skill
-            NearMissesWithEnemy = 1,
+            EnemiesSpawned = 0,
+            RoomsExplored = 0,
+            ItemsUsed = 0,
+            EnemiesKilled = 0,
+            NearMissesWithEnemies = 0,
             NearMissesWithProjectiles = 0,
-            EnemiesKilled = 3,
-            ItemsPickedUp = 2,
-            RoomsExplored = 16,
-            InputsOverTime = 0,
-            EnemiesAvoided = 2,
-            EnemiesKilledWithBombs = 2,
-            RopesUsed = 1,
-            ZeroRoomsEntered = 0,
-            Collectibles = 1,
+            BombKills = 0,
+            RopesUsed = 0,
+
 
 
             //Decrease with skill
-            Deaths = 1,
-            Time = 356,
-            AngryBobDeaths = 1,
-            ScreamerDeaths = 0,
-            JumperDeaths = 0,
-            DeathByTrap1 = 0,
-            DeathByTrap2 = 0,
-            DeathByTrap3 = 0,
-            WallCollisions = 16,
-            Jumps = 35,
-            TimeIdle = 22,
-            LongestTimeInOneRoom = 49
+            Time = 0,
+            LongestTimeIn1Room = 0,
+            Jumps = 0,
+            Attacks = 0,
+            IdleTime = 0,
+            EnemiesDetected = 0,
+            DeathByAngryBob = 0,
+            DeathByScreamer = 0,
+            DeathByJumper = 0,
+            DeathByTrap = 0,
         };
 
         internal static readonly PlayerData GoodPlayer = new PlayerData
         {
             //Increase with skill
-            NearMissesWithEnemy = 2,
+            EnemiesSpawned = 0,
+            RoomsExplored = 0,
+            ItemsUsed = 0,
+            EnemiesKilled = 0,
+            NearMissesWithEnemies = 0,
             NearMissesWithProjectiles = 0,
-            EnemiesKilled = 4,
-            ItemsPickedUp = 4,
-            RoomsExplored = 14,
-            InputsOverTime = 0,
-            EnemiesAvoided = 6,
-            EnemiesKilledWithBombs = 3,
-            RopesUsed = 2,
-            ZeroRoomsEntered = 0,
-            Collectibles = 3,
+            BombKills = 0,
+            RopesUsed = 0,
+
 
 
             //Decrease with skill
-            Deaths = 0,
-            Time = 220,
-            AngryBobDeaths = 0,
-            ScreamerDeaths = 0,
-            JumperDeaths = 0,
-            DeathByTrap1 = 0,
-            DeathByTrap2 = 0,
-            DeathByTrap3 = 0,
-            WallCollisions = 11,
-            Jumps = 33,
-            TimeIdle = 6,
-            LongestTimeInOneRoom = 33
+            Time = 0,
+            LongestTimeIn1Room = 0,
+            Jumps = 0,
+            Attacks = 0,
+            IdleTime = 0,
+            EnemiesDetected = 0,
+            DeathByAngryBob = 0,
+            DeathByScreamer = 0,
+            DeathByJumper = 0,
+            DeathByTrap = 0,
         };
 
     }

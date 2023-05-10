@@ -9,76 +9,62 @@ namespace K_Means_Plus_Plus
         {
             //Increase with skill
             [LoadColumn(0)]
-            public float NearMissesWithEnemy;
-
-            [LoadColumn(1)]
-            public float NearMissesWithProjectiles;
-
-            [LoadColumn(2)]
-            public float EnemiesKilled;
+            public float EnemiesSpawned;
 
             [LoadColumn(3)]
-            public float ItemsPickedUp;
-
-            [LoadColumn(4)]
             public float RoomsExplored;
 
-            [LoadColumn(5)]
-            public float InputsOverTime;
-
             [LoadColumn(6)]
-            public float EnemiesAvoided;
-
-            [LoadColumn(7)]
-            public float EnemiesKilledWithBombs;
+            public float ItemsUsed;
 
             [LoadColumn(8)]
-            public float RopesUsed;
+            public float EnemiesKilled;
 
             [LoadColumn(9)]
-            public float ZeroRoomsEntered;
+            public float NearMissesWithEnemies;
 
             [LoadColumn(10)]
-            public float Collectibles;
-
-            //Decrease with skill
+            public float NearMissesWithProjectiles;
 
             [LoadColumn(11)]
-            public float Deaths;
+            public float BombKills;
 
             [LoadColumn(12)]
+            public float RopesUsed;
+
+
+
+            //Decrease with skill
+            [LoadColumn(2)]
             public float Time;
 
-            [LoadColumn(13)]
-            public float AngryBobDeaths;
+            [LoadColumn(4)]
+            public float LongestTimeIn1Room;
 
-            [LoadColumn(14)]
-            public float ScreamerDeaths;
-
-            [LoadColumn(15)]
-            public float JumperDeaths;
-
-            [LoadColumn(16)]
-            public float DeathByTrap1;
-
-            [LoadColumn(17)]
-            public float DeathByTrap2;
-
-            [LoadColumn(18)]
-            public float DeathByTrap3;
-
-            [LoadColumn(19)]
-            public float WallCollisions;
-
-            [LoadColumn(20)]
+            [LoadColumn(5)]
             public float Jumps;
 
-            [LoadColumn(21)]
-            public float TimeIdle;
+            [LoadColumn(7)]
+            public float Attacks;
 
-            [LoadColumn(22)]
-            public float LongestTimeInOneRoom;
+            [LoadColumn(13)]
+            public float IdleTime;
 
-        }
+            [LoadColumn(14)]
+            public float EnemiesDetected;
+
+            [LoadColumn(15)]
+            public float DeathByAngryBob;
+
+            [LoadColumn(15)]
+            public float DeathByScreamer;
+
+            [LoadColumn(16)]
+            public float DeathByJumper;
+
+            [LoadColumn(17)]
+            public float DeathByTrap;
+
+    }
     }
 

@@ -1,2 +1,2 @@
-Good,3
-Bad,2
+Good,2
+Bad,1
