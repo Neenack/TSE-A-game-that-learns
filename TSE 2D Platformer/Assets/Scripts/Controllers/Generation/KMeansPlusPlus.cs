@@ -24,8 +24,6 @@ public class KMeansPlusPlus : MonoBehaviour
 
     PredictionEngine<PlayerData, ClusterPrediction> predictor;
     bool _first = false;
-    bool _delegatesSetup = false;
-
 
 
 
@@ -38,9 +36,11 @@ public class KMeansPlusPlus : MonoBehaviour
         _levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
         _levelGenScript = _levelGen.GetComponent<LevelGeneration>();
         _currentDifficulty = _levelGenScript.difficulty;
+        //Debug.Log(_levelGenScript.difficulty);
         _statsTrackerController = _statsTracker.GetComponent<StatisticsTrackerController>();
         SetupDelegates();
         _textMesh = _text.GetComponent<TextMeshProUGUI>();
+        _textMesh.text = "First Level";
 
         //Setting up ML algorithm
 
@@ -107,7 +107,6 @@ public class KMeansPlusPlus : MonoBehaviour
 
     void SetupDelegates()
     {
-        _delegatesSetup = true;
         ZoneDelegates.onZoneCompletion += OnZoneCompletion;
         ZoneDelegates.onZoneCompletionRestart += OnZoneCompletionRestart;
     }
@@ -160,10 +159,7 @@ public class KMeansPlusPlus : MonoBehaviour
         //No change on average performance
         
     }
-    private void Update()
-    {
-        //Debug.Log(_first);
-    }
+
     void OnZoneCompletion()
     {
         //Don't want to make a prediction when first level is made/level is reloaded
@@ -176,8 +172,11 @@ public class KMeansPlusPlus : MonoBehaviour
 
         //Make prediction if difficulty hasn't been manually changed
         _newDifficulty = _levelGenScript.difficulty;
+        Debug.Log(_newDifficulty);
+        Debug.Log(_currentDifficulty);
         if (_newDifficulty != _currentDifficulty)
         {
+            _textMesh.text = "Level manually changed";
             _currentDifficulty = _newDifficulty;
             return;
         }
@@ -193,5 +192,6 @@ public class KMeansPlusPlus : MonoBehaviour
     {
         //Prevent prediction
         _first = true;
+        _textMesh.text = "Level Reset";
     }
 }

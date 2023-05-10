@@ -31,7 +31,7 @@ public class LevelGeneration : MonoBehaviour
     private int downCounter;
     private bool firstMove = true;
 
-    public int difficulty;
+    public int difficulty = 5;
 
     // Start is called before the first frame update
     void Start()
