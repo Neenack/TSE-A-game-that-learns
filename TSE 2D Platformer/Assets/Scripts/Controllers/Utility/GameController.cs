@@ -25,15 +25,26 @@ namespace Controllers.Utility
         PlayerController _playerController;
         EnemiesController _enemiesController;
 
+
+        PauseController _pauseController;
+
+
+
+        public static bool _isPaused;
+
+
         void Start()
         {
             _playerController = GetComponent<PlayerController>();
             _enemiesController = GetComponent<EnemiesController>();
-
+            _pauseController = GetComponent<PauseController>();
+            
             _enemiesController.BeginSelf();
 
             _uiController.BeginSelf();
             _statisticsTrackerController.BeginSelf();
+
+            _pauseController.BeginSelf();
 
             SetupDelegates();
         }

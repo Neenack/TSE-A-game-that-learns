@@ -71,7 +71,7 @@ namespace Controllers.UI.MainGame
 
         void SetBackgrounds(int ItemSelected)
         {
-            for(int i = 0; i <= 3; i++)
+            for(int i = 0; i < _backgrounds.Count; i++)
             {
                 if(i != ItemSelected - 1)
                 {
@@ -101,8 +101,17 @@ namespace Controllers.UI.MainGame
         {
             yield return null;
             
-            for(int i = 0; i <= 3; i++)
+            for(int i = 0; i < _backgrounds.Count; i++)
             {
+                if(_playerInventory.GetAmount(i) == 0)
+                {
+                    _texts[i].color = new Color(255, 0, 0, 255);
+                }
+                else
+                {
+                    _texts[i].color = new Color(255, 255, 0, 255);
+                }
+
                 _texts[i].text = _playerInventory.GetAmount(i) == 0 ? "0" : _playerInventory.GetAmount(i).ToString();
             }
         }

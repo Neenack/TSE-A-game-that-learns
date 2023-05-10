@@ -84,9 +84,9 @@ namespace Actors.Player.Actions
 
             _playerChildAttackingCollisions.ClearInRange();
 
-            for(int i = 0; i < _playerAttackingCollisions.GetVasesList().Count; i++)
+            for(int i = 0; i < _playerChildAttackingCollisions.GetVasesList().Count; i++)
             {
-                DestroyVase(_playerAttackingCollisions.GetVasesList()[i]);
+                DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
                 i++;
             }
 

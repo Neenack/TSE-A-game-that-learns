@@ -15,13 +15,17 @@ namespace Controllers.UI
 
         ItemsSelectionController _itemsSelectionController;
 
+        PauseUIController _pauseUIController;
+
         public void BeginSelf()
         {
             _loadingScreenController = GetComponent<LoadingScreenController>();
-            
             _loadingScreenController.BeginSelf();
 
             _itemsSelectionController = GetComponent<ItemsSelectionController>();
+
+            _pauseUIController = GetComponent<PauseUIController>();
+            _pauseUIController.BeginSelf();
         }
     }
 }
