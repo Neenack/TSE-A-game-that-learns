@@ -25,6 +25,30 @@ namespace Actors.Player
             _selectedItem = 1;
             SetupDelegates();
 
+
+            int difficulty = GameObject.Find("Level Generator").GetComponent<LevelGeneration>().difficulty;
+
+            if(difficulty < 4)
+            {
+                _amounts[0] = 6;
+                _amounts[1] = 6;
+            }
+            else if(difficulty < 7)
+            {
+                _amounts[0] = 5;
+                _amounts[1] = 5;
+            }
+            else if(difficulty < 10)
+            {
+                _amounts[0] = 4;
+                _amounts[1] = 4;
+            }
+            else
+            {
+                _amounts[0] = 3;
+                _amounts[1] = 3;
+            }
+
             if(GenerationDelegates.onInventoryInitialized != null)
             {
                 GenerationDelegates.onInventoryInitialized();

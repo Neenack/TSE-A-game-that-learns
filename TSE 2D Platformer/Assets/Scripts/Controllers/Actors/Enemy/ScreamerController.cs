@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ScreamerController : MonoBehaviour
 {
-    public float screamInterval = 2f;
+    public float screamInterval;
     public GameObject screamerBolt;
     public int range;
 
@@ -17,6 +17,9 @@ public class ScreamerController : MonoBehaviour
 
     void Start()
     {
+        int difficulty = GameObject.Find("Level Generator").GetComponent<LevelGeneration>().difficulty - 8;
+
+        screamInterval = 3f - ((float)difficulty * 0.75f);
     }
 
     void Update()

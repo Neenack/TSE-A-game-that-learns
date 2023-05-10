@@ -115,8 +115,8 @@ public class RoomTiler : MonoBehaviour
 
     private void AddItems()
     {
-        int spawnChance = 4;
-        if (difficulty < 5) { spawnChance = 3; }
+        int spawnChance;
+        spawnChance = 2 + (int)(difficulty / 2.5);
 
         if (itemVase != null)
         {
