@@ -29,9 +29,9 @@ TagManager:
   - Block
   - Room
   - Trap
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Bomb
   - 
   - 
   - 
