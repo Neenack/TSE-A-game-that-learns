@@ -24,6 +24,12 @@ namespace Actors.Player.Actions
         GameObject _attackObjectChild;
         PlayerAttackCollisions _playerChildAttackingCollisions;
 
+
+        [SerializeField]
+        SpriteRenderer _attackSprite;
+        float _displayTime;
+
+
         [SerializeField] AudioSource attackSound;
         [SerializeField] AudioClip attack, breakVase, enemyDeath;
 
@@ -33,6 +39,10 @@ namespace Actors.Player.Actions
 
             _playerChildAttackingCollisions = _attackObjectChild.GetComponent<PlayerAttackCollisions>();
             _playerChildAttackingCollisions.BeginSelf();
+
+
+            _attackSprite.enabled = false;
+            _displayTime = 0.25f;
 
             SetupDelegates();
         }
@@ -56,6 +66,8 @@ namespace Actors.Player.Actions
         {
             attackSound.clip = attack;
             attackSound.Play();
+
+            StartCoroutine(ShowSprite());
 
             /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
@@ -101,6 +113,14 @@ namespace Actors.Player.Actions
             Destroy(vase.gameObject);
 
             if (PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
+        }
+
+
+        IEnumerator ShowSprite()
+        {
+            _attackSprite.enabled = true;
+            yield return new WaitForSeconds(_displayTime);
+            _attackSprite.enabled = false;
         }
     }
 }
