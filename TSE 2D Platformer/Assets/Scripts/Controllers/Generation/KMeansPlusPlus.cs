@@ -166,7 +166,7 @@ public class KMeansPlusPlus : MonoBehaviour
         if (_first)
         {
             _first = false;
-            Debug.Log(_first);
+            _currentDifficulty = _levelGenScript.difficulty;
             return;
         }
 
