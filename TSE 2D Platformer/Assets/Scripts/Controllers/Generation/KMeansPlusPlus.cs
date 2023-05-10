@@ -158,6 +158,15 @@ public class KMeansPlusPlus : MonoBehaviour
         }
         //No change on average performance
         
+
+
+        // Overwrite previous with forced next difficulty set by user
+        if(_levelGenScript._forcedNext)
+        {
+            _levelGenScript.difficulty = _levelGenScript._forcedNextDifficulty;
+        }
+
+        if(ZoneDelegates.onDifficultyDecided != null) ZoneDelegates.onDifficultyDecided();
     }
 
     void OnZoneCompletion()
@@ -172,6 +181,7 @@ public class KMeansPlusPlus : MonoBehaviour
 
         //Make prediction if difficulty hasn't been manually changed
         _newDifficulty = _levelGenScript.difficulty;
+
         Debug.Log(_newDifficulty);
         Debug.Log(_currentDifficulty);
         if (_newDifficulty != _currentDifficulty)
@@ -193,5 +203,11 @@ public class KMeansPlusPlus : MonoBehaviour
         //Prevent prediction
         _first = true;
         _textMesh.text = "Level Reset";
+
+        // Overwrite previous with forced next difficulty set by user
+        if(_levelGenScript._forcedNext)
+        {
+            ChangeDifficulty(0);
+        }
     }
 }

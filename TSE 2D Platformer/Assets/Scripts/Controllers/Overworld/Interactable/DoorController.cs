@@ -70,7 +70,7 @@ public class DoorController : MonoBehaviour
             GenerationDelegates.onDestroyingPlayer();
         }
 
-        GameObject.Find("BackgroundMusic").GetComponent<BackgroundMusicController>().ChangeMusic(levelGen.GetComponent<LevelGeneration>().difficulty);
+        //GameObject.Find("BackgroundMusic").GetComponent<BackgroundMusicController>().ChangeMusic(levelGen.GetComponent<LevelGeneration>().difficulty);
 
         levelGen.GetComponent<LevelGeneration>().StartGeneration(levelFinished);
     }

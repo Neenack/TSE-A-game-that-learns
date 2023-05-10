@@ -32,11 +32,34 @@ public class LevelGeneration : MonoBehaviour
     private bool firstMove = true;
 
     public int difficulty;
+    public bool _forcedNext;
+    public int _forcedNextDifficulty;
 
     // Start is called before the first frame update
     void Start()
     {
+        SetupDelegates();
+
+        _forcedNextDifficulty = difficulty;
+
+
         StartGeneration(true);
+    }
+
+    void SetupDelegates()
+    {
+        ZoneDelegates.onDifficultyDecided += SetForcedNextFalse;
+    }
+
+    void RemoveDelegates()
+    {
+        ZoneDelegates.onDifficultyDecided -= SetForcedNextFalse;
+    }
+
+    void SetForcedNextFalse()
+    {
+        _forcedNext = false;
+        _forcedNextDifficulty = difficulty;
     }
 
     public void StartGeneration(bool levelFinished)
@@ -114,17 +137,19 @@ public class LevelGeneration : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore))
         {
-            if (difficulty > 1)
+            if (_forcedNextDifficulty > 1)
             {
-                difficulty--;
+                _forcedNextDifficulty--;
+                _forcedNext = true;
                 Debug.Log("Difficulty: " + difficulty);
             }
         }
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
         {
-            if (difficulty < 10)
+            if (_forcedNextDifficulty < 10)
             {
-                difficulty++;
+                _forcedNextDifficulty++;
+                _forcedNext = true;
                 Debug.Log("Difficulty: " + difficulty);
             }
                 
