@@ -78,7 +78,12 @@ namespace Controllers.Utility
         // On player despawn, remove it and pause the playercontroller
         void StopPlayer()
         {
-            if (_player != null)
+            if (_player == null)
+            {
+                return;
+            }
+                
+            if (_player.gameObject != null)
             {
                 Destroy(_player.gameObject);
             }

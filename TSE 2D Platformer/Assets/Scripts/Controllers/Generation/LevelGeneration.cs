@@ -24,7 +24,7 @@ public class LevelGeneration : MonoBehaviour
 
     private float minX, maxX, minY;
     private bool stopGeneration;
-    public bool levelFinished;
+    public bool _levelFinished = false;
 
     public LayerMask room, block;
 
@@ -41,6 +41,11 @@ public class LevelGeneration : MonoBehaviour
 
     public void StartGeneration(bool levelFinished)
     {
+        //Prevents layering of level generation if level creation is restarted
+        _levelFinished = false;
+       
+
+        //stopGeneration = true;
         foreach (Transform child in transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in roomsHolder.transform) { GameObject.Destroy(child.gameObject); }
         foreach (Transform child in borderHolder.transform) { GameObject.Destroy(child.gameObject); }
@@ -244,6 +249,7 @@ public class LevelGeneration : MonoBehaviour
                 {
                     int rand = Random.Range(0, rooms.Length);
                     CreateRoom(rooms[rand], positionCheck);
+                    Debug.Log("ROOM CREATED");
                 }
             }
         }
@@ -295,7 +301,7 @@ public class LevelGeneration : MonoBehaviour
             Border(rightBlockBorder, borderRoom);
         }
 
-        levelFinished = true;
+        _levelFinished = true;
     }
 
     private void Border(Vector2 position, GameObject border)

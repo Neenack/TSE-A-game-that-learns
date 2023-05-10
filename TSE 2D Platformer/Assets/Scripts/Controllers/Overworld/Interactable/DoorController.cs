@@ -20,7 +20,7 @@ public class DoorController : MonoBehaviour
 
     private void Update()
     {
-        if (levelGen.GetComponent<LevelGeneration>().levelFinished == true)
+        if (levelGen.GetComponent<LevelGeneration>()._levelFinished == true)
         {
             if (!Physics2D.OverlapCircle(transform.position - new Vector3(0,1,0), 0.1f, blockLayer))
             {
@@ -36,7 +36,7 @@ public class DoorController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R)&&levelGen.GetComponent<LevelGeneration>()._levelFinished == true)
         {
             NewLevel(false);
         }
@@ -44,7 +44,7 @@ public class DoorController : MonoBehaviour
         int arraySize = levelGen.GetComponent<LevelGeneration>().arraySize;
         float moveAmount = levelGen.GetComponent<LevelGeneration>().moveAmount;
         float lowestY = -moveAmount * (arraySize - 1);
-        if (transform.position.y < lowestY)
+        if (transform.position.y < lowestY && levelGen.GetComponent<LevelGeneration>()._levelFinished == true)
         {
             NewLevel(false);
         }
@@ -66,6 +66,7 @@ public class DoorController : MonoBehaviour
 
         if (GenerationDelegates.onDestroyingPlayer != null)
         {
+            Debug.Log("Destroyed Player");
             GenerationDelegates.onDestroyingPlayer();
         }
 
