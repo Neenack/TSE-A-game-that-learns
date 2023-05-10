@@ -27,12 +27,18 @@ namespace Actors.Player.Actions
         [SerializeField] AudioSource attackSound;
         [SerializeField] AudioClip attack, breakVase, enemyDeath;
 
+
+
+        [SerializeField] SpriteRenderer _sprite;
+
         public void BeginSelf()
         {
             _playerAttackingCollisions.BeginSelf();
 
             _playerChildAttackingCollisions = _attackObjectChild.GetComponent<PlayerAttackCollisions>();
             _playerChildAttackingCollisions.BeginSelf();
+
+            _sprite.enabled = false;
 
             SetupDelegates();
         }
@@ -57,6 +63,9 @@ namespace Actors.Player.Actions
             attackSound.clip = attack;
             attackSound.Play();
 
+            StartCoroutine(DisplaySprite());
+            StartCoroutine(Attacking());
+
             /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)
@@ -69,27 +78,6 @@ namespace Actors.Player.Actions
 
             _playerAttackingCollisions.ClearInRange();*/
 
-            //Need to check child object (attack object) too
-            foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
-            {
-                if (EnemyStatsDelegates.onEnemyHit != null)
-                {
-                    attackSound.clip = enemyDeath;
-                    attackSound.Play();
-                    EnemyStatsDelegates.onEnemyHit(e);
-                }
-            }
-
-            if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerChildAttackingCollisions.GetEnemiesList());
-
-            _playerChildAttackingCollisions.ClearInRange();
-
-            for(int i = 0; i < _playerChildAttackingCollisions.GetVasesList().Count; i++)
-            {
-                DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
-                i++;
-            }
-
             if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
         }
 
@@ -101,6 +89,47 @@ namespace Actors.Player.Actions
             Destroy(vase.gameObject);
 
             if (PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
+        }
+
+        IEnumerator DisplaySprite()
+        {
+            _sprite.enabled = true;
+            yield return new WaitForSeconds(0.25f);
+            _sprite.enabled = false;
+        }
+
+
+        IEnumerator Attacking()
+        {
+            float attackingTime = 0.24f;
+            float timeGone = 0f;
+
+            while(timeGone < attackingTime)
+            {   
+                //Need to check child object (attack object) too
+                foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
+                {
+                    if (EnemyStatsDelegates.onEnemyHit != null)
+                    {
+                        attackSound.clip = enemyDeath;
+                        attackSound.Play();
+                        EnemyStatsDelegates.onEnemyHit(e);
+                    }
+                }
+
+                if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerChildAttackingCollisions.GetEnemiesList());
+
+                _playerChildAttackingCollisions.ClearInRange();
+
+                for(int i = 0; i < _playerChildAttackingCollisions.GetVasesList().Count; i++)
+                {
+                    DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
+                    i++;
+                }
+
+                yield return null;
+                timeGone += Time.deltaTime;
+            }
         }
     }
 }

@@ -5274,7 +5274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b2f4783a7c2718b4e9a899b0591391a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7c9fa6e28e8a134eaf4813cc37360b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6042,7 +6042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 0
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
@@ -7658,7 +7658,7 @@ MonoBehaviour:
   moveAmount: 10
   arraySize: 5
   generationDelayTime: 0.1
-  levelFinished: 0
+  _levelFinished: 0
   room:
     serializedVersion: 2
     m_Bits: 512
