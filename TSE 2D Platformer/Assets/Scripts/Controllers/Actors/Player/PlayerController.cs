@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controllers.Utility;
+
 using Actors.Player;
 using Delegates.Actors.Player;
+
+using Delegates.Utility;
 
 
 namespace Controllers.Actors.PlayerNS
@@ -20,10 +24,10 @@ namespace Controllers.Actors.PlayerNS
 
         float _horizontal, _vertical;
 
-        float _attack, _useItem;
+        float _attack, _useItem, _pause;
         float _numpad1, _numpad2, _numpad3, _numpad4;
 
-        bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased, _useItemButtonReleased;
+        bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased, _useItemButtonReleased, _PauseButtonReleased;
         bool _numpad1Released, _numpad2Released, _numpad3Released, _numpad4Released;
 
         float _respawnTimer = 1;
@@ -49,11 +53,12 @@ namespace Controllers.Actors.PlayerNS
             _jumpButtonReleased = true;
             _attackButtonReleased = true;
             _useItemButtonReleased = true;
+            _PauseButtonReleased = true;
 
             _numpad1Released = true;
             _numpad2Released = true;
-            _numpad3Released = true;
-            _numpad4Released = true;
+            /*_numpad3Released = true;
+            _numpad4Released = true;*/
         }
 
         public void PauseSelf()
@@ -64,21 +69,39 @@ namespace Controllers.Actors.PlayerNS
 
         void Update()
         {
+            // GetAxisRaw bypasses Time.deltaTime
+            _pause = Input.GetAxisRaw("Pause");
+
+            // Placed here as Time.deltaTime = 0 prevents FixedUpdate from working properly
+            if(_pause > 0 && _PauseButtonReleased && UIDelegates.onPause != null)
+            {
+                UIDelegates.onPause();
+
+                _PauseButtonReleased = false;
+            }
+            else if(_pause == 0)
+            {
+                _PauseButtonReleased = true;
+            }
+
+            if(GameController._isPaused) return;
+
             _horizontal = Input.GetAxis("Horizontal");
             _vertical = Input.GetAxis("Jump");
 
             _attack = Input.GetAxis("Attack");
             _useItem = Input.GetAxis("UseItem");
-            
 
             _numpad1 = Input.GetAxis("Numpad1");
             _numpad2 = Input.GetAxis("Numpad2");
-            _numpad3 = Input.GetAxis("Numpad3");
-            _numpad4 = Input.GetAxis("Numpad4");
+            /*_numpad3 = Input.GetAxis("Numpad3");
+            _numpad4 = Input.GetAxis("Numpad4");*/
         }
 
         void FixedUpdate()
         {
+            if(GameController._isPaused) return;
+
             //Reactivate collider and hitbox when alive
             if (_playerState.GetPlayerDeathState() == PlayerDeathState.Alive && _playerSpriteRenderer.enabled == false && _playerCircleCollider.enabled == false)
             {
@@ -169,7 +192,7 @@ namespace Controllers.Actors.PlayerNS
             }
 
 
-            // Numpad1
+            // Numpad2
             if(_numpad2 > 0 && _numpad2Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
             {
                 _numpad2Released = false;
@@ -183,8 +206,8 @@ namespace Controllers.Actors.PlayerNS
             }
 
 
-            // Numpad1
-            if(_numpad3 > 0 && _numpad3Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
+            // Numpad3
+            /*if(_numpad3 > 0 && _numpad3Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
             {
                 _numpad3Released = false;
 
@@ -197,7 +220,7 @@ namespace Controllers.Actors.PlayerNS
             }
 
 
-            // Numpad1
+            // Numpad4
             if(_numpad4 > 0 && _numpad4Released && PlayerActionsDelegates.onPlayerSwitchItem != null)
             {
                 _numpad4Released = false;
@@ -208,7 +231,7 @@ namespace Controllers.Actors.PlayerNS
             else if(_numpad4 == 0)
             {
                 _numpad4Released = true;
-            }
+            }*/
         }
 
         // Fix that stops player from jumping every frame since they haven't entirely left the ground yet.
