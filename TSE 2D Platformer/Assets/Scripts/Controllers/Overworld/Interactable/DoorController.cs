@@ -24,6 +24,7 @@ public class DoorController : MonoBehaviour
         {
             if (!Physics2D.OverlapCircle(transform.position - new Vector3(0,1,0), 0.1f, blockLayer))
             {
+                transform.position -= new Vector3(0,1,0);
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f);
                 foreach (Collider2D collider in colliders)
                 {
@@ -32,7 +33,6 @@ public class DoorController : MonoBehaviour
                         Destroy(collider.gameObject);
                     }
                 }
-                transform.position -= new Vector3(0,1,0);
             }
         }
 
