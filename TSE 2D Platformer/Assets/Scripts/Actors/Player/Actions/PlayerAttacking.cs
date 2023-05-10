@@ -70,6 +70,8 @@ namespace Actors.Player.Actions
             StartCoroutine(ShowSprite());
             StartCoroutine(Attacking());
 
+            if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
+
             /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)
@@ -127,8 +129,6 @@ namespace Actors.Player.Actions
                     DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
                     i++;
                 }
-
-                if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
 
                 yield return null;
                 timeGone += Time.deltaTime;
