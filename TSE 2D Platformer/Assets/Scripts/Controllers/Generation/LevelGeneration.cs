@@ -31,7 +31,7 @@ public class LevelGeneration : MonoBehaviour
     private int downCounter;
     private bool firstMove = true;
 
-    public int difficulty = 5;
+    public int difficulty;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +112,7 @@ public class LevelGeneration : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Comma))
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore))
         {
             if (difficulty > 1)
             {
@@ -120,7 +120,7 @@ public class LevelGeneration : MonoBehaviour
                 Debug.Log("Difficulty: " + difficulty);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
         {
             if (difficulty < 10)
             {
