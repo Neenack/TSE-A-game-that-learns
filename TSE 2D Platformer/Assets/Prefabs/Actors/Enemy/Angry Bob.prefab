@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8483954967656289300}
   - component: {fileID: 4692748426757143076}
   - component: {fileID: 6501235501774161121}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Angry Bob
   m_TagString: Enemy
   m_Icon: {fileID: 0}

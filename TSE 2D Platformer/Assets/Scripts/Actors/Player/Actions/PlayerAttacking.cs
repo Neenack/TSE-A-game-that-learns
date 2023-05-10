@@ -24,6 +24,12 @@ namespace Actors.Player.Actions
         GameObject _attackObjectChild;
         PlayerAttackCollisions _playerChildAttackingCollisions;
 
+
+        [SerializeField]
+        SpriteRenderer _attackSprite;
+        float _displayTime;
+
+
         [SerializeField] AudioSource attackSound;
         [SerializeField] AudioClip attack, breakVase, enemyDeath;
 
@@ -33,6 +39,10 @@ namespace Actors.Player.Actions
 
             _playerChildAttackingCollisions = _attackObjectChild.GetComponent<PlayerAttackCollisions>();
             _playerChildAttackingCollisions.BeginSelf();
+
+
+            _attackSprite.enabled = false;
+            _displayTime = 0.25f;
 
             SetupDelegates();
         }
@@ -57,6 +67,11 @@ namespace Actors.Player.Actions
             attackSound.clip = attack;
             attackSound.Play();
 
+            StartCoroutine(ShowSprite());
+            StartCoroutine(Attacking());
+
+            if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
+
             /*foreach(Enemy e in _playerAttackingCollisions.GetEnemiesList())
             {
                 if(EnemyStatsDelegates.onEnemyHit != null)
@@ -68,29 +83,6 @@ namespace Actors.Player.Actions
             if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerAttackingCollisions.GetEnemiesList());
 
             _playerAttackingCollisions.ClearInRange();*/
-
-            //Need to check child object (attack object) too
-            foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
-            {
-                if (EnemyStatsDelegates.onEnemyHit != null)
-                {
-                    attackSound.clip = enemyDeath;
-                    attackSound.Play();
-                    EnemyStatsDelegates.onEnemyHit(e);
-                }
-            }
-
-            if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerChildAttackingCollisions.GetEnemiesList());
-
-            _playerChildAttackingCollisions.ClearInRange();
-
-            for(int i = 0; i < _playerChildAttackingCollisions.GetVasesList().Count; i++)
-            {
-                DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
-                i++;
-            }
-
-            if (StatisticsTrackingDelegates.onActionTracking != null) StatisticsTrackingDelegates.onActionTracking(ActionType.Attack);
         }
 
         void DestroyVase(ItemVaseController vase)
@@ -101,6 +93,46 @@ namespace Actors.Player.Actions
             Destroy(vase.gameObject);
 
             if (PlayerActionsDelegates.onVaseDestroyed != null) PlayerActionsDelegates.onVaseDestroyed();
+        }
+
+        IEnumerator ShowSprite()
+        {
+            _attackSprite.enabled = true;
+            yield return new WaitForSeconds(_displayTime);
+            _attackSprite.enabled = false;
+        }
+
+        IEnumerator Attacking()
+        {
+            float attackTime = 0.24f;
+            float timeGone = 0f;
+
+            while(timeGone < attackTime)
+            {
+                //Need to check child object (attack object) too
+                foreach (Enemy e in _playerChildAttackingCollisions.GetEnemiesList())
+                {
+                    if (EnemyStatsDelegates.onEnemyHit != null)
+                    {
+                        attackSound.clip = enemyDeath;
+                        attackSound.Play();
+                        EnemyStatsDelegates.onEnemyHit(e);
+                    }
+                }
+
+                if (EnemyStatsDelegates.onEnemyDeathCheck != null) EnemyStatsDelegates.onEnemyDeathCheck(_playerChildAttackingCollisions.GetEnemiesList());
+
+                _playerChildAttackingCollisions.ClearInRange();
+
+                for(int i = 0; i < _playerChildAttackingCollisions.GetVasesList().Count; i++)
+                {
+                    DestroyVase(_playerChildAttackingCollisions.GetVasesList()[i]);
+                    i++;
+                }
+
+                yield return null;
+                timeGone += Time.deltaTime;
+            }
         }
     }
 }

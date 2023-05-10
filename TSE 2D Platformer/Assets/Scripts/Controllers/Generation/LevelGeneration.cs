@@ -112,7 +112,7 @@ public class LevelGeneration : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Comma))
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore))
         {
             if (difficulty > 1)
             {
@@ -120,7 +120,7 @@ public class LevelGeneration : MonoBehaviour
                 Debug.Log("Difficulty: " + difficulty);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.Plus))
         {
             if (difficulty < 10)
             {
