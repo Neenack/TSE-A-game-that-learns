@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 581823051116724286}
   - component: {fileID: -7828372965015256413}
   - component: {fileID: 6501235501774161121}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Screamer
   m_TagString: Enemy
   m_Icon: {fileID: 0}

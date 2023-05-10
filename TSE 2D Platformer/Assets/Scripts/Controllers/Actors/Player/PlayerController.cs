@@ -30,10 +30,6 @@ namespace Controllers.Actors.PlayerNS
         bool _jumpButtonReleased, _jumpOnCooldown, _attackButtonReleased, _useItemButtonReleased, _PauseButtonReleased;
         bool _numpad1Released, _numpad2Released, _numpad3Released, _numpad4Released;
 
-
-        bool _attackTimerFinished;
-        float _attackTimerLength;
-
         float _respawnTimer = 1;
         // Stop Update & Fixed Update from taking place until spawn
         void Awake()
@@ -63,10 +59,6 @@ namespace Controllers.Actors.PlayerNS
             _numpad2Released = true;
             /*_numpad3Released = true;
             _numpad4Released = true;*/
-
-
-            _attackTimerFinished = true;
-            _attackTimerLength = 0.25f;
         }
 
         public void PauseSelf()
@@ -157,11 +149,9 @@ namespace Controllers.Actors.PlayerNS
 
                 /// Handle Player Actions
                 // Attacking
-                if (_attack > 0 && _attackButtonReleased && _attackTimerFinished && PlayerActionsDelegates.onPlayerAttack != null)
+                if (_attack > 0 && _attackButtonReleased && PlayerActionsDelegates.onPlayerAttack != null)
                 {
                     _attackButtonReleased = false;
-
-                    StartCoroutine(AttackTimer());
                     
                     PlayerActionsDelegates.onPlayerAttack();
                 }
@@ -250,13 +240,6 @@ namespace Controllers.Actors.PlayerNS
             _jumpOnCooldown = true;
             yield return new WaitForSeconds(0.05f);
             _jumpOnCooldown = false;
-        }
-
-        IEnumerator AttackTimer()
-        {
-            _attackTimerFinished = false;
-            yield return new WaitForSeconds(_attackTimerLength);
-            _attackTimerFinished = true;
         }
 
         void CheckPlayerDeath()
