@@ -23,7 +23,7 @@ public class KMeansPlusPlus : MonoBehaviour
 
 
     PredictionEngine<PlayerData, ClusterPrediction> predictor;
-    bool _first = false;
+    bool _first = true;
     bool _delegatesSetup = false;
 
 
@@ -108,13 +108,13 @@ public class KMeansPlusPlus : MonoBehaviour
     void SetupDelegates()
     {
         _delegatesSetup = true;
-        ZoneDelegates.onZoneCompletion += OnZoneCompletion;
+        ZoneDelegates.onStatsUpdated += OnZoneCompletion;
         ZoneDelegates.onZoneCompletionRestart += OnZoneCompletionRestart;
     }
 
     void RemoveDelegates()
     {
-        ZoneDelegates.onZoneCompletion -= OnZoneCompletion;
+        ZoneDelegates.onStatsUpdated -= OnZoneCompletion;
         ZoneDelegates.onZoneCompletionRestart -= OnZoneCompletionRestart;
     }
 
@@ -166,14 +166,6 @@ public class KMeansPlusPlus : MonoBehaviour
     }
     void OnZoneCompletion()
     {
-        //Don't want to make a prediction when first level is made/level is reloaded
-        if (_first)
-        {
-            _first = false;
-            Debug.Log(_first);
-            return;
-        }
-
         //Make prediction if difficulty hasn't been manually changed
         _newDifficulty = _levelGenScript.difficulty;
         if (_newDifficulty != _currentDifficulty)

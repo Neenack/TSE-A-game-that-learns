@@ -154,6 +154,12 @@ namespace Controllers.Utility
                 _storeStatsOnClosing = true;
                 WriteDataPoint(true, false);
             }
+
+            if(ZoneDelegates.onStatsUpdated != null)
+            {
+                ZoneDelegates.onStatsUpdated();
+            }
+
         }
 
         void OnZoneCompletionRestart()

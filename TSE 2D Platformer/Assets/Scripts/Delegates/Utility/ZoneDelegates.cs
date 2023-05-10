@@ -22,5 +22,8 @@ namespace Delegates.Utility
 
         public delegate void OnZoneGenerationFinish();
         public static OnZoneGenerationFinish onZoneGenerationFinish;
+
+        public delegate void OnStatsUpdated();
+        public static OnStatsUpdated onStatsUpdated;
     }
 }
