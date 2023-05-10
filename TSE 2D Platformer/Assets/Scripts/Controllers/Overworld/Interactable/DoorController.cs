@@ -33,6 +33,13 @@ public class DoorController : MonoBehaviour
             NewLevel(false);
         }
 
+        int arraySize = levelGen.GetComponent<LevelGeneration>().arraySize;
+        float moveAmount = levelGen.GetComponent<LevelGeneration>().moveAmount;
+        float lowestY = -moveAmount * (arraySize - 1);
+        if (transform.position.y < lowestY)
+        {
+            NewLevel(false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -53,6 +60,8 @@ public class DoorController : MonoBehaviour
         {
             GenerationDelegates.onDestroyingPlayer();
         }
+
+        GameObject.Find("BackgroundMusic").GetComponent<BackgroundMusicController>().ChangeMusic(levelGen.GetComponent<LevelGeneration>().difficulty);
 
         levelGen.GetComponent<LevelGeneration>().StartGeneration(levelFinished);
     }
