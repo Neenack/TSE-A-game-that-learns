@@ -8293,7 +8293,7 @@ MonoBehaviour:
   block:
     serializedVersion: 2
     m_Bits: 256
-  difficulty: 2
+  difficulty: 4
   _forcedNext: 0
   _forcedNextDifficulty: 0
 --- !u!4 &1916841233
